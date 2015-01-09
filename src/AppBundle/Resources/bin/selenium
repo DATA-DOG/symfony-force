@@ -1,0 +1,72 @@
+#!/bin/sh
+
+export PID="/tmp/selenium-server.pid"
+
+VERSION="$2"
+if [ -z "$VERSION" ]; then
+    VERSION="2.44.0"
+fi
+VERSION_MINOR="$(echo $VERSION | awk -F"." {'print $1"."$2'})"
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+start() {
+    if [ ! -f "${DIR}/selenium-server-standalone-${VERSION}.jar" ]
+        then
+            echo "Downloading selenium server ${VERSION} ..."
+            cd $DIR
+            wget "http://selenium-release.storage.googleapis.com/${VERSION_MINOR}/selenium-server-standalone-${VERSION}.jar" --quiet
+            cd -
+    fi
+    if [ -f $PID ]
+    then
+        echo "Selenium server already running"
+    else
+        export DISPLAY=:0
+        java -jar "bin/selenium-server-standalone-${VERSION}.jar" -trustAllSSLCertificates > /dev/null 2>&1 &
+        echo $! > $PID
+        echo "Selenium server started"
+    fi
+    cat $PID
+}
+
+stop() {
+    if [ -f $PID ]
+    then
+        cat $PID | xargs kill -15
+        rm -f $PID
+        echo "Selenium server stopped"
+    else
+        echo "Selenium server is not running"
+    fi
+}
+
+status() {
+    if [ -f $PID ]
+    then
+        echo "Running" && cat $PID
+    else
+        echo "Stopped"
+    fi
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        ;;
+  restart|reload)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status} optionaly second parameter as selenium version"
+        exit 1
+esac
+
+exit 0

@@ -1,0 +1,39 @@
+imports:
+  - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: all
+
+    # sentry:
+    #   type: raven
+    #   dsn: %sentry_dsn%
+    #   level: notice
+
+    all:
+      type: group
+      members:
+        - nested
+        - console
+        # - sentry
+
+    nested:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+
+    console:
+      type: console

@@ -1,0 +1,82 @@
+{
+  "name": "DATA-DOG/symfony2-skeleton",
+  "license": "MIT",
+  "type": "project",
+  "description": "Symfony2 skeleton application with bootstrap3 grunt bower",
+
+  "autoload": {
+    "psr-0": { "": "src/" }
+  },
+
+  "autoload-dev": {},
+
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*",
+    "ext-mbstring": "*",
+    "ext-mcrypt": "*",
+    "ext-pdo": "*",
+    "ext-intl": "*",
+
+    "symfony/symfony": "~2.6.0",
+    "symfony/monolog-bundle": "~2.6",
+
+    "sensio/distribution-bundle": "~3.0.12",
+    "sensio/framework-extra-bundle": "~3.0",
+
+    "doctrine/orm": "~2.4.0",
+    "doctrine/doctrine-bundle": "~1.2",
+    "doctrine/doctrine-migrations-bundle": "~1.0",
+    "doctrine/migrations": "~1.0@dev",
+    "doctrine/data-fixtures": "~1.0",
+    "gedmo/doctrine-extensions": "~2.3.0",
+
+    "twig/extensions": "~1.0",
+    "incenteev/composer-parameter-handler": "~2.0"
+  },
+
+  "require-dev": {
+    "sensio/generator-bundle": "~2.3",
+    "fzaninotto/faker": "~1.4.0",
+
+    "phpspec/phpspec": "~2.1.0",
+
+    "behat/behat": "~3.0.14",
+    "behat/symfony2-extension": "~2.0.0",
+    "behat/mink-extension": "~2.0.1",
+    "behat/mink-browserkit-driver": "~1.2.0",
+    "behat/mink": "~1.6.0"
+  },
+
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "AppBundle\\Composer::installBinaries"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "AppBundle\\Composer::installBinaries"
+    ]
+  },
+
+  "config": {
+    "bin-dir": "bin"
+  },
+
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-web-dir": "web",
+    "symfony-assets-install": "relative",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    }
+  }
+}

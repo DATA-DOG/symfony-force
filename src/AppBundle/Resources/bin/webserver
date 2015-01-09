@@ -1,0 +1,75 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+PORT=5550
+LOCATION="$DIR/../web/webserver.php"
+
+case "$2" in
+  prod)
+        APP="app.php"
+        ;;
+  test)
+        APP="app_test.php"
+        ;;
+  *)
+        APP="app_dev.php"
+esac
+
+SOURCE="<?php
+\$uri = \$_SERVER['REQUEST_URI'];
+if (\$uri !== '/' && file_exists(__DIR__ . '/' . \$uri)) {
+    return false;
+}
+require '$APP';
+"
+
+start() {
+    PID="$(ps -C php -o pid,cmd | grep "php -S localhost:${PORT}" | awk {'print $1 '} )"
+    if [ ! -z "$PID" ]; then
+        echo "Web server is already running: $PID"
+    else
+        echo "$SOURCE" > $LOCATION
+        php -S localhost:$PORT -t $DIR/../web $LOCATION 2> /dev/null &
+        echo "Web server started: $!"
+    fi
+}
+
+stop() {
+    PID="$(ps -C php -o pid,cmd | grep "php -S localhost:${PORT}" | awk {'print $1 '} )"
+    if [ -z "$PID" ]; then
+        echo "Web server is not running"
+    else
+        kill $PID
+        echo "Web server stopped"
+    fi
+}
+
+status() {
+    PID="$(ps -C php -o pid,cmd | grep "php -S localhost:${PORT}" | awk {'print $1 '} )"
+    if [ ! -z "$PID" ]; then
+        echo "Web server is running: $PID"
+    else
+        echo "Web server is not running"
+    fi
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        ;;
+  restart|reload)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status} optional parameter is evironment {dev|test|prod}"
+        exit 1
+esac
+
+exit 0

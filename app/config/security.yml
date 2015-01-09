@@ -1,0 +1,44 @@
+security:
+  encoders:
+    AppBundle\Entity\User:
+      id: app.password_encoder
+
+  role_hierarchy:
+    ROLE_USER:  []
+    ROLE_ADMIN: [ROLE_USER]
+
+  providers:
+    app_users:
+      entity:
+        class: AppBundle:User
+        property: email
+
+  access_decision_manager:
+    strategy: unanimous
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+      security: false
+
+    main:
+      anonymous: ~
+      # pattern: ^/
+      # form_login:
+      #   login_path: app_security_login
+      #   check_path: app_security_check
+      #   default_target_path: homepage
+      #     # see http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html
+      #   csrf_provider: form.csrf_provider
+      #   csrf_parameter: _csrf_security_login
+      #   intention: _app_security_login
+      # logout:
+      #   path: app_security_logout
+      #   target: app_security_login
+      # anonymous: true
+
+  access_control:
+    - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/, role: ROLE_ADMIN }
+

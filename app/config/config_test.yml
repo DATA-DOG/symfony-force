@@ -1,0 +1,39 @@
+imports:
+  - { resource: config.yml }
+
+framework:
+  profiler:
+    enabled: true
+  session:
+    cookie_domain: ""
+    cookie_secure: false # allow insecure cookies http://
+    cookie_httponly: false # it may need to access cookies inside behat context
+
+doctrine:
+  dbal:
+    dbname: %database_name%_test
+
+web_profiler:
+  toolbar: false
+  intercept_redirects: false
+
+monolog:
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: all
+
+    all:
+      type: group
+      members:
+        - nested
+        - console
+
+    nested:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+
+    console:
+      type: console

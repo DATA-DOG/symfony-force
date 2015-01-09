@@ -1,0 +1,26 @@
+root = true
+
+# --- LINE ENDINGS ---
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# --- CHARSET ---
+[*.js]
+charset = utf-8
+
+# --- INDENTATION ---
+[{*.html,*.json,*.js,*.yml,*.yml.dist,*.css,*.scss,*.feature}]
+indent_style = space
+indent_space = 2
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = false
+
+[{.bowerrc, .jshintrc}]
+indent_style = space
+indent_space = 2
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = false
+

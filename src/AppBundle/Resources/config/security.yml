@@ -1,0 +1,4 @@
+services:
+  app.password_encoder:
+    class: Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder
+    arguments: [12] # cost

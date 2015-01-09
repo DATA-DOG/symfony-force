@@ -1,0 +1,33 @@
+services:
+
+  timestampable:
+    class: Gedmo\Timestampable\TimestampableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ @annotation_reader ] ]
+
+  # sluggable:
+  #   class: Gedmo\Sluggable\SluggableListener
+  #   tags:
+  #     - { name: doctrine.event_subscriber, connection: default }
+  #   calls:
+  #     - [ setAnnotationReader, [ @annotation_reader ] ]
+
+  # doctrine_extensions.listener:
+  #   class: AppBundle\EventListener\DoctrineExtensionsListener
+  #   arguments: [ @translatable ]
+  #   tags:
+  #     # translatable sets locale after router processing
+  #     - { name: kernel.event_listener, event: kernel.request, method: onLateKernelRequest, priority: -10 }
+
+  # translatable:
+  #   class: Gedmo\Translatable\TranslatableListener
+  #   tags:
+  #     - { name: doctrine.event_subscriber, connection: default }
+  #   calls:
+  #     - [ setAnnotationReader, [ @annotation_reader ] ]
+  #     - [ setDefaultLocale, [ %locale% ] ]
+  #     - [ setTranslatableLocale, [ %locale% ] ]
+  #     - [ setTranslationFallback, [ true ] ]
+  #     - [ setPersistDefaultLocaleTranslation, [false] ]

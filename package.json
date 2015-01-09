@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "description": "Symfony2 skeleton application",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DATA-DOG/symfony2-skeleton.git"
+  },
+
+  "dependencies": {
+    "grunt": "~0.4.0",
+    "grunt-recess": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0"
+  },
+
+  "devDependencies": {}
+}

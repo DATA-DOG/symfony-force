@@ -1,0 +1,54 @@
+imports:
+  - { resource: parameters.yml }
+  - { resource: security.yml }
+  - { resource: doctrine_extensions.yml }
+  - { resource: aliases.yml }
+
+framework:
+  translator:
+    fallback: "%locale%"
+  secret: "%secret%"
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: ~
+  form: ~
+  csrf_protection: ~
+  validation:
+    enable_annotations: true
+  templating:
+    engines: ['twig']
+  default_locale:  "%locale%"
+  trusted_hosts: ~
+  trusted_proxies: ~
+  session:
+    cookie_lifetime: 3600 # note php setting: session.gc_maxlifetime
+    cookie_domain: ~ # restrict to specific domain
+    cookie_secure: false # allow only https
+    cookie_httponly: false # allow only http protocol access
+  fragments: ~
+  http_method_override: true
+
+twig:
+  debug: "%kernel.debug%"
+  strict_variables: true
+
+doctrine:
+  dbal:
+    driver:   "%database_driver%"
+    host:     "%database_host%"
+    port:     "%database_port%"
+    dbname:   "%database_name%"
+    user:     "%database_user%"
+    password: "%database_password%"
+    charset:  UTF8
+
+  orm:
+    auto_generate_proxy_classes: "%kernel.debug%"
+    auto_mapping: true
+
+doctrine_migrations:
+  dir_name: %kernel.root_dir%/../src/AppBundle/Migration
+  namespace: AppBundle\Migration
+  table_name: internal_migrations
+  name: App migrations
+

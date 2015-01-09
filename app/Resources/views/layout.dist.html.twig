@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Welcome!{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ asset("css/libraries.css") }}">
+  <link rel="stylesheet" href="{{ asset("css/<%= version %>.css") }}">
+  {% block css %}{% endblock %}
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+  {% block body %}{% endblock %}
+
+  <script src="{{ asset("js/libraries.js") }}"></script>
+  <script src="{{ asset("js/<%= version %>.js") }}"></script>
+  {% block js %}{% endblock %}
+</body>
+</html>

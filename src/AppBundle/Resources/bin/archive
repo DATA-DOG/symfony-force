@@ -1,0 +1,19 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+LOCATION="$1"
+if [ !-d "$LOCATION" ]; then
+    echo "A valid file directory location is required as first argument." && exit 1
+fi
+
+NAME="$2"
+if [ -z "$NAME" ]; then
+    NAME="app"
+fi
+LOCATION="${LOCATION}/${NAME}.tar.gz"
+
+tar --exclude-from=$DIR/../.tarignore --exclude-vcs -czf $LOCATION $DIR/..
+
+echo "Have archived application to $LOCATION"
+
