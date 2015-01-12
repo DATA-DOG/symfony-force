@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Internal;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="internal_fixtures")
+ * @ORM\Table(name="app_fixtures")
  * @ORM\Entity
  */
 class Fixture

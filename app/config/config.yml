@@ -49,6 +49,6 @@ doctrine:
 doctrine_migrations:
   dir_name: %kernel.root_dir%/../src/AppBundle/Migration
   namespace: AppBundle\Migration
-  table_name: internal_migrations
+  table_name: app_migrations
   name: App migrations
 

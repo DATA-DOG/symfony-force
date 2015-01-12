@@ -12,6 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    static public $roleMap = [
+        'ROLE_USER' => 1,
+        'ROLE_ADMIN' => 2,
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -21,8 +26,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="app.email.blank", groups={"signup"})
-     * @Assert\Email(message="app.email.invalid", groups={"signup"})
+     * @Assert\NotBlank(message="entity.user.email.blank", groups={"signup"})
+     * @Assert\Email(message="entity.user.email.invalid", groups={"signup"})
      */
     private $email;
 
@@ -33,19 +38,17 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.firstname.blank", groups={"signup"})
+     * @Assert\NotBlank(message="entity.user.firstname.blank", groups={"signup"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.lastname.blank", groups={"signup"})
+     * @Assert\NotBlank(message="entity.user.lastname.blank", groups={"signup"})
      */
     private $lastname;
 
     /**
-     * Encrypted password. Must be persisted.
-     *
      * @ORM\Column(length=64)
      */
     private $password;
@@ -53,25 +56,30 @@ class User implements UserInterface, \Serializable
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @Assert\NotBlank(message="app.password.blank", groups={"reset"})
+     * @Assert\NotBlank(message="entity.user.password.blank", groups={"reset"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
-     *   minMessage="app.password.short",
-     *   maxMessage="app.password.long",
+     *   minMessage="entity.user.password.short",
+     *   maxMessage="entity.user.password.long",
      *   groups={"reset"}
      * )
      */
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="integer")
      */
-    private $roles;
+    private $roles = 0;
 
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getUsername()
@@ -90,61 +98,70 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function removeRole($role)
-    {
-        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
-            unset($this->roles[$key]);
-            $this->roles = array_values($this->roles);
-        }
-        return $this;
-    }
-
     public function eraseCredentials()
     {
         $this->plainPassword = null;
     }
 
-    public function getId()
+    public function setPlainPassword($plainPassword)
     {
-        return $this->id;
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     public function getRoles()
     {
-        $roles = $this->roles;
-        // we need to make sure to have at least one role
-        $roles[] = 'ROLE_USER';
-
+        $roles = ['ROLE_USER'];
+        foreach (self::$roleMap as $role => $flag) {
+            if ($flag === $this->roles && $flag) {
+                $roles[] = $role;
+            }
+        }
         return array_unique($roles);
+    }
+
+    public function removeRole($role)
+    {
+        $role = strtoupper($role);
+        if (array_key_exists($role, self::$roleMap)) {
+            $this->roles = $this->roles ^ self::$roleMap[$role];
+        }
+        return $this;
     }
 
     public function hasRole($role)
     {
-        return in_array(strtoupper($role), $this->getRoles(), true);
+        $role = strtoupper($role);
+        if ($role === 'ROLE_USER') {
+            return true;
+        }
+        if (array_key_exists($role, self::$roleMap)) {
+            return self::$roleMap[$role] === $this->roles & self::$roleMap[$role];
+        }
+        return false;
     }
 
     public function setRoles(array $roles)
     {
-        $this->roles = array();
-
+        $this->roles = 0;
         foreach ($roles as $role) {
             $this->addRole($role);
         }
-
         return $this;
     }
 
     public function addRole($role)
     {
         $role = strtoupper($role);
-        if ($role === 'ROLE_USER') {
+        if ($this->hasRole($role)) {
             return $this;
         }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-
+        $this->roles |= self::$roleMap[$role];
         return $this;
     }
 
@@ -157,17 +174,6 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-        return $this;
-    }
-
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
     }
 
     public function getSalt()

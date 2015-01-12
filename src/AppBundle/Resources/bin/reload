@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# takes argument as environment
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+CLI="$DIR/../app/console"
+ROOT="$DIR/.."
+if [ ! -f "$CLI" ]; then
+    echo "Can be run only from sf-project-root/bin directory. Run composer install first."
+    exit 1
+fi
+
+ENV="$1"
+if [ -z "$ENV" ]; then
+    ENV="dev"
+fi
+
+# Bootstrap cache
+php $ROOT/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
+
+# Database
+php $CLI doctrine:database:drop --force --quiet --env=$ENV
+php $CLI doctrine:database:create --env=$ENV
+php $CLI doctrine:migrations:migrate --no-interaction --env=$ENV
+echo ""
+
+# Fixtures
+php $CLI app:fixtures --env=$ENV
+echo ""
+
+# Symfony cache
+php $CLI cache:clear --env=$ENV
+php $CLI cache:warmup --env=$ENV

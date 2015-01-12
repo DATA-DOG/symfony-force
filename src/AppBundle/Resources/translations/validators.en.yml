@@ -1,0 +1,13 @@
+entity:
+  user:
+    email:
+      blank: "Email address must be entered."
+      invalid: "Email address is not valid."
+    firstname:
+      blank: "Firstname must be entered."
+    lastname:
+      blank: "Lastname must be entered."
+    password:
+      blank: "Please enter a password."
+      short: "The password is too short."
+      long: "The password is too long."
