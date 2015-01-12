@@ -8,6 +8,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'build']);
   grunt.registerTask('build', ['clean', 'concat', 'recess:build', 'copy']);
+  grunt.registerTask('dev', ['build', 'watch']);
   grunt.registerTask('release', ['clean', 'concat', 'uglify', 'jshint', 'recess:min', 'copy']);
 
   grunt.initConfig({
@@ -21,7 +22,7 @@ module.exports = function(grunt) {
 
     src: {
       js: ['assets/js/**/*.js'],
-      less: ['assets/less/**/*.less']
+      less: ['assets/less/style.less']
     },
 
     clean: ['web/js/*', 'web/css/*', 'web/fonts/*', 'web/img/*'],
@@ -116,11 +117,18 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: [
-        '<%= src.js %>',
-        'assets/less/**/*.less'
-      ],
-      tasks: ['build']
+      js: {
+        files: ['<%= src.js %>'],
+        tasks: ['concat:js']
+      },
+      less: {
+        files: ['assets/less/**/*.less'],
+        tasks: ['recess:build']
+      },
+      layout: {
+        files: ['<%= concat.layout.src %>'],
+        tasks: ['concat:layout']
+      }
     }
 
   });

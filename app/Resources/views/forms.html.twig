@@ -1,0 +1,7 @@
+{% extends "bootstrap_3_layout.html.twig" %}
+
+{% block form_start -%}
+  {% set attr = attr|merge({novalidate: null}) %}
+  {{- parent() -}}
+{%- endblock form_start %}
+

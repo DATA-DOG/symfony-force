@@ -1,0 +1,9 @@
+{% set flashIconMap = {danger: 'warning-sign', success: 'ok', info: 'info'} %}
+{% for type, bag in app.session.flashbag.all() %}
+  {% for message in bag %}
+    <div class="alert alert-{{ type }}">
+      <span class="glyphicon glyphicon-{{ flashIconMap[type] }}"></span>
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endfor %}

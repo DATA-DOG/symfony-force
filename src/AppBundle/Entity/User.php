@@ -70,7 +70,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="integer")
      */
-    private $roles = 0;
+    private $roles = 1; // has ROLE_USER by default
 
     public function __construct()
     {
@@ -116,34 +116,22 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        $roles = ['ROLE_USER'];
+        $roles = [];
         foreach (self::$roleMap as $role => $flag) {
-            if ($flag === $this->roles && $flag) {
+            if ($flag === ($this->roles & $flag)) {
                 $roles[] = $role;
             }
         }
-        return array_unique($roles);
+        return $roles;
     }
 
     public function removeRole($role)
     {
         $role = strtoupper($role);
         if (array_key_exists($role, self::$roleMap)) {
-            $this->roles = $this->roles ^ self::$roleMap[$role];
+            $this->roles ^= self::$roleMap[$role];
         }
         return $this;
-    }
-
-    public function hasRole($role)
-    {
-        $role = strtoupper($role);
-        if ($role === 'ROLE_USER') {
-            return true;
-        }
-        if (array_key_exists($role, self::$roleMap)) {
-            return self::$roleMap[$role] === $this->roles & self::$roleMap[$role];
-        }
-        return false;
     }
 
     public function setRoles(array $roles)
@@ -158,7 +146,7 @@ class User implements UserInterface, \Serializable
     public function addRole($role)
     {
         $role = strtoupper($role);
-        if ($this->hasRole($role)) {
+        if (!array_key_exists($role, self::$roleMap)) {
             return $this;
         }
         $this->roles |= self::$roleMap[$role];

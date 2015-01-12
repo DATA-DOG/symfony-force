@@ -21,6 +21,7 @@ framework:
   trusted_hosts: ~
   trusted_proxies: ~
   session:
+    save_path: null # use default php.ini settings if storage is file
     cookie_lifetime: 3600 # note php setting: session.gc_maxlifetime
     cookie_domain: ~ # restrict to specific domain
     cookie_secure: false # allow only https
@@ -31,6 +32,8 @@ framework:
 twig:
   debug: "%kernel.debug%"
   strict_variables: true
+  form_themes:
+    - "::forms.html.twig"
 
 doctrine:
   dbal:

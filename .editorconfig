@@ -10,7 +10,7 @@ insert_final_newline = true
 charset = utf-8
 
 # --- INDENTATION ---
-[{*.html,*.json,*.js,*.yml,*.yml.dist,*.css,*.scss,*.feature}]
+[{*.html,*.json,*.js,*.yml,*.yml.dist,*.css,*.scss,*.less,*.feature}]
 indent_style = space
 indent_space = 2
 indent_size = 2

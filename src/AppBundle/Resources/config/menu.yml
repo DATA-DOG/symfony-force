@@ -1,0 +1,13 @@
+services:
+  app.menu.builder:
+    class: AppBundle\Menu
+    arguments: [@knp_menu.factory, @translator]
+
+  app.menu.top:
+    class: Knp\Menu\MenuItem
+    factory_service: app.menu.builder
+    factory_method: top
+    arguments: [@security.context]
+    tags:
+      - { name: knp_menu.menu, alias: top }
+

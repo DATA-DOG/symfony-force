@@ -28,7 +28,7 @@ Build all assets:
 
 Reload application database.. Runs migrations and fixtures.
 
-    bin/app reload -e dev
+    bin/reload dev
 
 Start serving application in **dev** environment:
 

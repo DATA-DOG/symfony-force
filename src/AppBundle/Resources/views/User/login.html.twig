@@ -1,0 +1,41 @@
+{% extends '::layout.html.twig' %}
+
+{% set title = "Login" %}
+
+{% block content %}
+
+{% include '::flashes.html.twig' %}
+{% if error %}
+    <div class="alert alert-danger">{{ error|trans }}</div>
+{% endif %}
+
+<div class="well content">
+
+  <div class="page-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <form action="{{ path("app_user_check") }}" method="post" class="form-horizontal" novalidate>
+    {# see http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html #}
+    <input type="hidden" name="_csrf_user_login" value="{{ csrf_token('_app_user_login') }}" />
+    <div class="form-group">
+      <label for="username" class="col-sm-3 control-label">Username:</label>
+      <div class="col-sm-7">
+        <input type="text" id="username" name="_username" value="{{ username }}" class="form-control" placeholder="Username">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="col-sm-3 control-label">Password:</label>
+      <div class="col-sm-7">
+        <input type="password" id="password" name="_password" class="form-control" placeholder="Password" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-4">
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

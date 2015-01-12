@@ -1,13 +1,13 @@
 entity:
   user:
     email:
-      blank: "Email address must be entered."
-      invalid: "Email address is not valid."
+      blank: "Email address entered must be."
+      invalid: "Email address valid is not."
     firstname:
-      blank: "Firstname must be entered."
+      blank: "Firstname entered must be."
     lastname:
-      blank: "Lastname must be entered."
+      blank: "Lastname entered must be."
     password:
-      blank: "Please enter a password."
-      short: "The password is too short."
-      long: "The password is too long."
+      blank: "Password entered must be."
+      short: "Too short is the password."
+      long: "Too long is the password."
