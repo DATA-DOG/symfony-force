@@ -27,7 +27,7 @@ class Menu
             $menu->addChild($label, compact('route', 'attributes'));
         };
         if ($context->isGranted('ROLE_USER')) {
-            $child((string)$context->getToken()->getUser(), 'homepage');
+            $child($context->getToken()->getUser(), 'app_user_profile');
             $child('Logout', 'app_user_logout');
         } else {
             $child('Login', 'app_user_login');

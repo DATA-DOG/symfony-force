@@ -1,9 +1,10 @@
 {% set flashIconMap = {danger: 'warning-sign', success: 'ok', info: 'info'} %}
+{% set flashIconSWMap = {danger: 'darth-vader-icon.jpeg', success: 'yoda-icon.jpg', info: 'luke-skywalker-icon.png'} %}
 {% for type, bag in app.session.flashbag.all() %}
   {% for message in bag %}
     <div class="alert alert-{{ type }}">
       <span class="glyphicon glyphicon-{{ flashIconMap[type] }}"></span>
-      {{ message }}
+      {{ message }} <img src="{{ asset('img/icons/'~ flashIconSWMap[type]) }}"/>
     </div>
   {% endfor %}
 {% endfor %}

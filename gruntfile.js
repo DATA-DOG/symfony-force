@@ -125,6 +125,10 @@ module.exports = function(grunt) {
         files: ['assets/less/**/*.less'],
         tasks: ['recess:build']
       },
+      images: {
+        files: ['assets/img/**/*'],
+        tasks: ['copy:images']
+      },
       layout: {
         files: ['<%= concat.layout.src %>'],
         tasks: ['concat:layout']

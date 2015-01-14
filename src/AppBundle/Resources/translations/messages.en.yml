@@ -1,24 +1,31 @@
 security:
-  bad_credentials: "Email or password is incorrect."
-  csrf_token_expired: "The session has expired, please try again."
+  bad_credentials: "Is incorrect your email or password."
+  csrf_token_expired: "Expired the session may be, please try again."
   unexpected_error: "Unexpected error occured while trying to login.."
 
 flashes:
   success:
-    user_signup: "User was successfully created, you will receive email soon."
+    user_signup: "The confirmation email should soon be received."
     user_confirmed: "The user %name% confirmed may be."
+    user_profile_updated: "Updated your profile may be."
   info:
-    user_confirmation_resent: "Confirmation email was resent to the \"%email%\" address."
+    user_confirmation_resent: "To the \"%email%\" address the confirmation email was resent."
 
 form:
   signup:
     submit: "Signup"
-    email: "Email"
     already_confirmed: "The user with \"%email%\" was already confirmed."
   confirm:
     submit: "Confirm"
-    firstname: "Firstname"
-    lastname: "Lastname"
-    password: "Password"
-    repeat_password: "Repeat password"
-    passwords_do_not_match: "Passwords do not match."
+  profile:
+    submit: "Update"
+    section:
+      details: "Details"
+      password: "Change password"
+  label:
+    user:
+      email: "Email"
+      firstname: "Firstname"
+      lastname: "Lastname"
+      password: "Password"
+      repeat_password: "Repeat password"

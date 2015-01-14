@@ -2,7 +2,6 @@
 
 namespace spec\AppBundle\Entity;
 
-use AppBundle\Entity\User;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\User\SignupType;
 use AppBundle\Form\Type\User\ConfirmType;
+use AppBundle\Form\Type\User\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -130,6 +131,32 @@ class UserController extends Controller
         $this->get('security.token_storage')->setToken($token);
 
         $this->flash('success', "flashes.success.user_confirmed", ['%name%' => $user]);
-        return $this->redirect($this->generateUrl('homepage'));
+        return $this->redirect($this->generateUrl('app_user_profile'));
+    }
+
+    /**
+     * @Route("/profile")
+     * @Method({"GET", "POST"})
+     * @Template
+     */
+    public function profileAction(Request $request)
+    {
+        $user = clone $this->getUser(); // prevent user change is session
+        $form = $this->createForm(new ProfileType(), $user);
+        $form->handleRequest($request);
+        if (!$form->isValid()) {
+            return ['form' => $form->createView()];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        if ($user->getPlainPassword()) {
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+            $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
+        }
+        $em->persist($em->merge($user));
+        $em->flush();
+
+        $this->flash('success', "flashes.success.user_profile_updated");
+        return $this->redirect($this->generateUrl('app_user_profile'));
     }
 }

@@ -41,5 +41,5 @@ security:
     - { path: ^/(login|signup)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/, role: ROLE_ADMIN }
+    - { path: ^/, role: ROLE_USER }
 
