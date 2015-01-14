@@ -8,7 +8,6 @@ app:
     lastname:
       blank: "Lastname entered must be."
     password:
-      blank: "Password entered must be."
       short: "Too short is the password."
       long: "Too long is the password."
-      mismatch: "Passwords do not match."
+      mismatch: "Not match do passwords."

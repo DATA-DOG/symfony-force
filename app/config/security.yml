@@ -38,7 +38,7 @@ security:
       anonymous: true
 
   access_control:
-    - { path: ^/(login|signup)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(login|signup|reset)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/, role: ROLE_USER }

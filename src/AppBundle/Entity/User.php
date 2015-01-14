@@ -66,13 +66,12 @@ class User implements UserInterface, \Serializable
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @Assert\NotBlank(message="app.user.password.blank", groups={"confirm", "reset"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
      *   minMessage="app.user.password.short",
      *   maxMessage="app.user.password.long",
-     *   groups={"confirm", "reset"}
+     *   groups={"confirm"}
      * )
      */
     private $plainPassword;
