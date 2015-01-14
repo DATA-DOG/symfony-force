@@ -1,0 +1,27 @@
+{% extends '::layout.html.twig' %}
+
+{% set title = "Account details" %}
+
+{% block content %}
+
+{% include '::flashes.html.twig' %}
+
+<div class="well content">
+
+  <div class="page-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  {{ form_start(form, {action: path('app_user_confirm', {token: token})}) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.plainPassword) }}
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-4">
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'form.confirm.submit'|trans }}</button>
+      </div>
+    </div>
+  {{ form_end(form) }}
+</div>
+{% endblock %}

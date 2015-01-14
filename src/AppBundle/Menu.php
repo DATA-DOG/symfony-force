@@ -31,7 +31,7 @@ class Menu
             $child('Logout', 'app_user_logout');
         } else {
             $child('Login', 'app_user_login');
-            $child('Register', 'app_user_register');
+            $child('Signup', 'app_user_signup');
         }
 
         return $menu;

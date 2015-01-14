@@ -2,11 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\User\RegisterType;
+use AppBundle\Entity\User;
+use AppBundle\Form\Type\User\SignupType;
+use AppBundle\Form\Type\User\ConfirmType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -38,7 +43,20 @@ class UserController extends Controller
         // if there was an unexpected exception, log it, and do not show it's message to user
         if ($error instanceof \Exception) {
             $this->get('logger')->error($error->getMessage());
-            $error = 'Unexpected error occured while trying to login..';
+            $error = 'security.unexpected_error';
+        }
+
+        // translate an error
+        if ($error) {
+            switch ($error) {
+                case 'Bad credentials.':
+                    $error = 'security.bad_credentials';
+                    break;
+                case 'Invalid CSRF token.':
+                    $error = 'security.csrf_token_expired';
+                    break;
+            }
+            $error = $this->get('translator')->trans($error);
         }
 
         // last username entered by the user
@@ -49,23 +67,69 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/register")
+     * @Route("/signup")
      * @Method({"GET", "POST"})
      * @Template
      */
-    public function registerAction(Request $request)
+    public function signupAction(Request $request)
     {
-        $form = $this->createForm(new RegisterType(), $user = new User());
+        $form = $this->createForm(new SignupType(), $user = new User());
+        $response = function() use($form) {
+            return ['form' => $form->createView()];
+        };
         $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            $this->flash('success', "User was successfully created, you will receive email soon.");
-            return $this->redirect($this->generateUrl('app_user_login'));
+        if (!$form->isValid()) {
+            return $response();
         }
 
-        return ['form' => $form->createView()];
+        $em = $this->getDoctrine()->getManager();
+        $same = $em->getRepository('AppBundle:User')->findOneByEmail($user->getEmail());
+        if (null !== $same && $same->isConfirmed()) {
+            $msg = $this->get('translator')->trans('form.signup.already_confirmed', ['%email%' => $user->getEmail()]);
+            $form->get('email')->addError(new FormError($msg));
+            return $response();
+        }
+
+        if (null !== $same) {
+            // @TODO resend confirmation email
+            $this->flash('info', "flashes.info.user_confirmation_resent", ['%email%' => $user->getEmail()]);
+            return $response();
+        }
+
+        $user->regenerateConfirmationToken();
+        $em->persist($user);
+        $em->flush();
+
+        // @TODO send an email message with confirmation uri
+        $this->flash('success', "flashes.success.user_signup");
+        return $this->redirect($this->generateUrl('app_user_login'));
+    }
+
+    /**
+     * @Route("/confirm/{token}")
+     * @Method({"GET", "POST"})
+     * @ParamConverter("user", class="AppBundle:User", options={"mapping": {"token": "confirmationToken"}})
+     * @Template
+     */
+    public function confirmAction(Request $request, User $user)
+    {
+        $form = $this->createForm(new ConfirmType(), $user);
+        $form->handleRequest($request);
+        if (!$form->isValid()) {
+            return ['form' => $form->createView(), 'token' => $user->getConfirmationToken()];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
+        $user->confirm();
+        $em->persist($user);
+        $em->flush();
+
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+
+        $this->flash('success', "flashes.success.user_confirmed", ['%name%' => $user]);
+        return $this->redirect($this->generateUrl('homepage'));
     }
 }

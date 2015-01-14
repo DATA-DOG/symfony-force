@@ -1,7 +1,16 @@
-{% extends "bootstrap_3_layout.html.twig" %}
+{% extends "bootstrap_3_horizontal_layout.html.twig" %}
 
+{# adds novalidate to prevent html5 validation#}
 {% block form_start -%}
   {% set attr = attr|merge({novalidate: null}) %}
   {{- parent() -}}
 {%- endblock form_start %}
+
+{# adds colon at the end of the label #}
+{% block form_label -%}
+{% spaceless %}
+  {% set label = label|trans({}, translation_domain) ~ ":" %}
+  {{- parent() -}}
+{% endspaceless %}
+{%- endblock form_label %}
 

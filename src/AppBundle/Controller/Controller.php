@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    protected function flash($section, $msg, array $params = [], $domain = 'flashes')
+    protected function flash($section, $msg, array $params = [], $domain = 'messages')
     {
         $this->get('session')->getFlashBag()->add($section, $this->get('translator')->trans(
             $msg, $params, $domain

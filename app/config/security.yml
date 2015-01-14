@@ -4,7 +4,7 @@ security:
       id: app.password_encoder
 
   role_hierarchy:
-    ROLE_USER:  []
+    ROLE_USER: []
     ROLE_ADMIN: [ROLE_USER]
 
   providers:
@@ -38,7 +38,8 @@ security:
       anonymous: true
 
   access_control:
-    - { path: ^/(login|register)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(login|signup)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/, role: ROLE_ADMIN }
 

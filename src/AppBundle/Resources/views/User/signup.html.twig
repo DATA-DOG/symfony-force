@@ -1,6 +1,6 @@
 {% extends '::layout.html.twig' %}
 
-{% set title = "Register" %}
+{% set title = "Signup" %}
 
 {% block content %}
 
@@ -12,14 +12,12 @@
     <h1>{{ title }}</h1>
   </div>
 
-  {{ form_start(form, {action: path('app_user_register')}) }}
+  {{ form_start(form, {action: path('app_user_signup')}) }}
     {{ form_row(form.email) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Register</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'form.signup.submit'|trans }}</button>
       </div>
     </div>
   {{ form_end(form) }}

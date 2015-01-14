@@ -1,0 +1,24 @@
+security:
+  bad_credentials: "Email or password is incorrect."
+  csrf_token_expired: "The session has expired, please try again."
+  unexpected_error: "Unexpected error occured while trying to login.."
+
+flashes:
+  success:
+    user_signup: "User was successfully created, you will receive email soon."
+    user_confirmed: "The user %name% confirmed may be."
+  info:
+    user_confirmation_resent: "Confirmation email was resent to the \"%email%\" address."
+
+form:
+  signup:
+    submit: "Signup"
+    email: "Email"
+    already_confirmed: "The user with \"%email%\" was already confirmed."
+  confirm:
+    submit: "Confirm"
+    firstname: "Firstname"
+    lastname: "Lastname"
+    password: "Password"
+    repeat_password: "Repeat password"
+    passwords_do_not_match: "Passwords do not match."

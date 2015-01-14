@@ -26,8 +26,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="entity.user.email.blank", groups={"signup"})
-     * @Assert\Email(message="entity.user.email.invalid", groups={"signup"})
+     * @Assert\NotBlank(message="app.user.email.blank", groups={"signup"})
+     * @Assert\Email(message="app.user.email.invalid", groups={"signup"})
      */
     private $email;
 
@@ -38,39 +38,44 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="entity.user.firstname.blank", groups={"signup"})
+     * @Assert\NotBlank(message="app.user.firstname.blank", groups={"confirm"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="entity.user.lastname.blank", groups={"signup"})
+     * @Assert\NotBlank(message="app.user.lastname.blank", groups={"confirm"})
      */
     private $lastname;
 
     /**
-     * @ORM\Column(length=64)
+     * @ORM\Column(name="confirmation_token", length=48, nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $roles = 0; // has no roles by default
+
+    /**
+     * @ORM\Column(length=64, nullable=true)
      */
     private $password;
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @Assert\NotBlank(message="entity.user.password.blank", groups={"reset"})
+     * @Assert\NotBlank(message="app.user.password.blank", groups={"confirm", "reset"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
-     *   minMessage="entity.user.password.short",
-     *   maxMessage="entity.user.password.long",
-     *   groups={"reset"}
+     *   minMessage="app.user.password.short",
+     *   maxMessage="app.user.password.long",
+     *   groups={"confirm", "reset"}
      * )
      */
     private $plainPassword;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $roles = 1; // has ROLE_USER by default
 
     public function __construct()
     {
@@ -191,6 +196,46 @@ class User implements UserInterface, \Serializable
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+        return $this;
+    }
+
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    public function regenerateConfirmationToken()
+    {
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $bytes = openssl_random_pseudo_bytes(32, $strong);
+
+            if (false !== $bytes && true === $strong) {
+                $num = $bytes;
+            } else {
+                $num = hash('sha256', uniqid(mt_rand(), true), true);
+            }
+        } else {
+            $num = hash('sha256', uniqid(mt_rand(), true), true);
+        }
+
+        $this->confirmationToken = rtrim(strtr(base64_encode($num), '+/', '-_'), '=');
+        return $this;
+    }
+
+    public function isConfirmed()
+    {
+        return $this->password !== null;
+    }
+
+    public function confirm()
+    {
+        $this->addRole('ROLE_USER');
+        $this->confirmationToken = null;
     }
 
     public function __toString()
