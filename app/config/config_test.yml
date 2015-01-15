@@ -2,6 +2,7 @@ imports:
   - { resource: config.yml }
 
 framework:
+  test: ~
   profiler:
     enabled: true
   session:
@@ -11,7 +12,8 @@ framework:
 
 doctrine:
   dbal:
-    dbname: %database_name%_test
+    driver: pdo_sqlite
+    path: %kernel.logs_dir%/%kernel.environment%.db
 
 web_profiler:
   toolbar: false

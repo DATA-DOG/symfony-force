@@ -87,15 +87,23 @@ See [phpspec](http://www.phpspec.net/) for reference.
 
 ### Behat
 See [behat3](http://docs.behat.org/en/latest/) for reference.
+To run behat tests:
+
+    bin/reload test
+    bin/webserver restart test
+    bin/behat
 
 ## Application
 What comes with this skeleton application.
 
 - migrations and fixtures. Fixtures are executed once as a data migration subject, they are ordered and environment
-specific. Migrations are located in **AppBundle** which may be moved to separate repository if database is a shared
-resource. Fixtures and migrations are **indempotent**, meaning it cannot be included twice.
+specific. [Migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) are located in **AppBundle**
+which may be moved to separate repository if database is a shared resource. Fixtures and migrations are **idempotent**,
+meaning it cannot be included twice.
 - basic security settings: login, logout, signup and confirmation by email, profile, reset password. Should be modified
 on custom basis.
+- [doctrine extensions](https://github.com/Atlantic18/DoctrineExtensions) - only timestampable is activated by default.
+See **app/config/doctrine_extensions.yml**.
 - a command to check **anonymously accessible routes** all commands are under **app** namespace.
 
 ### Binaries
