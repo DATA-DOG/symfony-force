@@ -86,7 +86,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $same = $em->getRepository('AppBundle:User')->findOneByEmail($user->getEmail());
-        if (null !== $same && $same->isConfirmed()) {
+        if (null !== $same and $same->isConfirmed()) {
             $msg = $this->get('translator')->trans('form.signup.already_confirmed', ['%email%' => $user->getEmail()]);
             $form->get('email')->addError(new FormError($msg));
             return $response();
@@ -142,7 +142,7 @@ class UserController extends Controller
      */
     public function profileAction(Request $request)
     {
-        $user = clone $this->getUser(); // prevent user change is session
+        $user = clone $this->getUser(); // prevent user change in session
         $form = $this->createForm(new ProfileType(), $user);
         $form->handleRequest($request);
         if (!$form->isValid()) {
