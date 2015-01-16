@@ -42,4 +42,12 @@ trait IsKernelAware
     {
         return $this->getContainer()->getParameter($name);
     }
+
+    protected function mustGetUser()
+    {
+        if (!$token = $this->get('security.context')->getToken()) {
+            throw new \RuntimeException("There is no user logged in at the moment. Security context is empty.");
+        }
+        return $token->getUser();
+    }
 }

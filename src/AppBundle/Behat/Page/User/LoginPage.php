@@ -6,7 +6,7 @@ use AppBundle\Behat\AbstractPage;
 
 class LoginPage extends AbstractPage
 {
-    public function route()
+    protected function route()
     {
         return 'app_user_login';
     }

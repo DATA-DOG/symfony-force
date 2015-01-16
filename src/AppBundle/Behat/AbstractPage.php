@@ -3,28 +3,49 @@
 namespace AppBundle\Behat;
 
 use Behat\Mink\Session;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractPage
 {
     protected $session;
-    protected $path;
+    protected $router;
 
-    public function __construct(Session $session)
+    public function __construct(Session $session, RouterInterface $router)
     {
         $this->session = $session;
+        $this->router = $router;
     }
 
-    public function open($path)
+    public function open(array $params = [])
     {
-        $this->path = $path;
-        $this->session->visit($path);
+        $this->session->visit($this->router->generate($this->route(), $params));
         return $this;
     }
 
-    public function isOpen()
+    public function isOpen(array $params = [])
     {
-        return strlen($this->path) !== 0 and preg_match("@{$this->path}$@", $this->session->getCurrentUrl());
+        $path = $this->router->generate($this->route(), $params);
+        return preg_match("@{$path}$@", $this->session->getCurrentUrl());
     }
 
-    abstract public function route();
+    public function mustBeOpen(array $params = [])
+    {
+        $path = $this->router->generate($this->route(), $params);
+        if (!preg_match("@{$path}$@", $this->session->getCurrentUrl())) {
+            throw new \RuntimeException("The page is not open, actual path: {$this->session->getCurrentUrl()} does not match with: {$path}.");
+        }
+        return $this;
+    }
+
+    protected function xpath($xpath)
+    {
+        return $this->session->getPage()->find('xpath', $xpath);
+    }
+
+    protected function css($css)
+    {
+        return $this->session->getPage()->find('css', $css);
+    }
+
+    abstract protected function route();
 }

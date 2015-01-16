@@ -18,22 +18,16 @@ trait IsNavigationAware
      */
     public function iVisitPageWithParams($page, \Behat\Gherkin\Node\TableNode $params = null)
     {
-        $page = $this->getPage($page);
-        return $page->open($this->get('router')->generate(
-            $page->route(),
-            $params ? $params->getRowsHash() : [],
-            false
-        ));
+        return $this->getPage($page)->open($params ? $params->getRowsHash() : []);
     }
 
     /**
-     * @Given /^I should be on page "([^"]+)"$/
+     * @Then /^I should be on page "([^"]+)"$/
+     * @Then /^I should be on page "([^"]+)" with params:$/
      */
-    public function iShouldBeOnPage($page)
+    public function iShouldBeOnPage($page, \Behat\Gherkin\Node\TableNode $params = null)
     {
-        if (!$this->getPage($page)->isOpen()) {
-            throw new \Exception("The page \"{$page}\" is not currently open..");
-        }
+        $this->getPage($page)->mustBeOpen($params ? $params->getRowsHash() : []);
     }
 
     private function getPage($name)
@@ -56,7 +50,7 @@ trait IsNavigationAware
                     throw new \RuntimeException("Found page \"{$name}\" class \"{$class}\" but it does not extend Page abstract class.");
                 }
 
-                $page = new $class($this->getSession());
+                $page = new $class($this->getSession(), $this->get('router'));
                 if ($page instanceof ContainerAwareInterface) {
                     $page->setContainer($this->container);
                 }
