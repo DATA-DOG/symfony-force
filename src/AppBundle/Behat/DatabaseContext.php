@@ -16,7 +16,7 @@ class DatabaseContext implements Context, KernelAwareContext
     public function cleanDatabase()
     {
         $dbPath = sprintf('%s/%s.db', $this->getParameter('kernel.logs_dir'), $this->kernel->getEnvironment());
-        @unlink($dbPath);
+        file_exists($dbPath) and @unlink($dbPath);
 
         $em = $this->get('em');
         $metadata = $em->getMetadataFactory()->getAllMetadata();

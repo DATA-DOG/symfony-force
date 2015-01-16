@@ -11,9 +11,6 @@ class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $skipPasswordValidationIfEmpty = function(FormInterface $form) {
-            return $form->getData() === null ? false : ['confirm'];
-        };
         $builder
             ->add('firstname', 'text', [
                 'label' => 'form.label.user.firstname',
@@ -29,7 +26,6 @@ class ProfileType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => 'form.label.user.password'],
                 'second_options' => ['label' => 'form.label.user.repeat_password'],
-                'validation_groups' => $skipPasswordValidationIfEmpty,
             ]);
     }
 
@@ -37,7 +33,7 @@ class ProfileType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\User',
-            'validation_groups' => 'confirm',
+            'validation_groups' => 'profile',
             'intention' => 'profile',
         ]);
     }

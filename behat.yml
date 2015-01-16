@@ -20,6 +20,7 @@ default:
       contexts:
         - AppBundle\Behat\UserContext
         - AppBundle\Behat\DatabaseContext
+        - Behat\MinkExtension\Context\MinkContext
       filters:
         tags: @user
 

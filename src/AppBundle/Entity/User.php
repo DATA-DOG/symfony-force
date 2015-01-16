@@ -39,13 +39,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.user.firstname.blank", groups={"confirm"})
+     * @Assert\NotBlank(message="app.user.firstname.blank", groups={"confirm", "profile"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.user.lastname.blank", groups={"confirm"})
+     * @Assert\NotBlank(message="app.user.lastname.blank", groups={"confirm", "profile"})
      */
     private $lastname;
 
@@ -79,12 +79,13 @@ class User implements UserInterface, \Serializable
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
+     * @Assert\NotBlank(message="app.user.password.blank", groups={"confirm"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
      *   minMessage="app.user.password.short",
      *   maxMessage="app.user.password.long",
-     *   groups={"confirm"}
+     *   groups={"confirm", "profile"}
      * )
      */
     private $plainPassword;

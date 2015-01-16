@@ -10,12 +10,12 @@ flashes:
     user_profile_updated: "Updated your profile may be."
     user_reset_requested: "User password reset requested may be."
   info:
-    user_confirmation_resent: "To the \"%email%\" address the confirmation email was resent."
+    user_confirmation_resent: "To the %email% address the confirmation email was resent."
 
 form:
   signup:
     submit: "Signup"
-    already_confirmed: "The user with \"%email%\" was already confirmed."
+    already_confirmed: "Confirmed already is the email %email%."
   confirm:
     submit: "Confirm"
   reset:

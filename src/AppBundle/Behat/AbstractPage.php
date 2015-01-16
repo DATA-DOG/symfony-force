@@ -16,6 +16,11 @@ abstract class AbstractPage
         $this->router = $router;
     }
 
+    public function __call($method, array $args = [])
+    {
+        return call_user_func_array([$this->session->getPage(), $method], $args);
+    }
+
     public function open(array $params = [])
     {
         $this->session->visit($this->router->generate($this->route(), $params));

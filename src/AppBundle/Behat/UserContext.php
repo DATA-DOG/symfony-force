@@ -26,22 +26,36 @@ class UserContext extends RawMinkContext implements KernelAwareContext
     function userNamed($type, $name)
     {
         $names = explode(' ', $name);
+        list ($firstname, $lastname) = $names;
 
         $em = $this->get('em');
         $user = new User();
-        $user->setFirstname($names[0]);
-        $user->setLastname(isset($names[1]) ? $names[1] : '');
+        if ('confirmed' === $type) {
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
+        }
         $user->setEmail(strtolower(implode('.', $names)) . '@datadog.lt');
         $user->setRoles(['ROLE_USER']);
 
         if ('unconfirmed' === $type) {
-            $user->setConfirmationToken("secret-token");
+            $user->setConfirmationToken(implode('-', array_map('strtolower', $names)) . '-token');
         } else {
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);
             $user->setPassword($encoder->encodePassword('S3cretpassword', $user->getSalt()));
         }
         $em->persist($user);
         $em->flush();
+        return $user;
+    }
+
+    /**
+     * @When /^I confirm my account "([^"]+)" with personal details$/
+     */
+    function iAmConfirmingMyAccount($name)
+    {
+        $user = $this->userNamed('unconfirmed', $name);
+        $page = $this->iFollowConfirmationLinkFromMyEmail($user->getEmail());
+        $page->confirmWithPersonalDetails($name);
     }
 
     /**
@@ -51,7 +65,7 @@ class UserContext extends RawMinkContext implements KernelAwareContext
      */
     function iTryToLoginAsUsingPassword($email, $password = 'S3cretpassword')
     {
-        $this->getPage('User Login')->mustBeOpen()->login($email, $password);
+        $this->getPage('User Login')->open()->login($email, $password);
 
         $user = $this->get('em')->getRepository('AppBundle:User')->findOneByEmail($email);
         if ($user) {
@@ -61,6 +75,24 @@ class UserContext extends RawMinkContext implements KernelAwareContext
                 $this->setCurrentUser($user);
             }
         }
+    }
+
+    /**
+     * @When /^I attempt to signup as "([^"]*)"$/
+     * @When /^I signup as "([^"]*)"$/
+     */
+    function iSignupAs($email)
+    {
+        return $this->getPage('User Signup')->mustBeOpen()->signup($email);
+    }
+
+    /**
+     * @When /^I follow confirmation link from my "([^"]*)" email$/
+     */
+    function iFollowConfirmationLinkFromMyEmail($email)
+    {
+        $token = implode('-', explode('.', substr($email, 0, strpos($email, '@')))) . '-token';
+        return $this->getPage('Account Confirmation')->open(compact('token'));
     }
 
     /**

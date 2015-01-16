@@ -93,6 +93,10 @@ To run behat tests:
     bin/webserver restart test
     bin/behat
 
+Tests are using **sqlite** database. If you need to check database after a failed scenario:
+
+    sqlite3 app/logs/test.db
+
 ## Application
 What comes with this skeleton application.
 
@@ -141,4 +145,11 @@ without any dependencies.
 - It is advisable to adapt skeleton sources to application needs
 - If there are two applications like **admin** and **client** - **AppBundle** can be moved into separate repository.
 It will install the same binaries and have migrations and fixtures ready.
+
+## TODO
+
+- Style the starwars theme better..
+- Vagrant or Docker setup with Ansible playbook
+- Two-factor authentication with [google authenticator](https://github.com/rchouinard/rych-otp)
+- File upload service and entity + profile image.
 
