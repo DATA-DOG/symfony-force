@@ -21,18 +21,7 @@
   </head>
   <body>
 
-    <div class="container">
-      <div class="header">
-        <nav>{{ knp_menu_render('top', {currentClass: 'active'}) }}</nav>
-        <h3 class="text-muted"><a href="{{ path("homepage") }}">Deathstar</a></h3>
-      </div>
-
-      {% block content %}{% endblock %}
-
-      <footer class="footer">
-        <p>&copy; 2015 DATA-DOG</p>
-      </footer>
-    </div>
+    {% block body %}{% endblock %}
 
     <script src="{{ asset("js/libraries.js") }}"></script>
     <script src="{{ asset("js/<%= version %>.js") }}"></script>

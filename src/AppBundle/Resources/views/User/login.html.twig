@@ -1,10 +1,10 @@
-{% extends '::layout.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
 {% set title = "Login" %}
 
 {% block content %}
 
-{% include '::flashes.html.twig' %}
+{% include 'AppBundle::flashes.html.twig' %}
 {% if error %}
     <div class="alert alert-danger">{{ error|trans }}</div>
 {% endif %}

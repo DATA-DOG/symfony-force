@@ -33,7 +33,7 @@ twig:
   debug: "%kernel.debug%"
   strict_variables: true
   form_themes:
-    - "::forms.html.twig"
+    - "AppBundle::forms.html.twig" # default bootstrap3 horizontal form theme
 
 doctrine:
   dbal:
