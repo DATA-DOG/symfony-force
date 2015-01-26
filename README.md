@@ -113,15 +113,6 @@ See **app/config/doctrine_extensions.yml**.
 ### Binaries
 Application installs some convenient binary executables on composer install|update hooks.
 
-#### Webserver
-**webserver** - start|restart|stop webserver based on environment. **bin/webserver start prod** will start php internal
-webserver listening on port **5550** in production environment.
-
-    bin/webserver restart dev
-
-Would restart webserver on the same port, but for the dev environment. It is convenient, because you do not need to
-configure nginx or apache for development use.
-
 #### Reload
 **reload** - reloads your application datasources in the order: drop database(if available), create database, run migrations,
 load fixtures, clear and warmup cache. These binaries are located in **src/AppBundle/Resources/bin** and may be adapted
