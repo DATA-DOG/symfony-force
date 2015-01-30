@@ -14,7 +14,7 @@ class Composer
         }
         $bins = ['selenium', 'archive', 'reload'];
         foreach ($bins as $binary) {
-            if (@symlink($src = __DIR__ . '/Resources/bin/' . $binary, $dst = 'bin/' . $binary) === false) {
+            if (@symlink($src = '../src/AppBundle/Resources/bin/' . $binary, $dst = 'bin/' . $binary) === false) {
                 if (!file_exists($dst)) {
                     $event->getIO()->write(sprintf('Failed to symlink %s from %s.', $src, $dst));
                     return;
