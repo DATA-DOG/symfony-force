@@ -132,6 +132,12 @@ without any dependencies.
 
     bin/archive /directory/release.tar.gz
 
+## Vagrant
+Currently **Vagrant** provisions with **ansible** and deploys into a VirtualBox centos linux machine.
+In order to run successfully, you will need **virtualbox, ansible, vagrant** installed on your system.
+
+    vagrant up
+
 ## Notes
 - It is advisable to adapt skeleton sources to application needs
 - If there are two applications like **admin** and **client** - **AppBundle** can be moved into separate repository.

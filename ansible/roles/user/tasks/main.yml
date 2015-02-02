@@ -1,0 +1,4 @@
+---
+- name: ensure user is present
+  user: name={{ user }} shell=/bin/bash comment="{{ app }} user" state=present
+  tags: [ user ]

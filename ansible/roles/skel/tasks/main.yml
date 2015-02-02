@@ -1,0 +1,9 @@
+---
+- name: ensure app directories
+  file: dest={{ item }} state=directory owner={{ user }} group={{ user }} mode=0755
+  with_items:
+    - "{{ app }}"
+    - "{{ releases }}"
+    - "{{ current }}"
+    - "{{ shared }}"
+  tags: [ skel ]

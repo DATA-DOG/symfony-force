@@ -1,0 +1,62 @@
+---
+- name: ensure shared directories
+  file: dest={{ shared }}/{{ item }} state=directory
+  with_items:
+    - logs
+  tags: [ frontend ]
+
+- name: limit stored releases and builds by removing oldest
+  shell: "ls -1dt {{ item.dir }}/* | tail -n +{{ item.keep }} | xargs rm -rf"
+  with_items:
+    - { dir: "{{ builds }}", keep: 3 }
+    - { dir: "{{ releases }}", keep: 5 }
+  tags: [ frontend ]
+
+- name: new build name
+  shell: date '+%Y%m%d%H%M%S'
+  register: next_release
+  tags: [ frontend ]
+
+- name: previous release
+  shell: "[ -d '{{ current }}' ] && readlink {{ current }} || echo ''"
+  register: prev_release
+  tags: [ frontend ]
+
+- name: prepare a release directory
+  file: path={{ builds }}/{{ next_release.stdout }} state=directory
+  tags: [ frontend ]
+
+- name: extract release archive
+  unarchive: src={{ name }}.tar.gz dest={{ builds }}/{{ next_release.stdout }}
+  tags: [ frontend ]
+
+- name: symlink logs
+  file: src={{ shared }}/logs dest={{ builds }}/{{ next_release.stdout }}/app/logs state=link
+  tags: [ frontend ]
+
+- name: copy parameters.yml to build
+  template: src=parameters.yml.j2 dest={{ builds }}/{{ next_release.stdout }}/app/config/parameters.yml
+  tags: [ frontend ]
+
+- name: ensure temp directories are available
+  file: path={{ builds }}/{{ next_release.stdout }}/app/{{ item }} state=directory
+  with_items:
+    - cache
+  tags: [ frontend ]
+
+- name: warmup cache
+  shell: chdir={{ builds }}/{{ next_release.stdout }} php app/console ca:w --env=prod
+  tags: [ frontend ]
+
+- name: move successful build to releases
+  shell: mv {{ builds }}/{{ next_release.stdout }} {{ releases }}/{{ next_release.stdout }}
+  tags: [ frontend ]
+
+- name: link successful release
+  file: src={{ releases }}/{{ next_release.stdout }} dest={{ current }} state=link force=yes
+  tags: [ frontend ]
+
+- name: clear previous release cache
+  shell: chdir={{ prev_release.stdout.strip() }} php app/console ca:c --env=prod
+  when: prev_release.stdout.strip() != ""
+  tags: [ frontend ]

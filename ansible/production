@@ -1,0 +1,9 @@
+# vi: set ft=dosini ts=2 sw=2 sts=2 :
+
+front1 ansible_ssh_host=85.67.77.66 ansible_ssh_user=deployer ansible_ssh_pass=S3cretpassword
+
+[frontends]
+front1
+
+[staging:children]
+frontends

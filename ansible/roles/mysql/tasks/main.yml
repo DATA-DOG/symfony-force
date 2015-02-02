@@ -1,0 +1,40 @@
+---
+- name: install MySQL
+  yum: pkg={{ item }} state=installed
+  with_items:
+    - mariadb-server
+    - mysql
+    - MySQL-python
+  tags: [ mysql ]
+
+- name: ensure mysql is enabled on boot and started
+  service: name=mariadb state=started enabled=yes
+  tags: [ mysql ]
+
+- name: update mysql root passwd
+  mysql_user: name=root host={{ item }} password={{ db_pass }}
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  tags: [ mysql ]
+
+- name: copy user my.cnf file with root passwd credentials
+  template: src=my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  tags: [ mysql ]
+
+- name: root from any host
+  mysql_user: name=root password={{ db_pass }} host="%" priv=*.*:ALL,GRANT state=present
+  tags: [ mysql ]
+
+- name: delete anonymous mysql user
+  mysql_user: name="" state=absent
+  tags: [ mysql ]
+
+- name: remove mysql test database
+  mysql_db: name=test state=absent
+  tags: [ mysql ]
+
+- name: create default database
+  mysql_db: name={{ db_name }} state=present
+  tags: [ mysql ]

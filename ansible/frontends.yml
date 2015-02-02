@@ -1,7 +1,0 @@
-- name: Frontend web servers
-  hosts: frontends
-  roles:
-    - nginx
-    - mysql
-    - php
-    - { role: frontend, sudo_user: "{{ user }}", sudo: yes }

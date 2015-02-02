@@ -1,0 +1,50 @@
+---
+- name: ensure remi repo is enabled
+  ini_file: dest=/etc/yum.repos.d/remi.repo section=remi option=enabled value=1
+  tags: [ php ]
+
+- name: ensure php56 remi repo is enabled
+  ini_file: dest=/etc/yum.repos.d/remi.repo section=remi-php56 option=enabled value=1
+  tags: [ php ]
+
+- name: ensure php modules are installed
+  action: yum name={{ item }} state=latest
+  with_items:
+    - php-fpm
+    - php-cli
+    - php-pdo
+    - php-mysql
+    - php-redis
+    - php-mcrypt
+    - php-bcmath
+    - php-mbstring
+    - php-intl
+    - php-gd
+    - php-opcache
+  notify:
+    - php-fpm restart
+  tags: [ php ]
+
+- name: unsure php-fpm is started and enabled on boot
+  service: name=php-fpm enabled=yes state=started
+  tags: [ php ]
+
+- name: ensure php configuration files are present
+  template: src={{ item.source }} dest={{ item.destination }} owner=root mode=0644 backup=yes
+  with_items:
+    - { source: 'php.ini.j2', destination: '/etc/php.ini' }
+    - { source: 'php-fpm.conf.j2', destination: '/etc/php-fpm.d/www.conf' }
+  notify:
+    - php-fpm restart
+  tags: [ php ]
+
+- name: ensure php session and wsdl directories are writable
+  file: dest=/var/lib/php/{{ item }} state=directory owner={{ user }} mode=0770
+  with_items:
+    - session
+    - wsdlcache
+  tags: [ php ]
+
+- name: ensure that php-fpm log dir is writable by wwwdata
+  file: path=/var/log/php-fpm state=directory owner={{ user }} group={{ user }}
+  tags: [ php ]

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'build']);
   grunt.registerTask('build', ['clean', 'concat', 'recess:build', 'copy']);
   grunt.registerTask('dev', ['build', 'watch']);
-  grunt.registerTask('release', ['clean', 'concat', 'uglify', 'jshint', 'recess:min', 'copy']);
+  grunt.registerTask('release', ['clean', 'concat', 'uglify', 'jshint', 'recess:min', 'copy', 'shell']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -113,6 +113,21 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
+      }
+    },
+
+    shell: {
+      composer_prod: {
+        command: 'composer install --no-scripts --no-dev'
+      },
+      composer_dump: {
+        command: 'composer dump-autoload --optimize'
+      },
+      archive: {
+        command: 'bin/archive ansible/frontend.tar.gz'
+      },
+      composer_back: {
+        command: 'composer install'
       }
     },
 

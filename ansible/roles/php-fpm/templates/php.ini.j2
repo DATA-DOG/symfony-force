@@ -1,0 +1,48 @@
+[PHP]
+
+; Only override settings which may be different from defaults
+
+max_execution_time = 30
+max_input_time = 60
+memory_limit = 256M
+
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+display_errors = Off
+display_startup_errors = Off
+log_errors = On
+
+variables_order = "GPCS"
+request_order = "GP"
+
+post_max_size = 32M
+pload_max_filesize = 32M
+max_file_uploads = 10
+
+default_socket_timeout = 60
+
+; COOKIES
+session.cookie_secure = On
+session.cookie_httponly = On
+
+;;;;;;;;;;;;;;;;;
+; Miscellaneous ;
+;;;;;;;;;;;;;;;;;
+
+; Decides whether PHP may expose the fact that it is installed on the server
+; (e.g. by adding its signature to the Web server header).  It is no security
+; threat in any way, but it makes it possible to determine whether you use PHP
+; on your server or not.
+; http://php.net/expose-php
+expose_php = Off
+
+[Date]
+date.timezone=UTC
+
+[opcache]
+opcache.enable=1
+opcache.memory_consumption=128
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=4000
+opcache.revalidate_freq=0
+opcache.fast_shutdown=1
+opcache.enable_cli=1

@@ -1,0 +1,29 @@
+server {
+    listen {% if https %}443{% else %}80{% endif %};
+
+    server_name {{ hostname }};
+    root {{ current }}/web;
+
+    # max header size for uploads need more space
+    client_max_body_size 32M;
+
+    add_header X-Frame-Options SAMEORIGIN;
+
+    location / {
+        try_files $uri @handler;
+        expires 1h; # cache static files
+    }
+
+    location @handler {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    location ~ ^/app\.php(/|$) {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_param HTTPS {% if https %}on{% else %}off{% endif %};
+    }
+}

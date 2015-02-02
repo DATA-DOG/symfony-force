@@ -1,0 +1,43 @@
+---
+- name: install nginx
+  yum: name=http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm state=installed
+  tags: [ nginx ]
+
+- name: install nginx
+  yum: name=nginx state=latest
+  tags: [ nginx ]
+
+- name: ensure nginx is running and enabled on boot
+  service: name=nginx.service enabled=yes state=started
+  tags: [ nginx ]
+
+- name: ensure nginx has sites-available/enabled directories
+  file: dest=/etc/nginx/{{ item }} state=directory owner=root mode=0755
+  with_items:
+    - sites-available
+    - sites-enabled
+  tags: [ nginx ]
+
+- name: ensure main nginx configuration file is present
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root mode=0644 backup=yes
+  notify:
+    - nginx reload
+  tags: [ nginx ]
+
+- name: ensure that nginx log dir is writable by user
+  file: path=/var/log/nginx state=directory owner={{ user }} group={{ user }}
+  tags: [ nginx ]
+
+- name: install nginx site
+  template: src="sites/{{ name }}.conf.j2"
+    dest=/etc/nginx/sites-available/{{ name }}.conf
+    owner=root mode=0644 backup=yes
+  tags: [ nginx ]
+
+- name: ensure nginx vhost enabled
+  file: src=/etc/nginx/sites-available/{{ name }}.conf
+    dest=/etc/nginx/sites-enabled/{{ name }}.conf
+    owner=root state=link
+  notify:
+    - nginx reload
+  tags: [ nginx ]
