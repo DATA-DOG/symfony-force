@@ -6,7 +6,7 @@
 
 {% include 'AppBundle::flashes.html.twig' %}
 {% if error %}
-    <div class="alert alert-danger">{{ error|trans }}</div>
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'login') }}</div>
 {% endif %}
 
 <div class="well content">
@@ -16,12 +16,11 @@
   </div>
 
   <form action="{{ path("app_user_check") }}" method="post" class="form-horizontal" novalidate>
-    {# see http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html #}
     <input type="hidden" name="_csrf_user_login" value="{{ csrf_token('_app_user_login') }}" />
     <div class="form-group">
       <label for="username" class="col-sm-3 control-label">Username:</label>
       <div class="col-sm-7">
-        <input type="text" id="username" name="_username" value="{{ username }}" class="form-control" placeholder="Username">
+        <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control" placeholder="Username">
       </div>
     </div>
     <div class="form-group">

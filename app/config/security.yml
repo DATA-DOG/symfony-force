@@ -28,9 +28,6 @@ security:
         login_path: app_user_login
         check_path: app_user_check
         default_target_path: homepage
-          # see http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html
-        csrf_provider: form.csrf_provider
-        csrf_parameter: _csrf_user_login
         intention: _app_user_login
       logout:
         path: app_user_logout

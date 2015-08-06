@@ -1,8 +1,3 @@
-security:
-  bad_credentials: "Is incorrect your email or password."
-  csrf_token_expired: "Expired the session may be, please try again."
-  unexpected_error: "Unexpected error occured while trying to login.."
-
 flashes:
   success:
     user_signup: "The confirmation email should soon be received."
