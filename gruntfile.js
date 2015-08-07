@@ -6,10 +6,10 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   grunt.option('force', true);
 
-  grunt.registerTask('default', ['jshint', 'build']);
-  grunt.registerTask('build', ['clean', 'concat', 'recess:build', 'copy']);
+  grunt.registerTask('default', ['build']);
+  grunt.registerTask('build', ['clean', 'concat', 'less', 'copy']);
   grunt.registerTask('dev', ['build', 'watch']);
-  grunt.registerTask('release', ['clean', 'concat', 'uglify', 'jshint', 'recess:min', 'copy', 'shell']);
+  grunt.registerTask('release', ['clean', 'concat', 'less_prod', 'uglify', 'copy', 'shell']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     src: {
       js: ['assets/js/**/*.js'],
-      less: ['assets/less/style.less']
+      less: ['assets/less/app.less']
     },
 
     clean: ['web/js/*', 'web/css/*', 'web/fonts/*', 'web/img/*'],
@@ -48,12 +48,6 @@ module.exports = function(grunt) {
           'assets/vendor/bootstrap/dist/js/bootstrap.js'
         ],
         dest: 'web/js/libraries.js'
-      },
-      vendor_css: {
-        src: [
-          'assets/vendor/bootstrap/dist/css/bootstrap.css'
-        ],
-        dest: 'web/css/libraries.css'
       }
     },
 
@@ -69,13 +63,36 @@ module.exports = function(grunt) {
           { dest: 'web/img/', cwd: 'assets/img/', src: '**', expand: true}
         ]
       },
-      bs_map: {
-        src: 'assets/vendor/bootstrap/dist/css/bootstrap.css.map',
-        dest: 'web/css/bootstrap.css.map'
-      },
       jq_map: {
         src: 'assets/vendor/jquery/dist/jquery.min.map',
         dest: 'web/js/jquery.min.map'
+      }
+    },
+
+    less_prod: {
+      app: {
+        options: {
+          strictImports : true,
+          compress: true
+        },
+        files: {
+          'web/css/<%= version %>.css': '<%= src.less %>'
+        }
+      }
+    },
+
+    less: {
+      app: {
+        options: {
+          strictImports : true,
+          sourceMap: true,
+          outputSourceFiles: true,
+          sourceMapURL: "<%= version %>.css.map",
+          compress: true
+        },
+        files: {
+          'web/css/<%= version %>.css': '<%= src.less %>'
+        }
       }
     },
 
@@ -90,29 +107,6 @@ module.exports = function(grunt) {
       vendor: {
         src: ['<%= concat.vendor_js.dest %>'],
         dest: '<%= concat.vendor_js.dest %>'
-      }
-    },
-
-    recess: {
-      build: {
-        files: {'web/css/<%= version %>.css': ['<%= src.less %>']},
-        options: {
-          compile: true
-        }
-      },
-      min: {
-        files: {'web/css/<%= version %>.css': ['<%= src.less %>']},
-        options: {
-          compress: true
-        }
-      }
-    },
-
-    jshint: {
-      files: ['gruntfile.js', '<%= src.js %>'],
-      options: {
-        jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
       }
     },
 
@@ -138,7 +132,8 @@ module.exports = function(grunt) {
       },
       less: {
         files: ['assets/less/**/*.less'],
-        tasks: ['recess:build']
+        tasks: ['less'],
+        options: { livereload: true }
       },
       images: {
         files: ['assets/img/**/*'],
