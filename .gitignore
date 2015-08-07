@@ -10,7 +10,6 @@
 /app/phpunit.xml
 /assets/vendor/
 /bin/
-/composer.phar
 /node_modules
 /vendor/
 /web/bundles/
@@ -19,3 +18,5 @@
 /web/js/
 /web/img/
 /web/webserver.php
+/docker-compose.yml
+/app/session

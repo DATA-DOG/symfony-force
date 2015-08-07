@@ -18,18 +18,18 @@
     "ext-pdo": "*",
     "ext-intl": "*",
 
-    "symfony/symfony": "~2.6.0",
-    "symfony/monolog-bundle": "~2.6",
+    "symfony/symfony": "~2.7.0",
+    "symfony/monolog-bundle": "~2.7",
 
-    "sensio/distribution-bundle": "~3.0.0",
+    "sensio/distribution-bundle": "~4.0.0",
     "sensio/framework-extra-bundle": "~3.0",
 
-    "doctrine/orm": "~2.4.0",
-    "doctrine/doctrine-bundle": "~1.2",
+    "doctrine/orm": "~2.5.0",
+    "doctrine/doctrine-bundle": "~1.4",
     "doctrine/doctrine-migrations-bundle": "~1.0",
     "doctrine/migrations": "~1.0@dev",
     "doctrine/data-fixtures": "~1.0",
-    "gedmo/doctrine-extensions": "~2.3.0",
+    "gedmo/doctrine-extensions": "~2.4.0",
 
     "twig/extensions": "~1.0",
     "knplabs/knp-menu-bundle": "~2.0.0",
@@ -41,7 +41,7 @@
     "sensio/generator-bundle": "~2.3",
     "fzaninotto/faker": "~1.4.0",
 
-    "phpspec/phpspec": "~2.1.0",
+    "phpunit/phpunit": "^4.7",
 
     "behat/behat": "~3.0.0",
     "behat/symfony2-extension": "~2.0.0",
@@ -56,7 +56,6 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "AppBundle\\Composer::installBinaries"
     ],
     "post-update-cmd": [
@@ -64,7 +63,6 @@
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
       "AppBundle\\Composer::installBinaries"
     ]
   },

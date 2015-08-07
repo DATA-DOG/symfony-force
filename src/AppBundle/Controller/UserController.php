@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -25,77 +26,43 @@ class UserController extends Controller
      * @Method("GET")
      * @Template
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
-        $session = $request->getSession();
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = '';
-        }
+        $authenticationUtils = $this->get('security.authentication_utils');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        // show messages for standard security exceptions
-        if ($error instanceof BadCredentialsException or $error instanceof InvalidCsrfTokenException) {
-            $error = $error->getMessage();
-        }
-
-        // if there was an unexpected exception, log it, and do not show it's message to user
-        if ($error instanceof \Exception) {
-            $this->get('logger')->error($error->getMessage());
-            $error = 'security.unexpected_error';
-        }
-
-        // translate an error
-        if ($error) {
-            switch ($error) {
-                case 'Bad credentials.':
-                    $error = 'security.bad_credentials';
-                    break;
-                case 'Invalid CSRF token.':
-                    $error = 'security.csrf_token_expired';
-                    break;
-            }
-            $error = $this->get('translator')->trans($error);
-        }
-
-        // last username entered by the user
-        $username = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
-        $csrf_token = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
-
-        return compact('username', 'error', 'csrf_token');
+        return $this->render('AppBundle:User:login.html.twig', [
+            'lastUsername' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
     /**
      * @Route("/signup")
      * @Method({"GET", "POST"})
-     * @Template
      */
     public function signupAction(Request $request)
     {
         $form = $this->createForm(new SignupType(), $user = new User());
-        $response = function() use($form) {
-            return ['form' => $form->createView()];
-        };
+
         $form->handleRequest($request);
         if (!$form->isValid()) {
-            return $response();
+            return $this->renderSignUp($form);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $same = $em->getRepository('AppBundle:User')->findOneByEmail($user->getEmail());
+        $same = $em->getRepository('AppBundle:User')->findOneBy(['email'=>$user->getEmail()]);
         if (null !== $same and $same->isConfirmed()) {
             $msg = $this->get('translator')->trans('form.signup.already_confirmed', ['%email%' => $user->getEmail()]);
             $form->get('email')->addError(new FormError($msg));
-            return $response();
+            return $this->renderSignUp($form);
         }
 
         if (null !== $same) {
             // @TODO: resend confirmation email
             $this->flash('info', "flashes.info.user_confirmation_resent", ['%email%' => $user->getEmail()]);
-            return $response();
+            return $this->renderSignUp($form);
         }
 
         $user->regenerateConfirmationToken();
@@ -105,6 +72,13 @@ class UserController extends Controller
         // @TODO: send an email message with confirmation uri
         $this->flash('success', "flashes.success.user_signup");
         return $this->redirect($this->generateUrl('app_user_login'));
+    }
+
+    private function renderSignUp(FormInterface $form)
+    {
+        return $this->render('AppBundle:User:signup.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

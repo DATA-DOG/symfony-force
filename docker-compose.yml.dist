@@ -1,0 +1,21 @@
+php:
+  image: datadoglt/php56
+  links: [mysql]
+  volumes: [ ".:/var/www", "app/Resources/docker/init.sh:/init.sh", "app/session:/var/lib/php/session" ]
+
+web:
+  image: datadoglt/nginx-sf
+  volumes: [".:/var/www"]
+  ports: [80]
+  links: [php]
+  environment: { VIRTUAL_HOST: symfony.dev,admin.symfony.dev }
+
+mysql:
+  image: mysql
+  hostname: mysql
+  ports: ["3306"]
+  environment:
+    MYSQL_DATABASE: symfony2
+    MYSQL_USER: symfony2
+    MYSQL_PASSWORD: symfony2
+    MYSQL_ROOT_PASSWORD: mysecretpw

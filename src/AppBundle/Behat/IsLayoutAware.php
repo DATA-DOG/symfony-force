@@ -17,6 +17,7 @@ trait IsLayoutAware
             $type = 'info';
             break;
         }
+
         $q = '//div[contains(@class, "alert") and contains(@class, "alert-' . $type . '") and contains(., "' . $text . '")]';
         if (null === $this->getSession()->getPage()->find('xpath', $q)) {
             throw new \RuntimeException("Notification of type '$type' with message '$text' was not found on page");
