@@ -7,9 +7,9 @@ module.exports = function(grunt) {
   grunt.option('force', true);
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean', 'concat', 'less', 'copy']);
+  grunt.registerTask('build', ['clean', 'concat', 'less:dev', 'copy']);
   grunt.registerTask('dev', ['build', 'watch']);
-  grunt.registerTask('release', ['clean', 'concat', 'less_prod', 'uglify', 'copy', 'shell']);
+  grunt.registerTask('release', ['clean', 'concat', 'less:prod', 'uglify', 'copy', 'shell']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -69,25 +69,21 @@ module.exports = function(grunt) {
       }
     },
 
-    less_prod: {
-      app: {
-        options: {
-          strictImports : true,
-          compress: true
-        },
-        files: {
-          'web/css/<%= version %>.css': '<%= src.less %>'
-        }
-      }
-    },
-
     less: {
-      app: {
+      dev: {
         options: {
           strictImports : true,
           sourceMap: true,
           outputSourceFiles: true,
-          sourceMapURL: "<%= version %>.css.map",
+          sourceMapURL: "<%= version %>.css.map"
+        },
+        files: {
+          'web/css/<%= version %>.css': '<%= src.less %>'
+        }
+      },
+      prod: {
+        options: {
+          strictImports : true,
           compress: true
         },
         files: {
@@ -132,7 +128,7 @@ module.exports = function(grunt) {
       },
       less: {
         files: ['assets/less/**/*.less'],
-        tasks: ['less'],
+        tasks: ['less:dev'],
         options: { livereload: true }
       },
       images: {
