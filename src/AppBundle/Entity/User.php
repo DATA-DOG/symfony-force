@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Mailer\ContactInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, ContactInterface
 {
     static public $roleMap = [
         'ROLE_USER' => 1,
@@ -296,5 +297,13 @@ class User implements UserInterface, \Serializable
             $this->email,
             $this->id
         ) = $data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return trim($this->firstname . ' ' . $this->lastname);
     }
 }
