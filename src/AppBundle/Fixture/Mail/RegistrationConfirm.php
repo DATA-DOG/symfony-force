@@ -3,37 +3,18 @@
 namespace AppBundle\Fixture\Users;
 
 use AppBundle\Entity\MailTemplate;
-use AppBundle\Fixture\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 
-class RegistrationConfirm implements FixtureInterface, ContainerAwareInterface
+class RegistrationConfirm implements FixtureInterface, OrderedFixtureInterface
 {
-    private $container;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($environment)
-    {
-        return in_array($environment, ['dev', 'prod']);
-    }
-
     /**
      * {@inheritDoc}
      */
     public function getOrder()
     {
-        return 10; // may need some groups or over related stuff created before
+        return 0;
     }
 
     public function load(ObjectManager $manager)

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="mail_template")
+ * @ORM\Table(name="mail_templates")
  */
 class MailTemplate
 {
@@ -39,13 +39,13 @@ class MailTemplate
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", name="created_at")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", name="updated_at")
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
