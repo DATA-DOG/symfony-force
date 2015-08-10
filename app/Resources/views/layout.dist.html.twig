@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% if title is defined %}{{ title }}{% else %}Symfony2 application skeleton{% endif %} | Deathstar</title>
+
+    <link rel="stylesheet" href="{{ asset("css/<%= version %>.css") }}">
+    {% block css %}{% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+{% block body %}{% endblock %}
+
+<script src="{{ asset("js/libraries.js") }}"></script>
+<script src="{{ asset("js/<%= version %>.js") }}"></script>
+{% block js %}{% endblock %}
+</body>
+</html>
