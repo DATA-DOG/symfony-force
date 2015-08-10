@@ -2,14 +2,15 @@
 
 namespace AppBundle\Fixture\Users;
 
-use AppBundle\Fixture\FixtureInterface;
 use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DevUsers implements FixtureInterface, ContainerAwareInterface
+class DevUsers implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
 {
     private $container;
 
@@ -19,14 +20,6 @@ class DevUsers implements FixtureInterface, ContainerAwareInterface
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($environment)
-    {
-        return in_array($environment, ['dev']);
     }
 
     /**
@@ -42,9 +35,13 @@ class DevUsers implements FixtureInterface, ContainerAwareInterface
      */
     function load(ObjectManager $em)
     {
+        if (!in_array($this->container->getParameter('kernel.environment'), ['dev'])) {
+            return; // only for dev environment
+        }
+
         $faker = Factory::create();
         $users = [
-            'master' => ['ROLE_ADMIN'],
+            'joda' => ['ROLE_ADMIN'],
             'luke' => ['ROLE_USER'],
         ];
         foreach ($users as $username => $roles) {

@@ -8,8 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader as DataFixturesLoader;
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\ORM\EntityManager;
-use AppBundle\Fixture\FixtureInterface;
 use AppBundle\Entity\Internal\Fixture;
 
 class FixturesCommand extends DoctrineCommand
@@ -69,13 +69,12 @@ EOT
         $env = $this->getContainer()->getParameter('kernel.environment');
         $output->writeln("Loading <comment>fixtures</comment>...");
 
-        $fixtures = array_filter($loader->getFixtures(), function(FixtureInterface $fixture) use($env, $loaded) {
-            foreach ($loaded as $l) {
-                if ($l->getName() === get_class($fixture)) {
-                    return false;
-                }
-            }
-            return $fixture->supports($env);
+        $has = array_map(function (Fixture $fixture) {
+            return $fixture->getName();
+        }, $loaded);
+
+        $fixtures = array_filter($loader->getFixtures(), function(FixtureInterface $fixture) use($has) {
+            return !in_array(get_class($fixture), $has);
         });
 
         if (!$fixtures) {
