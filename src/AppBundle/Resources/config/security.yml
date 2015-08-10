@@ -2,3 +2,16 @@ services:
   app.password_encoder:
     class: Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder
     arguments: [12] # cost
+
+  mail:
+    class: AppBundle\Mailer\Mailer
+    arguments:
+      - @mailer
+      - @templating
+      - @em
+      - %mailer_sender%
+
+  twig.extension.string_loader:
+    class: Twig_Extension_StringLoader
+    tags:
+     - { name: twig.extension }

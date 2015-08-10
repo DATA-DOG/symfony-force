@@ -55,3 +55,11 @@ doctrine_migrations:
   table_name: app_migrations
   name: App migrations
 
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    auth_mode: "%mailer_auth_mode%"
+    port:      "%mailer_port%"
+    spool:     { type: memory }
