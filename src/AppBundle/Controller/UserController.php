@@ -69,7 +69,7 @@ class UserController extends Controller
         $this->flush();
 
         $this->get('mail')->user($user, 'activate_email', [
-            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()]),
+            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
         // @TODO: send an email message with confirmation uri
@@ -166,7 +166,7 @@ class UserController extends Controller
         // @TODO: captcha after 3 failed attempts
 
         $this->get('mail')->user($user, 'activate_email', [
-            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()]),
+            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
         $this->flash('success', "flashes.success.user_reset_requested", ['%email%' => $email]);
