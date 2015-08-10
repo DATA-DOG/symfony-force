@@ -5,5 +5,5 @@ front1 ansible_ssh_host=192.168.50.100 ansible_ssh_user=vagrant ansible_ssh_priv
 [frontends]
 front1
 
-[staging:children]
+[development:children]
 frontends

@@ -45,7 +45,15 @@
   tags: [ frontend ]
 
 - name: warmup cache
-  shell: chdir={{ builds }}/{{ next_release.stdout }} php app/console ca:w --env=prod
+  shell: chdir={{ builds }}/{{ next_release.stdout }} php app/console cache:warmup --env=prod
+  tags: [ frontend ]
+
+- name: run migrations
+  shell: chdir={{ builds }}/{{ next_release.stdout }} php app/console doctrine:migrations:migrate --no-interaction --env=prod
+  tags: [ frontend ]
+
+- name: run fixtures
+  shell: chdir={{ builds }}/{{ next_release.stdout }} php app/console app:fixtures --env=prod
   tags: [ frontend ]
 
 - name: move successful build to releases
@@ -57,6 +65,8 @@
   tags: [ frontend ]
 
 - name: clear previous release cache
-  shell: chdir={{ prev_release.stdout.strip() }} php app/console ca:c --env=prod
+  shell: chdir={{ prev_release.stdout.strip() }} php app/console app:cache:clear --env=prod
   when: prev_release.stdout.strip() != ""
+  ignore_errors: true
   tags: [ frontend ]
+

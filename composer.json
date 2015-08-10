@@ -11,11 +11,13 @@
   "autoload-dev": {},
 
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=5.6.0",
     "ext-curl": "*",
     "ext-mbstring": "*",
     "ext-mcrypt": "*",
     "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-redis": "*",
     "ext-intl": "*",
 
     "symfony/symfony": "~2.7.0",

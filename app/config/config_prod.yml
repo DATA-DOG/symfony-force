@@ -1,15 +1,19 @@
 imports:
   - { resource: config.yml }
 
-#framework:
-#    validation:
-#        cache: apc
+services:
+  validator.mapping.cache.redis: @cache.default
+  doctrine.orm.default_query_cache: @cache.default
+  doctrine.orm.default_metadata_cache: @cache.default
+  doctrine.orm.default_result_cache: @cache.default
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+framework:
+  validation:
+    cache: cache.default
+  serializer:
+    cache: cache.default
+  session:
+    handler_id: session.handler.redis
 
 monolog:
   handlers:

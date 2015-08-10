@@ -1,8 +1,4 @@
 ---
-# - name: get epel supervisor centos 6
-#   get_url: dest=/etc/yum.repos.d/epel-supervisor.repo url=http://repos.fedorapeople.org/repos/rmarko/supervisor/epel-supervisor.repo
-#   tags: [ supervisor ]
-
 - name: install supervisor
   yum: name=supervisor state=latest
   tags: [ supervisor ]

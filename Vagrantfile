@@ -3,7 +3,7 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
-Vagrant.require_version '>= 1.5.1'
+Vagrant.require_version '>= 1.7.0'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define 'front1' do |front|
@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = 'ansible/playbook.yml'
-    ansible.inventory_path = 'ansible/staging'
+    ansible.inventory_path = 'ansible/development'
   end
 end
 

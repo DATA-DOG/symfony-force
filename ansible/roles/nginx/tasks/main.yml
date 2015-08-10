@@ -21,7 +21,7 @@
 - name: ensure main nginx configuration file is present
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root mode=0644 backup=yes
   notify:
-    - nginx reload
+    - nginx restart
   tags: [ nginx ]
 
 - name: ensure that nginx log dir is writable by user
@@ -39,5 +39,5 @@
     dest=/etc/nginx/sites-enabled/{{ name }}.conf
     owner=root state=link
   notify:
-    - nginx reload
+    - nginx restart
   tags: [ nginx ]

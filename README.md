@@ -64,7 +64,7 @@ Edit **package.json** to manage grunt dev dependencies and **gruntfile.js** to m
 
 ## Release package
 
-To prepare a release archive **ansible/app.tar.gz** run:
+To prepare a release archive **ansible/frontend.tar.gz** run:
 
     grunt release
 

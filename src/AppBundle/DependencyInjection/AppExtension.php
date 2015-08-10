@@ -17,5 +17,11 @@ class AppExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('security.yml');
         $loader->load('menu.yml');
+
+        if ($container->getParameter('kernel.environment') === 'prod') {
+            $loader->load('cache_prod.yml');
+        } else {
+            $loader->load('cache.yml');
+        }
     }
 }

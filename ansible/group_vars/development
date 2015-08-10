@@ -1,6 +1,6 @@
 # vi: set ft=yaml ts=2 sw=2 sts=2 :
 
-hostname: deathstar.stag
+hostname: deathstar.dev
 https: false
 
 db_user: root

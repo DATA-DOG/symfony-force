@@ -9,3 +9,4 @@ current: "{{ home }}/{{ name }}/current"
 builds: "{{ home }}/{{ name }}/builds"
 shared: "{{ home }}/{{ name }}/shared"
 
+ansible_python_interpreter: "/usr/bin/python"

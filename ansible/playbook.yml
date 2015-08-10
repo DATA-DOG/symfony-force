@@ -4,22 +4,17 @@
   sudo: yes
   tasks:
     - name: ensure epel repo present
-      yum: name=http://mirror.duomenucentras.lt/epel/7/x86_64/e/epel-release-7-5.noarch.rpm state=installed
+      yum: pkg=epel-release state=installed
 
     - name: ensure remi repo present
       yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=installed
-
-    - name: Import EPEL GPG key.
-      rpm_key: key={{ item }} state=present
-      with_items:
-        - "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7"
-        - "/etc/pki/rpm-gpg/RPM-GPG-KEY-remi"
 
 # provision and deploy frontends
 - hosts: frontends
   roles:
     - { role: user, sudo: yes }
     - { role: mysql, sudo: yes }
+    - { role: redis, sudo: yes }
     - { role: php-fpm, sudo: yes }
     - { role: nginx, sudo: yes }
     - { role: skel, sudo: yes, sudo_user: "{{ user }}" }

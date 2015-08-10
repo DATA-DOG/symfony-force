@@ -1,3 +1,4 @@
+# vi: set ft=yaml ts=2 sw=2 sts=2 :
 parameters:
   database_driver: pdo_mysql
   database_host: 127.0.0.1
@@ -8,6 +9,7 @@ parameters:
 
   locale: en
   secret: ThisTokenIsNotSoSecretChangeItOnProduction
+  cache_namespace: deathstar # should be unique per release on production
 
   mailer_transport: smtp
   mailer_host: mailtrap.io
@@ -16,3 +18,6 @@ parameters:
   mailer_sender: { noreply@deathstart.dev: "Death Star" }
   mailer_auth_mode: cram-md5
   mailer_port: 2525
+
+  redis_host: 127.0.0.1
+  redis_port: 6379
