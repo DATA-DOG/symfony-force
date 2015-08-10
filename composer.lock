@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "330e19b5799217a8eb9888fd42ede6d6",
+    "hash": "095d88154d902adb2d502d5b9657288d",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -45,6 +45,75 @@
                 "transliterator"
             ],
             "time": "2014-05-15 22:08:22"
+        },
+        {
+            "name": "data-dog/pager-bundle",
+            "version": "v0.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DATA-DOG/DataDogPagerBundle.git",
+                "reference": "f95dd149a6b08fc92791d7a0748c2ca865be74cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DATA-DOG/DataDogPagerBundle/zipball/f95dd149a6b08fc92791d7a0748c2ca865be74cb",
+                "reference": "f95dd149a6b08fc92791d7a0748c2ca865be74cb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.3",
+                "php": ">=5.4.0",
+                "symfony/framework-bundle": "~2.3",
+                "twig/twig": "~1.5"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.4",
+                "doctrine/doctrine-fixtures-bundle": "~2.2.0",
+                "doctrine/orm": "~2.5.0",
+                "ext-pdo": "*",
+                "ext-pdo_sqlite": "*",
+                "fzaninotto/faker": "~1.5",
+                "phpunit/phpunit": "~4.7.0",
+                "sensio/framework-extra-bundle": "~3.0.9",
+                "symfony/symfony": "~2.7.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DataDog\\PagerBundle\\": "src/DataDog/PagerBundle"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DataDog Team",
+                    "homepage": "http://datadog.lt"
+                },
+                {
+                    "name": "Symfony2 Community",
+                    "homepage": "http://github.com/DATA-DOG/DataDogPagerBundle/contributors"
+                }
+            ],
+            "description": "Paginator bundle for symfony2 and doctrine orm, allows customization with filters and sorters",
+            "homepage": "http://github.com/DATA-DOG/DataDogPagerBundle",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "doctrine",
+                "orm",
+                "pager",
+                "pagination",
+                "paginator"
+            ],
+            "time": "2015-08-05 13:39:59"
         },
         {
             "name": "doctrine/annotations",
@@ -2773,16 +2842,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.2",
+            "version": "4.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "748c6963c0a8c983fa69ee8884c885d0e98209bf"
+                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/748c6963c0a8c983fa69ee8884c885d0e98209bf",
-                "reference": "748c6963c0a8c983fa69ee8884c885d0e98209bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fd3050e26e3105f416d74c4d33aea659b406c59d",
+                "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d",
                 "shasum": ""
             },
             "require": {
@@ -2841,7 +2910,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-07 12:56:50"
+            "time": "2015-08-10 09:16:56"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3327,11 +3396,13 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0",
+        "php": ">=5.6.0",
         "ext-curl": "*",
         "ext-mbstring": "*",
         "ext-mcrypt": "*",
         "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-redis": "*",
         "ext-intl": "*"
     },
     "platform-dev": []

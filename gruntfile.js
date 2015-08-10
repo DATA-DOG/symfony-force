@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    version: '<%= pkg.name %>-<%= pkg.version %>',
+    version: '<%= pkg.version %>',
     banner: '/**\n' +
       ' * <%= pkg.name %> - v<%= pkg.version %>\n' +
       ' *\n' +
@@ -28,33 +28,58 @@ module.exports = function(grunt) {
       ' */\n',
 
     src: {
-      js: ['assets/js/**/*.js'],
-      less: ['assets/less/app.less']
+      app: {
+        js: ['assets/js/app/**/*.js'],
+        js_vendor: [
+          'assets/vendor/jquery/dist/jquery.js',
+          'assets/vendor/bootstrap/dist/js/bootstrap.js'
+        ],
+        less: ['assets/less/app.less']
+      },
+      admin: {
+        js: ['assets/js/admin/**/*.js'],
+        js_vendor: [
+          'assets/vendor/jquery/dist/jquery.js',
+          'assets/vendor/bootstrap/dist/js/bootstrap.js'
+        ],
+        less: ['assets/less/admin.less']
+      }
     },
 
     clean: ['web/js/*', 'web/css/*', 'web/fonts/*', 'web/img/*'],
 
     concat: {
-      js: {
+      app_js: {
         options: {
           banner: "<%= banner %>"
         },
-        src: ['<%= src.js %>'],
-        dest: 'web/js/<%= version %>.js'
+        src: ['<%= src.app.js %>'],
+        dest: 'web/js/app-<%= version %>.js'
       },
-      layout: {
-        src: ['app/Resources/views/layout.dist.html.twig'],
-        dest: 'app/Resources/views/layout.html.twig',
+      admin_js: {
         options: {
-          process: true
-        }
+          banner: "<%= banner %>"
+        },
+        src: ['<%= src.admin.js %>'],
+        dest: 'web/js/admin-<%= version %>.js'
       },
-      vendor_js: {
-        src: [
-          'assets/vendor/jquery/dist/jquery.js',
-          'assets/vendor/bootstrap/dist/js/bootstrap.js'
-        ],
-        dest: 'web/js/libraries.js'
+      app_layout: {
+        src: ['app/Resources/views/base.dist.html.twig'],
+        dest: 'app/Resources/views/base.html.twig',
+        options: { process: true }
+      },
+      admin_layout: {
+        src: ['app/Resources/views/admin.dist.html.twig'],
+        dest: 'app/Resources/views/admin.html.twig',
+        options: { process: true }
+      },
+      app_vendor_js: {
+        src: '<%= src.app.js_vendor %>',
+        dest: 'web/js/app-libraries-<%= version %>.js'
+      },
+      admin_vendor_js: {
+        src: '<%= src.admin.js_vendor %>',
+        dest: 'web/js/admin-libraries-<%= version %>.js'
       }
     },
 
@@ -62,7 +87,8 @@ module.exports = function(grunt) {
       fonts: {
         files: [
           { dest: 'web/fonts/', cwd: 'assets/fonts/', src: '**', expand: true},
-          { dest: 'web/fonts/', cwd: 'assets/vendor/bootstrap/dist/fonts/', src: '**', expand: true}
+          { dest: 'web/fonts/', cwd: 'assets/vendor/bootstrap/dist/fonts/', src: '**', expand: true},
+          { dest: 'web/fonts/', cwd: 'assets/vendor/fontawesome/fonts/', src: '**', expand: true}
         ]
       },
       images: {
@@ -77,16 +103,28 @@ module.exports = function(grunt) {
     },
 
     less: {
-      all: {
+      app: {
         options: {
           strictImports : true,
           compress: isRelease,
           sourceMap: !isRelease,
           outputSourceFiles: !isRelease,
-          sourceMapURL: "<%= version %>.css.map"
+          sourceMapURL: "app-<%= version %>.css.map"
         },
         files: {
-          'web/css/<%= version %>.css': '<%= src.less %>'
+          'web/css/app-<%= version %>.css': '<%= src.app.less %>'
+        }
+      },
+      admin: {
+        options: {
+          strictImports : true,
+          compress: isRelease,
+          sourceMap: !isRelease,
+          outputSourceFiles: !isRelease,
+          sourceMapURL: "admin-<%= version %>.css.map"
+        },
+        files: {
+          'web/css/admin-<%= version %>.css': '<%= src.admin.less %>'
         }
       }
     },
@@ -96,12 +134,19 @@ module.exports = function(grunt) {
         options: {
           banner: "<%= banner %>"
         },
-        src: ['<%= concat.js.dest %>'],
-        dest: '<%= concat.js.dest %>'
+        src: ['<%= concat.app_js.dest %>'],
+        dest: '<%= concat.app_js.dest %>'
+      },
+      admin: {
+        options: {
+          banner: "<%= banner %>"
+        },
+        src: ['<%= concat.admin_js.dest %>'],
+        dest: '<%= concat.admin_js.dest %>'
       },
       vendor: {
-        src: ['<%= concat.vendor_js.dest %>'],
-        dest: '<%= concat.vendor_js.dest %>'
+        src: ['<%= concat.app_vendor_js.dest %>'],
+        dest: '<%= concat.admin_vendor_js.dest %>'
       }
     },
 
@@ -125,8 +170,8 @@ module.exports = function(grunt) {
 
     watch: {
       js: {
-        files: ['<%= src.js %>'],
-        tasks: ['concat:js']
+        files: ['<%= src.app.js %>', '<%= src.admin.js %>'],
+        tasks: ['concat:app_js', 'concat:admin_js']
       },
       less: {
         files: ['assets/less/**/*.less'],
@@ -138,8 +183,8 @@ module.exports = function(grunt) {
         tasks: ['copy:images']
       },
       layout: {
-        files: ['<%= concat.layout.src %>'],
-        tasks: ['concat:layout']
+        files: ['<%= concat.app_layout.src %>', '<%= concat.admin_layout.src %>'],
+        tasks: ['concat:layout_app', 'concat:layout_admin']
       }
     }
 

@@ -28,3 +28,4 @@ form:
       lastname: "Lastname"
       password: "Password"
       repeat_password: "Repeat password"
+  submit: 'Submit'

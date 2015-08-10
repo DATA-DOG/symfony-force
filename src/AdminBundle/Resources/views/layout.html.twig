@@ -1,0 +1,20 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path("admin") }}">
+                    Deathstar:Admin
+                </a>
+            </div>
+            {{ knp_menu_render('AdminBundle:MenuBuilder:user', {currentClass: 'active'}) }}
+            {{ knp_menu_render('AdminBundle:MenuBuilder:main', {currentClass: 'active'}) }}
+        </div>
+    </nav>
+
+    <div class="container container-content">
+        {% block content %}{% endblock %}
+    </div>
+
+{% endblock body %}

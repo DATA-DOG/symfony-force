@@ -1,0 +1,4 @@
+user:
+    form:
+        edit_title: Edit user
+        new_title: Create new user
