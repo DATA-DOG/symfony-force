@@ -6,10 +6,17 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   grunt.option('force', true);
 
-  grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean', 'concat', 'less:dev', 'copy']);
+  grunt.registerTask('build', ['clean', 'concat', 'less', 'copy']);
   grunt.registerTask('dev', ['build', 'watch']);
-  grunt.registerTask('release', ['clean', 'concat', 'less:prod', 'uglify', 'copy', 'shell']);
+  grunt.registerTask('release', ['build', 'removelogging', 'uglify', 'shell:release']);
+  grunt.registerTask('default', ['build']);
+
+  var isRelease = false;
+  grunt.cli.tasks.forEach(function (ts) {
+    if (ts === 'release') {
+      isRelease = true;
+    }
+  });
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -70,21 +77,13 @@ module.exports = function(grunt) {
     },
 
     less: {
-      dev: {
+      all: {
         options: {
           strictImports : true,
-          sourceMap: true,
-          outputSourceFiles: true,
+          compress: isRelease,
+          sourceMap: !isRelease,
+          outputSourceFiles: !isRelease,
           sourceMapURL: "<%= version %>.css.map"
-        },
-        files: {
-          'web/css/<%= version %>.css': '<%= src.less %>'
-        }
-      },
-      prod: {
-        options: {
-          strictImports : true,
-          compress: true
         },
         files: {
           'web/css/<%= version %>.css': '<%= src.less %>'
@@ -106,18 +105,21 @@ module.exports = function(grunt) {
       }
     },
 
+    removelogging: {
+      app: {
+        src: "<%= concat.js.dest %>",
+        dest: "<%= concat.js.dest %>"
+      }
+    },
+
     shell: {
-      composer_prod: {
-        command: 'composer install --no-scripts --no-dev'
-      },
-      composer_dump: {
-        command: 'composer dump-autoload --optimize'
-      },
-      archive: {
-        command: 'bin/archive ansible/frontend.tar.gz'
-      },
-      composer_back: {
-        command: 'composer install'
+      release: {
+        command: [
+          'composer install --no-scripts --no-dev',
+          'composer dump-autoload --optimize',
+          'bin/archive ansible/frontend.tar.gz',
+          'composer install'
+        ].join('&&')
       }
     },
 
