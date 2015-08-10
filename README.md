@@ -1,14 +1,19 @@
-# Symfony2 skeleton application
-**Intention**: Make a modifyable application skeleton.
+# Symfony2 force
+
+**Intention**: Make a common symfony2 bootstrap application skeleton.
 Powered by **bootstrap3**, **grunt**, **bower** and all the best tools available today.
+The environment may be setup with **docker**, **vagrant** or local installation. A team should clone
+the project and strip it down to whatever works for them.
 
 ## Development requirements
+
 - linux, mac machine
-- php 5.4 or higher
+- php 5.5 or higher
 - nodejs - [grunt](http://gruntjs.com/) and [bower](http://bower.io/)
 - [composer](https://getcomposer.org/)
 
 ## Installation
+
 Install composer dependencies:
 
     composer install
@@ -32,7 +37,7 @@ Reload application database.. Runs migrations and fixtures.
 
 Start serving application in **dev** environment:
 
-    bin/webserver start dev
+    app/console server:run
 
 ### .editorconfig
 
@@ -64,9 +69,10 @@ Grunt is a build tool. In current application, it:
 Edit **package.json** to manage grunt dev dependencies and **gruntfile.js** to manage project build configuration.
 
 ## Release package
-To prepare a release archive run:
 
-    grunt release {/path/to/install/app_archive.tar.gz}
+To prepare a release archive **ansible/app.tar.gz** run:
+
+    grunt release
 
 Why release package is better than cloned source? First of all, you do not need any tools to prepare your source
 on production servers, etc.: nodejs, composer, git. Second, network may fail on deployment while downloading third party
@@ -86,11 +92,11 @@ See [phpspec](http://www.phpspec.net/) for reference.
     bin/phpspec run spec/AppBundle/Entity
 
 ### Behat
+
 See [behat3](http://docs.behat.org/en/latest/) for reference.
 To run behat tests:
 
     bin/reload test
-    bin/webserver restart test
     bin/behat
 
 Tests are using **sqlite** database. If you need to check database after a failed scenario:
@@ -98,6 +104,7 @@ Tests are using **sqlite** database. If you need to check database after a faile
     sqlite3 app/logs/test.db
 
 ## Application
+
 What comes with this skeleton application.
 
 - migrations and fixtures. Fixtures are executed once as a data migration subject, they are ordered and environment
@@ -111,9 +118,11 @@ See **app/config/doctrine_extensions.yml**.
 - a command to check **anonymously accessible routes** all commands are under **app** namespace.
 
 ### Binaries
+
 Application installs some convenient binary executables on composer install|update hooks.
 
 #### Reload
+
 **reload** - reloads your application datasources in the order: drop database(if available), create database, run migrations,
 load fixtures, clear and warmup cache. These binaries are located in **src/AppBundle/Resources/bin** and may be adapted
 for custom usage.
@@ -123,22 +132,26 @@ for custom usage.
 Would reload application for **test** environment. Default is **dev** as usual in symfony2 application.
 
 #### Selenium
+
 **selenium** binary is used to download(if not yet available) a standalone selenium server and start|stop|restart it on
 default port. It is useful if you have behat features dependent on javascript, which is not advisable if possible avoid it.
 
 #### Archive
+
 **archive** binary is used to archive an application to **tar.gz** for production use in order to upload and deploy it
 without any dependencies.
 
     bin/archive /directory/release.tar.gz
 
 ## Vagrant
+
 Currently **Vagrant** provisions with **ansible** and deploys into a VirtualBox centos linux machine.
 In order to run successfully, you will need **virtualbox, ansible, vagrant** installed on your system.
 
     vagrant up
 
 ## Notes
+
 - It is advisable to adapt skeleton sources to application needs
 - If there are two applications like **admin** and **client** - **AppBundle** can be moved into separate repository.
 It will install the same binaries and have migrations and fixtures ready.

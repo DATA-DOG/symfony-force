@@ -114,7 +114,7 @@ module.exports = function(grunt) {
         command: 'composer dump-autoload --optimize'
       },
       archive: {
-        command: 'bin/archive ansible/frontend.tar.gz'
+        command: 'bin/archive ansible/app.tar.gz'
       },
       composer_back: {
         command: 'composer install'
