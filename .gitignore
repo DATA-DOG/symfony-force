@@ -6,7 +6,8 @@
 /app/config/parameters.yml
 /app/logs/*
 /app/spool-test
-/app/Resources/views/layout.html.twig
+/app/Resources/views/base.html.twig
+/app/Resources/views/admin.html.twig
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml

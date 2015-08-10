@@ -1,0 +1,43 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block content %}
+  <h1>
+    Users
+    <a href="{{ url('admin_user_create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new user</a>
+  </h1>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><i class="fa fa-users"></i> Users</div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ sorter_link(users, 'u.email', 'Email') }}</th>
+          <th>{{ sorter_link(users, 'u.firstname', 'Name') }}</th>
+          <th>{{ sorter_link(users, 'u.createdAt', 'Registered on') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td class="col-min">{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.fullName }}</td>
+            <td>{{ user.createdAt|date }}</td>
+            <td class="col-min">
+              <a href="{{ url('admin_user_edit', {id: user.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="{{ url('admin_user_delete', {id: user.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      {{ pagination(users) }}
+    </div>
+  </div>
+{% endblock %}

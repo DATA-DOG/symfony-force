@@ -7,10 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface, \Serializable, ContactInterface
 {
@@ -28,8 +30,8 @@ class User implements UserInterface, \Serializable, ContactInterface
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="app.user.email.blank", groups={"signup"})
-     * @Assert\Email(message="app.user.email.invalid", groups={"signup"})
+     * @Assert\NotBlank(message="app.user.email.blank")
+     * @Assert\Email(message="app.user.email.invalid")
      */
     private $email;
 

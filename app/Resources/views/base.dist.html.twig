@@ -6,7 +6,7 @@
 
     <title>{% if title is defined %}{{ title }}{% else %}Symfony2 Force Edition{% endif %} | Deathstar</title>
 
-    <link rel="stylesheet" href="{{ asset("css/<%= version %>.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/app-<%= version %>.css") }}">
     {% block css %}{% endblock %}
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -22,8 +22,8 @@
 
 {% block body %}{% endblock %}
 
-<script src="{{ asset("js/libraries.js") }}"></script>
-<script src="{{ asset("js/<%= version %>.js") }}"></script>
+<script src="{{ asset("js/app-libraries-<%= version %>.js") }}"></script>
+<script src="{{ asset("js/app-<%= version %>.js") }}"></script>
 {% block js %}{% endblock %}
 </body>
 </html>
