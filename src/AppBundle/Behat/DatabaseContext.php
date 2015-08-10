@@ -2,26 +2,27 @@
 
 namespace AppBundle\Behat;
 
-use Doctrine\ORM\Tools\SchemaTool;
-use Behat\Behat\Context\Context;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
+use AppBundle\Behat\Doctrine\PlaceholderListener;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 
-class DatabaseContext implements Context, KernelAwareContext
+class DatabaseContext extends BaseContext
 {
-    use IsKernelAware;
-
     /**
      * @BeforeScenario
      */
-    public function cleanDatabase()
+    function begin(BeforeScenarioScope $scope)
     {
-        $dbPath = sprintf('%s/%s.db', $this->getParameter('kernel.logs_dir'), $this->kernel->getEnvironment());
-        file_exists($dbPath) and @unlink($dbPath);
+        $placeholders = $scope->getEnvironment()->getContext('AppBundle\Behat\PlaceholderContext');
+        $this->get('em')->getEventManager()->addEventSubscriber(new PlaceholderListener($placeholders));
 
-        $em = $this->get('em');
-        $metadata = $em->getMetadataFactory()->getAllMetadata();
+        $this->get('db')->beginTransaction();
+    }
 
-        $schemaTool = new SchemaTool($em);
-        $schemaTool->createSchema($metadata);
+    /**
+     * @AfterScenario
+     */
+    function rollback()
+    {
+        $this->get('db')->rollback();
     }
 }

@@ -16,6 +16,7 @@ ansible
 app/cache/*
 app/logs
 app/spool
+app/spool-test
 app/check.php
 app/SymfonyRequirements.php
 app/config/parameters.*
@@ -25,7 +26,7 @@ app/config/config_test.yml
 app/Resources/views/layout.dist.html.twig
 app/Resources/docker
 assets
-behat.*
+behat.yml*
 bin
 bower.json
 composer.*

@@ -2,16 +2,11 @@
 
 namespace AppBundle\Behat;
 
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Entity\User;
 
-class UserContext extends RawMinkContext implements KernelAwareContext
+class UserContext extends BaseContext
 {
-    use IsNavigationAware;
-    use IsLayoutAware;
-
     /**
      * @BeforeScenario
      */
@@ -49,13 +44,36 @@ class UserContext extends RawMinkContext implements KernelAwareContext
     }
 
     /**
-     * @When /^I confirm my account "([^"]+)" with personal details$/
+     * @Given /^I have signed up as "([^"]*)"$/
      */
-    function iAmConfirmingMyAccount($name)
+    function iHaveSignedUpAs($email)
     {
-        $user = $this->userNamed('unconfirmed', $name);
-        $page = $this->iFollowConfirmationLinkFromMyEmail($user->getEmail());
-        $page->confirmWithPersonalDetails($name);
+        $this->visit('app_user_signup');
+        $this->mink->fillField('Email', $email);
+        $this->mink->pressButton('Signup');
+    }
+
+    /**
+     * @When /^I fill in my personal details$/
+     */
+    function iFillInMyPersonalDetails()
+    {
+        // look in placeholders
+        $user = null;
+        foreach ($this->placeholders->all() as $key => $id) {
+            if (strpos($key, '@') !== false) {
+                $user = $this->repo('AppBundle:User')->findOneById($id);
+            }
+        }
+        $this->true($user instanceof User, "User must be on confirm page");
+        $name = substr($user->getEmail(), 0, strpos($user->getEmail(), '@'));
+        list($first, $last) = array_map('ucfirst', explode('.', $name));
+
+        $this->mink->fillField('Firstname', $first);
+        $this->mink->fillField('Lastname', $last);
+        $this->mink->fillField('Password', 'S3cretpassword');
+        $this->mink->fillField('Repeat password', 'S3cretpassword');
+        $this->mink->pressButton('Confirm');
     }
 
     /**
@@ -65,16 +83,10 @@ class UserContext extends RawMinkContext implements KernelAwareContext
      */
     function iTryToLoginAsUsingPassword($email, $password = 'S3cretpassword')
     {
-        $this->getPage('User Login')->open()->login($email, $password);
-
-        $user = $this->get('em')->getRepository('AppBundle:User')->findOneByEmail($email);
-        if ($user) {
-            $encoder = $this->get('security.encoder_factory')->getEncoder($user);
-            $password = $encoder->encodePassword($password, $user->getSalt());
-            if ($password === $user->getPassword()) {
-                $this->setCurrentUser($user);
-            }
-        }
+        $this->visit('app_user_login');
+        $this->mink->fillField("Username", $email);
+        $this->mink->fillField("Password", $password);
+        $this->mink->pressButton("Login");
     }
 
     /**
@@ -83,16 +95,8 @@ class UserContext extends RawMinkContext implements KernelAwareContext
      */
     function iSignupAs($email)
     {
-        return $this->getPage('User Signup')->mustBeOpen()->signup($email);
-    }
-
-    /**
-     * @When /^I follow confirmation link from my "([^"]*)" email$/
-     */
-    function iFollowConfirmationLinkFromMyEmail($email)
-    {
-        $token = implode('-', explode('.', substr($email, 0, strpos($email, '@')))) . '-token';
-        return $this->getPage('Account Confirmation')->open(compact('token'));
+        $this->mink->fillField('Email', $email);
+        $this->mink->pressButton('Signup');
     }
 
     /**
@@ -100,14 +104,6 @@ class UserContext extends RawMinkContext implements KernelAwareContext
      */
     function iShouldBeLoggedIn()
     {
-        $this->getPage('Homepage')
-            ->mustBeOpen()
-            ->mustShowFullnameOnProfileLink((string)$this->mustGetUser());
-    }
-
-    private function setCurrentUser(User $user)
-    {
-        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
-        $this->get('security.context')->setToken($token);
+        $this->true($this->get('security.context')->getToken()->getUser() instanceof User);
     }
 }

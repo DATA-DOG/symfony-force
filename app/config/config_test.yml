@@ -10,10 +10,17 @@ framework:
     cookie_secure: false # allow insecure cookies http://
     cookie_httponly: false # it may need to access cookies inside behat context
 
+services:
+  test.client:
+    class: %test.client.class%
+    scope: prototype
+    arguments: [@kernel, %test.client.parameters%, @test.client.history, @test.client.cookiejar]
+    calls:
+      - [ disableReboot, [] ] # does not reboot kernel
+
 doctrine:
   dbal:
-    driver: pdo_sqlite
-    path: %kernel.logs_dir%/%kernel.environment%.db
+    dbname: "%database_name%_test"
 
 web_profiler:
   toolbar: false
@@ -39,3 +46,8 @@ monolog:
 
     console:
       type: console
+
+swiftmailer:
+  spool:
+    type: file
+    path: "%kernel.root_dir%/spool-test"

@@ -20,16 +20,14 @@ fi
 php $ROOT/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
 # Database
-if [ "$ENV" != "test" ]; then
-    php $CLI doctrine:database:drop --force --quiet --env=$ENV
-    php $CLI doctrine:database:create --env=$ENV
-    php $CLI doctrine:migrations:migrate --no-interaction --env=$ENV
-    echo ""
+php $CLI doctrine:database:drop --force --quiet --env=$ENV
+php $CLI doctrine:database:create --env=$ENV
+php $CLI doctrine:migrations:migrate --no-interaction --env=$ENV
+echo ""
 
-    # Fixtures
-    php $CLI app:fixtures --env=$ENV
-    echo ""
-fi
+# Fixtures
+php $CLI app:fixtures --env=$ENV
+echo ""
 
 # Symfony cache
 php $CLI cache:clear --env=$ENV

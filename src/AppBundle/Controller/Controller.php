@@ -12,4 +12,21 @@ class Controller extends BaseController
             $msg, $params, $domain
         ));
     }
+
+    protected function persist(...$entities)
+    {
+        foreach ($entities as $entity) {
+            $this->getDoctrine()->getManager()->persist($entity);
+        }
+    }
+
+    protected function flush($class = null)
+    {
+        $this->getDoctrine()->getManager()->flush($class);
+    }
+
+    protected function repo($class)
+    {
+        return $this->getDoctrine()->getManager()->getRepository($class);
+    }
 }

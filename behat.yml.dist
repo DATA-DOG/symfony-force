@@ -1,3 +1,5 @@
+# vi: set ft=yaml ts=2 sw=2 sts=2 :
+
 default:
   formatters:
     pretty:
@@ -15,12 +17,23 @@ default:
         env: test
         debug: false
 
+  extensions:
+    Behat\MinkExtension:
+      sessions:
+        default:
+          symfony2: ~
+    Behat\Symfony2Extension:
+      kernel:
+        env: test
+        debug: false
+
   suites:
-    user:
+    default:
       contexts:
-        - AppBundle\Behat\UserContext
+        - AppBundle\Behat\PlaceholderContext
         - AppBundle\Behat\DatabaseContext
+        - AppBundle\Behat\MailerContext
+        - AppBundle\Behat\PageContext
+        - AppBundle\Behat\UserContext
         - Behat\MinkExtension\Context\MinkContext
-      filters:
-        tags: @user
 

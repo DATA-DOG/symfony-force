@@ -82,14 +82,10 @@ dependencies.
 are not necessary for production use.
 
 ## Testing
-For testing initially there is **phpspec** and **behat** as default options. You may change to **phpunit** or
+For testing initially there is **phpunit** and **behat** as default options. You may change to **phpspec** or
 anything else of your preference.
 
-### PHPSpec
-See [phpspec](http://www.phpspec.net/) for reference.
-
-    bin/phpspec run -fpretty
-    bin/phpspec run spec/AppBundle/Entity
+    bin/phpunit -c app
 
 ### Behat
 
@@ -98,10 +94,6 @@ To run behat tests:
 
     bin/reload test
     bin/behat
-
-Tests are using **sqlite** database. If you need to check database after a failed scenario:
-
-    sqlite3 app/logs/test.db
 
 ## Application
 
@@ -130,11 +122,6 @@ for custom usage.
     bin/reload test
 
 Would reload application for **test** environment. Default is **dev** as usual in symfony2 application.
-
-#### Selenium
-
-**selenium** binary is used to download(if not yet available) a standalone selenium server and start|stop|restart it on
-default port. It is useful if you have behat features dependent on javascript, which is not advisable if possible avoid it.
 
 #### Archive
 

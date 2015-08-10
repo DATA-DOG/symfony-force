@@ -51,8 +51,7 @@ class UserController extends Controller
             return $this->renderSignUp($form);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $same = $em->getRepository('AppBundle:User')->findOneBy(['email'=>$user->getEmail()]);
+        $same = $this->repo('AppBundle:User')->findOneBy(['email' => $user->getEmail()]);
         if (null !== $same and $same->isConfirmed()) {
             $msg = $this->get('translator')->trans('form.signup.already_confirmed', ['%email%' => $user->getEmail()]);
             $form->get('email')->addError(new FormError($msg));
@@ -66,8 +65,12 @@ class UserController extends Controller
         }
 
         $user->regenerateConfirmationToken();
-        $em->persist($user);
-        $em->flush();
+        $this->persist($user);
+        $this->flush();
+
+        $this->get('mail')->user($user, 'activate_email', [
+            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()]),
+        ]);
 
         // @TODO: send an email message with confirmation uri
         $this->flash('success', "flashes.success.user_signup");
@@ -95,12 +98,11 @@ class UserController extends Controller
             return ['form' => $form->createView(), 'token' => $user->getConfirmationToken()];
         }
 
-        $em = $this->getDoctrine()->getManager();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         $user->confirm();
-        $em->persist($user);
-        $em->flush();
+        $this->persist($user);
+        $this->flush();
 
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
@@ -128,8 +130,8 @@ class UserController extends Controller
             $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         }
-        $em->persist($em->merge($user));
-        $em->flush();
+        $this->persist($em->merge($user));
+        $this->flush();
 
         $this->flash('success', "flashes.success.user_profile_updated");
         return $this->redirect($this->generateUrl('app_user_profile'));
@@ -148,9 +150,8 @@ class UserController extends Controller
             return ['form' => $form->createView()];
         }
 
-        $em = $this->getDoctrine()->getManager();
         $email = $form->get('email')->getData();
-        $user = $em->getRepository('AppBundle:User')->findOneByEmail($email);
+        $user = $this->repo('AppBundle:User')->findOneByEmail($email);
 
         if (!$user) {
             $form->get('email')->addError(new FormError($this->get('translator')->trans('form.reset.not_found')));
@@ -159,12 +160,15 @@ class UserController extends Controller
 
         // @TODO: expiration date may be useful
         $user->regenerateConfirmationToken();
-        $em->persist($user);
-        $em->flush();
+        $this->persist($user);
+        $this->flush();
 
         // @TODO: captcha after 3 failed attempts
 
-        // @TODO: send email
+        $this->get('mail')->user($user, 'activate_email', [
+            'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()]),
+        ]);
+
         $this->flash('success', "flashes.success.user_reset_requested", ['%email%' => $email]);
         return $this->redirect($this->generateUrl('app_user_login'));
     }
