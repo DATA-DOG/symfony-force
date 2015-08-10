@@ -12,6 +12,7 @@
 *.tar.gz
 *.log
 */Behat
+*/Tests
 ansible
 app/cache/*
 app/logs

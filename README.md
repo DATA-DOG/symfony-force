@@ -39,12 +39,6 @@ Start serving application in **dev** environment:
 
     app/console server:run
 
-### .editorconfig
-
-See [editorconfig.org](http://editorconfig.org/) for more details and plugins available for an **Idea** of your choice.
-In general **editorconfig** is a preconfiguration of indentation and general rules for various file types. Be free to
-update it based on your team's preferences.
-
 ### Bower
 
 Bower allows you to prevent cluttering your **VCS** source tree with **js, css, font** and other asset library sources.
