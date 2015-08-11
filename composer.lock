@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "095d88154d902adb2d502d5b9657288d",
+    "hash": "0b64290e9be68411a8a83096c97e522b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -48,16 +48,16 @@
         },
         {
             "name": "data-dog/pager-bundle",
-            "version": "v0.1.9",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DATA-DOG/DataDogPagerBundle.git",
-                "reference": "f95dd149a6b08fc92791d7a0748c2ca865be74cb"
+                "reference": "26856a662b175c2caffc7fa545ae1d77fd4d3c80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DATA-DOG/DataDogPagerBundle/zipball/f95dd149a6b08fc92791d7a0748c2ca865be74cb",
-                "reference": "f95dd149a6b08fc92791d7a0748c2ca865be74cb",
+                "url": "https://api.github.com/repos/DATA-DOG/DataDogPagerBundle/zipball/26856a662b175c2caffc7fa545ae1d77fd4d3c80",
+                "reference": "26856a662b175c2caffc7fa545ae1d77fd4d3c80",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2015-08-05 13:39:59"
+            "time": "2015-08-11 10:50:59"
         },
         {
             "name": "doctrine/annotations",
@@ -922,12 +922,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "087f738cf8f984807efa44e6405d28b5f6009d2f"
+                "reference": "ed26638d87b8d4f726e97536689c8fe8d9a10f14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/087f738cf8f984807efa44e6405d28b5f6009d2f",
-                "reference": "087f738cf8f984807efa44e6405d28b5f6009d2f",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/ed26638d87b8d4f726e97536689c8fe8d9a10f14",
+                "reference": "ed26638d87b8d4f726e97536689c8fe8d9a10f14",
                 "shasum": ""
             },
             "require": {
@@ -981,7 +981,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2015-08-04 20:34:01"
+            "time": "2015-08-10 16:19:51"
         },
         {
             "name": "doctrine/orm",

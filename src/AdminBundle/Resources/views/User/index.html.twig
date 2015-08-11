@@ -16,6 +16,12 @@
           <th>{{ sorter_link(users, 'u.createdAt', 'Registered on') }}</th>
           <th></th>
         </tr>
+        <tr role="row" class="filter">
+          <td></td>
+          <td>{{ filter_search(users, "u.email") }}</td>
+          <td>{{ filter_search(users, "u.firstname") }}</td>
+          <td>{{ filter_search(users, "u.createdAt") }}</td>
+        </tr>
       </thead>
       <tbody>
         {% for user in users %}

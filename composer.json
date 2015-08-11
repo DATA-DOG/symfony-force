@@ -38,7 +38,7 @@
     "knplabs/knp-menu-bundle": "~2.0.0",
     "incenteev/composer-parameter-handler": "~2.0",
     "ircmaxell/password-compat": "~1.0.4",
-    "data-dog/pager-bundle": "^0.1.9"
+    "data-dog/pager-bundle": "^0.2.0"
   },
 
   "require-dev": {
