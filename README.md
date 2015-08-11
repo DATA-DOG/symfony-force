@@ -5,6 +5,8 @@ Powered by **bootstrap3**, **grunt**, **bower** and all the best tools available
 The environment may be setup with **docker**, **vagrant** or local installation. A team should clone
 the project and strip it down to whatever works for them.
 
+<p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/starwars.gif" alt="Symfony force" /></p>
+
 ## Development requirements
 
 - linux, mac machine
