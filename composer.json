@@ -39,6 +39,7 @@
     "incenteev/composer-parameter-handler": "~2.0",
     "ircmaxell/password-compat": "~1.0.4",
     "data-dog/pager-bundle": "^0.2.0",
+    "data-dog/audit-bundle": "^0.1.0",
     "excelwebzone/recaptcha-bundle": "^1.4"
   },
 

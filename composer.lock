@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ee563f5eb42886d61e949a706e3553f2",
+    "hash": "656127dc14677c7b454e4d9addfe2b20",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -45,6 +45,75 @@
                 "transliterator"
             ],
             "time": "2014-05-15 22:08:22"
+        },
+        {
+            "name": "data-dog/audit-bundle",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DATA-DOG/DataDogAuditBundle.git",
+                "reference": "8fc618d32f1b133993b2a6235f3087c38667e548"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DATA-DOG/DataDogAuditBundle/zipball/8fc618d32f1b133993b2a6235f3087c38667e548",
+                "reference": "8fc618d32f1b133993b2a6235f3087c38667e548",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.4",
+                "php": ">=5.4.0",
+                "symfony/framework-bundle": "~2.6"
+            },
+            "require-dev": {
+                "data-dog/pager-bundle": "~0.2",
+                "doctrine/doctrine-bundle": "~1.5",
+                "doctrine/doctrine-fixtures-bundle": "~2.2.0",
+                "doctrine/orm": "~2.5.0",
+                "ext-pdo": "*",
+                "ext-pdo_sqlite": "*",
+                "knplabs/knp-menu-bundle": "~2.0",
+                "knplabs/knp-time-bundle": "~1.3",
+                "phpunit/phpunit": "~4.7.0",
+                "sensio/framework-extra-bundle": "~3.0.9",
+                "symfony/symfony": "~2.7.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DataDog\\AuditBundle\\": "src/DataDog/AuditBundle"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DataDog Team",
+                    "homepage": "http://datadog.lt"
+                },
+                {
+                    "name": "Symfony2 Community",
+                    "homepage": "http://github.com/DATA-DOG/DataDogAuditBundle/contributors"
+                }
+            ],
+            "description": "Audit bundle for symfony2 and doctrine orm, logs any database change",
+            "homepage": "http://github.com/DATA-DOG/DataDogAuditBundle",
+            "keywords": [
+                "Audit",
+                "Symfony2",
+                "bundle",
+                "doctrine",
+                "log",
+                "orm"
+            ],
+            "time": "2015-08-11 14:14:12"
         },
         {
             "name": "data-dog/pager-bundle",
@@ -3009,52 +3078,6 @@
                 "xunit"
             ],
             "time": "2015-07-10 06:54:24"
-        },
-        {
-            "name": "recaptcha/php5",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5.git",
-                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/AlekseyKorzun/reCaptcha-PHP-5/zipball/b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
-                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Captcha": "Package"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD"
-            ],
-            "authors": [
-                {
-                    "name": "Aleksey Korzun",
-                    "email": "aleksey@webfoundation.net",
-                    "homepage": "http://www.alekseykorzun.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A properly coded PHP 5 reCaptcha class that will allow you to interact with Google's reCaptcha API.",
-            "homepage": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5",
-            "keywords": [
-                "api",
-                "captcha",
-                "google",
-                "php",
-                "recaptcha"
-            ],
-            "time": "2015-07-18 19:13:08"
         },
         {
             "name": "sebastian/comparator",
