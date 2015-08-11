@@ -14,11 +14,11 @@ class ResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email', 'email', [
-            'label' => 'form.label.user.email',
+            'label' => 'Email',
             'required' => true,
             'constraints' => [
-                new NotBlank(['message' => 'app.user.email.blank']),
-                new Email(['message' => 'app.user.email.invalid']),
+                new NotBlank(['message' => 'Email address entered must be.']),
+                new Email(['message' => 'Email address valid is not.']),
             ],
         ]);
     }

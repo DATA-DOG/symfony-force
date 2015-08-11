@@ -6,7 +6,10 @@
 
 {% include 'AppBundle::flashes.html.twig' %}
 {% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'login') }}</div>
+  <div class="alert alert-danger">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      {{ error }} <img src="{{ asset('img/icons/darth-vader-icon.jpeg') }}"/>
+  </div>
 {% endif %}
 
 <div class="well content">

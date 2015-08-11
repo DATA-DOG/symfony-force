@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormInterface;
 
 class ProfileType extends AbstractType
 {
@@ -14,19 +13,19 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', [
-                'label' => 'form.label.user.firstname',
+                'label' => 'Firstname',
                 'required' => true,
             ])
             ->add('lastname', 'text', [
-                'label' => 'form.label.user.lastname',
+                'label' => 'Lastname',
                 'required' => true,
             ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
-                'invalid_message' => 'app.user.password.mismatch',
+                'invalid_message' => 'Not match do passwords.',
                 'required' => true,
-                'first_options'  => ['label' => 'form.label.user.password'],
-                'second_options' => ['label' => 'form.label.user.repeat_password'],
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat password'],
             ]);
     }
 
