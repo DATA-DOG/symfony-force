@@ -13,18 +13,18 @@
   </div>
 
   {{ form_start(form, {action: path('app_user_profile')}) }}
-    <h4>{{ 'form.profile.section.details'|trans }}</h4>
+    <h4>Details</h4>
     <hr>
     {{ form_row(form.firstname) }}
     {{ form_row(form.lastname) }}
 
-    <h4>{{ 'form.profile.section.password'|trans }}</h4>
+    <h4>Change password</h4>
     <hr>
     {{ form_row(form.plainPassword) }}
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'form.profile.submit'|trans }}</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Update</button>
       </div>
     </div>
   {{ form_end(form) }}

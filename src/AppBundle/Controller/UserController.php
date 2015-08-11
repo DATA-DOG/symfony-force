@@ -32,6 +32,9 @@ class UserController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        if ($error && $error->getMessageKey() === 'Invalid credentials.') {
+            $error = "Is incorrect your email or password.";
+        }
         return $this->render('AppBundle:User:login.html.twig', [
             'lastUsername' => $lastUsername,
             'error' => $error
@@ -53,14 +56,15 @@ class UserController extends Controller
 
         $same = $this->repo('AppBundle:User')->findOneBy(['email' => $user->getEmail()]);
         if (null !== $same and $same->isConfirmed()) {
-            $msg = $this->get('translator')->trans('form.signup.already_confirmed', ['%email%' => $user->getEmail()]);
-            $form->get('email')->addError(new FormError($msg));
+            $form->get('email')->addError(new FormError("Confirmed already is the email {$user->getEmail()}."));
             return $this->renderSignUp($form);
         }
 
         if (null !== $same) {
-            // @TODO: resend confirmation email
-            $this->flash('info', "flashes.info.user_confirmation_resent", ['%email%' => $user->getEmail()]);
+            $this->get('mail')->user($user, 'activate_email', [
+                'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
+            ]);
+            $this->flash('info', "To the {$user->getEmail()} address the confirmation email was resent.");
             return $this->renderSignUp($form);
         }
 
@@ -72,8 +76,7 @@ class UserController extends Controller
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
-        // @TODO: send an email message with confirmation uri
-        $this->flash('success', "flashes.success.user_signup");
+        $this->flash('success', "The confirmation email should soon be received.");
         return $this->redirect($this->generateUrl('app_user_login'));
     }
 
@@ -107,7 +110,7 @@ class UserController extends Controller
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
 
-        $this->flash('success', "flashes.success.user_confirmed", ['%name%' => $user]);
+        $this->flash('success', "The user {$user} confirmed may be.");
         return $this->redirect($this->generateUrl('app_user_profile'));
     }
 
@@ -133,7 +136,7 @@ class UserController extends Controller
         $this->persist($em->merge($user));
         $this->flush();
 
-        $this->flash('success', "flashes.success.user_profile_updated");
+        $this->flash('success', "Updated your profile may be.");
         return $this->redirect($this->generateUrl('app_user_profile'));
     }
 
@@ -154,7 +157,7 @@ class UserController extends Controller
         $user = $this->repo('AppBundle:User')->findOneByEmail($email);
 
         if (!$user) {
-            $form->get('email')->addError(new FormError($this->get('translator')->trans('form.reset.not_found')));
+            $form->get('email')->addError(new FormError("Not found is the user by email given."));
             return ['form' => $form->createView()];
         }
 
@@ -164,12 +167,11 @@ class UserController extends Controller
         $this->flush();
 
         // @TODO: captcha after 3 failed attempts
-
         $this->get('mail')->user($user, 'activate_email', [
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
-        $this->flash('success', "flashes.success.user_reset_requested", ['%email%' => $email]);
+        $this->flash('success', "User password reset requested may be.");
         return $this->redirect($this->generateUrl('app_user_login'));
     }
 }

@@ -30,8 +30,8 @@ class User implements UserInterface, \Serializable, ContactInterface
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="app.user.email.blank")
-     * @Assert\Email(message="app.user.email.invalid")
+     * @Assert\NotBlank(message="Email address entered must be.", groups={"signup", "reset"})
+     * @Assert\Email(message="Email address valid is not.", groups={"signup", "reset"})
      */
     private $email;
 
@@ -42,13 +42,13 @@ class User implements UserInterface, \Serializable, ContactInterface
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.user.firstname.blank", groups={"confirm", "profile"})
+     * @Assert\NotBlank(message="Firstname entered must be.", groups={"confirm", "profile"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="app.user.lastname.blank", groups={"confirm", "profile"})
+     * @Assert\NotBlank(message="Lastname entered must be.", groups={"confirm", "profile"})
      */
     private $lastname;
 
@@ -82,12 +82,12 @@ class User implements UserInterface, \Serializable, ContactInterface
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @Assert\NotBlank(message="app.user.password.blank", groups={"confirm"})
+     * @Assert\NotBlank(message="Password entered must be.", groups={"confirm"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
-     *   minMessage="app.user.password.short",
-     *   maxMessage="app.user.password.long",
+     *   minMessage="Too short is the password.",
+     *   maxMessage="Too long is the password.",
      *   groups={"confirm", "profile"}
      * )
      */
