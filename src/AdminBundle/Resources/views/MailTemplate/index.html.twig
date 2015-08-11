@@ -11,10 +11,16 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>{{ sorter_link(templates, 'u.alias', 'Alias') }}</th>
-          <th>{{ sorter_link(templates, 'u.subject', 'Subject') }}</th>
-          <th>{{ sorter_link(templates, 'u.updatedAt', 'Last updated') }}</th>
+          <th>{{ sorter_link(templates, 't.alias', 'Alias') }}</th>
+          <th>{{ sorter_link(templates, 't.subject', 'Subject') }}</th>
+          <th>{{ sorter_link(templates, 't.updatedAt', 'Last updated') }}</th>
           <th></th>
+        </tr>
+        <tr role="row" class="filter">
+          <td></td>
+          <td>{{ filter_search(templates, "t.alias") }}</td>
+          <td>{{ filter_search(templates, "t.subject") }}</td>
+          <td>{{ filter_search(templates, "t.updatedAt") }}</td>
         </tr>
       </thead>
       <tbody>

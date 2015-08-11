@@ -3,6 +3,7 @@
 use AdminBundle\Form\MailTemplateType;
 use AppBundle\Entity\MailTemplate;
 use DataDog\PagerBundle\Pagination;
+use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +20,12 @@ class MailTemplateController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $users = $this->get('em')->getRepository('AppBundle:MailTemplate')->createQueryBuilder('u');
+        $users = $this->get('em')->getRepository('AppBundle:MailTemplate')->createQueryBuilder('t');
 
         return $this->render("AdminBundle:MailTemplate:index.html.twig", [
-            'templates' => new Pagination($users, $request),
+            'templates' => new Pagination($users, $request, [
+                'applyFilter' => [$this, 'templateFilters'],
+            ]),
         ]);
     }
 
@@ -93,5 +96,31 @@ class MailTemplateController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('admin_template_index');
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param $key
+     * @param $val
+     */
+    public function templateFilters(QueryBuilder $qb, $key, $val)
+    {
+        if (!$val) {
+            return;
+        }
+
+        switch ($key) {
+            case 't.alias':
+                $qb->andWhere($qb->expr()->like('t.alias', ':alias'))->setParameter('alias', "%$val%");
+                break;
+            case 't.subject':
+                $qb->andWhere($qb->expr()->like('t.subject', ':subject'))->setParameter('subject', "%$val%");
+                break;
+            case 't.updatedAt':
+                $date = date("Y-m-d", strtotime($val));
+                $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
+                $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
+                break;
+        }
     }
 }

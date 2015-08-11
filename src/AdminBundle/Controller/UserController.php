@@ -4,6 +4,7 @@ use AppBundle\Controller\Controller;
 use AppBundle\Entity\User;
 use AdminBundle\Form\UserType;
 use DataDog\PagerBundle\Pagination;
+use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,7 +24,9 @@ class UserController extends Controller
         $users = $this->get('em')->getRepository('AppBundle:User')->createQueryBuilder('u');
 
         return $this->render("AdminBundle:User:index.html.twig", [
-            'users' => new Pagination($users, $request),
+            'users' => new Pagination($users, $request, [
+                'applyFilter' => [$this, 'userFilters'],
+            ]),
         ]);
     }
 
@@ -110,4 +113,36 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Our filter handler function, which allows us to
+     * modify the query builder specifically for our filter option
+     * @param QueryBuilder $qb
+     * @param string $key
+     * @param string $val
+     */
+    public function userFilters(QueryBuilder $qb, $key, $val)
+    {
+        if (empty($val)) {
+            return;
+        }
+
+        switch ($key) {
+            case 'u.email':
+                $qb->andWhere($qb->expr()->like('u.email', ':email'));
+                $qb->setParameter('email', "%$val%");
+                break;
+            case 'u.createdAt':
+                $date = date("Y-m-d", strtotime($val));
+                $qb->andWhere($qb->expr()->gt('u.createdAt', "'$date 00:00:00'"));
+                $qb->andWhere($qb->expr()->lt('u.createdAt', "'$date 23:59:59'"));
+                break;
+            case 'u.firstname':
+                $qb->setParameter('name', "%$val%");
+                $qb->andWhere($qb->expr()->orX(
+                    $qb->expr()->like('u.firstname', ":name"),
+                    $qb->expr()->like('u.lastname', ":name")
+                ));
+                break;
+        }
+    }
 }
