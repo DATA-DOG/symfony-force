@@ -25,9 +25,9 @@ class MenuBuilder extends ContainerAware
             return $menu->addChild($label, compact('route', 'attributes'));
         };
 
-        $user = $this->getToken()->getUser();
+        $user = $this->getUser();
         if ($user instanceof UserInterface) {
-            $child($this->getToken()->getUser(), 'app_user_profile');
+            $child($user, 'app_user_profile');
             if ($user->hasRole('ROLE_ADMIN')) {
                 $child('Administration', 'admin')->setLinkAttribute('class', 'text-danger');
             }
@@ -41,10 +41,9 @@ class MenuBuilder extends ContainerAware
     }
 
     /**
-     * Get Security Token Storage.
-     * @return TokenInterface
+     * @return UserInterface
      */
-    private function getToken()
+    private function getUser()
     {
         if (!$this->container->has('security.token_storage')) {
             throw new \LogicException('The SecurityBundle is not registered in your application.');
@@ -55,6 +54,6 @@ class MenuBuilder extends ContainerAware
             return null;
         }
 
-        return $token;
+        return $token->getUser();
     }
 }
