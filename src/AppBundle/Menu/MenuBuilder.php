@@ -22,11 +22,15 @@ class MenuBuilder extends ContainerAware
 
         $child = function($label, $route) use($menu) {
             $attributes = ['role' => 'presentation'];
-            $menu->addChild($label, compact('route', 'attributes'));
+            return $menu->addChild($label, compact('route', 'attributes'));
         };
 
-        if ($this->getToken()->getUser() instanceof UserInterface) {
+        $user = $this->getToken()->getUser();
+        if ($user instanceof UserInterface) {
             $child($this->getToken()->getUser(), 'app_user_profile');
+            if ($user->hasRole('ROLE_ADMIN')) {
+                $child('Administration', 'admin')->setLinkAttribute('class', 'text-danger');
+            }
             $child('Logout', 'app_user_logout');
         } else {
             $child('Login', 'app_user_login');
