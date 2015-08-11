@@ -64,3 +64,8 @@ swiftmailer:
     auth_mode: "%mailer_auth_mode%"
     port:      "%mailer_port%"
     spool:     { type: memory }
+
+ewz_recaptcha:
+    public_key:  %recaptcha_public_key%
+    private_key: %recaptcha_private_key%
+    locale_key:  %kernel.default_locale%

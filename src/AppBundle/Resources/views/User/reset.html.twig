@@ -14,6 +14,7 @@
 
   {{ form_start(form, {action: path('app_user_reset')}) }}
     {{ form_row(form.email) }}
+    {{ form_row(form.captcha) }}
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
