@@ -16,23 +16,23 @@ class UserContext extends BaseContext
     }
 
     /**
-     * @Given /^(confirmed|unconfirmed) user named "([^"]+)"$/
+     * @Given /^(confirmed|unconfirmed) (user|admin) named "([^"]+)"$/
      */
-    function userNamed($type, $name)
+    function userNamed($status, $type, $name)
     {
         $names = explode(' ', $name);
         list ($firstname, $lastname) = $names;
 
         $em = $this->get('em');
         $user = new User();
-        if ('confirmed' === $type) {
+        if ('confirmed' === $status) {
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
         }
         $user->setEmail(strtolower(implode('.', $names)) . '@datadog.lt');
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles($type == 'user' ? ['ROLE_USER'] : ['ROLE_ADMIN']);
 
-        if ('unconfirmed' === $type) {
+        if ('unconfirmed' === $status) {
             $user->setConfirmationToken(implode('-', array_map('strtolower', $names)) . '-token');
         } else {
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);

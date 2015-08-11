@@ -19,6 +19,8 @@ class PageContext extends BaseContext
             return $this->visit("app_user_signup");
         case "profile":
             return $this->visit("app_user_profile");
+        case "admin":
+            return $this->visit("admin_user_index");
         default:
             throw new \InvalidArgumentException("Page: {$name} route is not defined yet.");
         }
@@ -34,6 +36,17 @@ class PageContext extends BaseContext
             $this->find('xpath', '//h1[contains(., "' . $text . '")] | //h2[contains(., "' . $text . '")] | //h3[contains(., "'.$text.'")]'),
             "Text '$text' was not found on page headline"
         );
+    }
+
+    /**
+     * @Then /^I should get (\d+) error$/
+     */
+    function iShouldGetError($code)
+    {
+        $actual = $this->getSession()->getStatusCode();
+        if ($actual != $code) {
+            throw new \RuntimeException("Invalid response code, expected $code, got $actual");
+        }
     }
 
     /**
