@@ -44,10 +44,11 @@ class MenuBuilder extends ContainerAware
 
         $child = function($label, $route) use($menu) {
             $attributes = ['role' => 'presentation'];
-            $menu->addChild($label, compact('route', 'attributes'));
+            $menu->addChild($this->translate($label), compact('route', 'attributes'));
         };
 
-        $child('Users', 'admin_user_index');
+        $child('users', 'admin_user_index');
+        $child('templates', 'admin_template_index');
 
         return $menu;
     }
@@ -68,5 +69,10 @@ class MenuBuilder extends ContainerAware
         }
 
         return $token;
+    }
+
+    private function translate($token)
+    {
+        return $this->container->get('translator')->trans("admin_menu.$token");
     }
 }

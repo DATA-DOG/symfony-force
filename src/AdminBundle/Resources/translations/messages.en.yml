@@ -2,3 +2,18 @@ user:
     form:
         edit_title: Edit user
         new_title: Create new user
+        new_subtitle: Enter user information
+template:
+    form:
+        edit_title: Edit template
+        new_title: Create new template
+        new_subtitle: Enter template details
+form:
+    label:
+        template:
+            alias: Alias
+            content: Content
+            subject: Subject
+admin_menu:
+    users: Users
+    templates: Templates
