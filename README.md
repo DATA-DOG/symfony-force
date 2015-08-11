@@ -10,7 +10,7 @@ the project and strip it down to whatever works for them.
 ## Development requirements
 
 - linux, mac machine
-- php 5.5 or higher
+- php 5.6 or higher
 - nodejs - [grunt](http://gruntjs.com/) and [bower](http://bower.io/)
 - [composer](https://getcomposer.org/)
 

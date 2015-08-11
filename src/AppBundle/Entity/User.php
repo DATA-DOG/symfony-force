@@ -146,6 +146,11 @@ class User implements UserInterface, \Serializable, ContactInterface
         return $roles;
     }
 
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles(), true);
+    }
+
     public function removeRole($role)
     {
         $role = strtoupper($role);
