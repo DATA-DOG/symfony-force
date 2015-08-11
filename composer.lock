@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b64290e9be68411a8a83096c97e522b",
+    "hash": "ee563f5eb42886d61e949a706e3553f2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1059,6 +1059,48 @@
                 "orm"
             ],
             "time": "2015-04-02 20:40:18"
+        },
+        {
+            "name": "excelwebzone/recaptcha-bundle",
+            "version": "v1.4.1",
+            "target-dir": "EWZ/Bundle/RecaptchaBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
+                "reference": "3ebd8fec320c5346814601086894f79c141dd077"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/3ebd8fec320c5346814601086894f79c141dd077",
+                "reference": "3ebd8fec320c5346814601086894f79c141dd077",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "EWZ\\Bundle\\RecaptchaBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael H. Arieli",
+                    "email": "excelwebzone@gmail.com",
+                    "homepage": "http://excelwebzone.com/"
+                }
+            ],
+            "description": "This bundle provides easy reCAPTCHA form field integration",
+            "homepage": "https://github.com/excelwebzone/EWZRecaptchaBundle",
+            "keywords": [
+                "recaptcha"
+            ],
+            "time": "2015-07-31 23:57:07"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -2967,6 +3009,52 @@
                 "xunit"
             ],
             "time": "2015-07-10 06:54:24"
+        },
+        {
+            "name": "recaptcha/php5",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5.git",
+                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlekseyKorzun/reCaptcha-PHP-5/zipball/b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
+                "reference": "b7f5c3df98fa6e8bc3ace3dd6351bcbc32ac7da4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Captcha": "Package"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Korzun",
+                    "email": "aleksey@webfoundation.net",
+                    "homepage": "http://www.alekseykorzun.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A properly coded PHP 5 reCaptcha class that will allow you to interact with Google's reCaptcha API.",
+            "homepage": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5",
+            "keywords": [
+                "api",
+                "captcha",
+                "google",
+                "php",
+                "recaptcha"
+            ],
+            "time": "2015-07-18 19:13:08"
         },
         {
             "name": "sebastian/comparator",
