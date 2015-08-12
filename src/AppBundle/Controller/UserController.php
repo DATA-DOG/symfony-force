@@ -64,22 +64,21 @@ class UserController extends Controller
         }
 
         if (null !== $same) {
-            $this->get('mail')->user($user, 'activate_email', [
-                'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
+            $this->get('mail')->user($same, 'activate_email', [
+                'link' => $this->generateUrl('app_user_confirm', ['token' => $same->getConfirmationToken()], true),
             ]);
-            $this->flash('info', "To the {$user->getEmail()} address the confirmation email was resent.");
+            $this->addFlash('info', "To the {$same->getEmail()} address the confirmation email was resent.");
             return $this->renderSignUp($form);
         }
 
         $user->regenerateConfirmationToken();
         $this->persist($user);
-        $this->flush();
 
         $this->get('mail')->user($user, 'activate_email', [
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
-        $this->flash('success', "The confirmation email should soon be received.");
+        $this->addFlash('success', "The confirmation email should soon be received.");
         return $this->redirect($this->generateUrl('app_user_login'));
     }
 
@@ -108,12 +107,11 @@ class UserController extends Controller
         $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         $user->confirm();
         $this->persist($user);
-        $this->flush();
 
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
 
-        $this->flash('success', "The user {$user} confirmed may be.");
+        $this->addFlash('success', "The user {$user} confirmed may be.");
         return $this->redirect($this->generateUrl('app_user_profile'));
     }
 
@@ -137,9 +135,8 @@ class UserController extends Controller
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         }
         $this->persist($em->merge($user));
-        $this->flush();
 
-        $this->flash('success', "Updated your profile may be.");
+        $this->addFlash('success', "Updated your profile may be.");
         return $this->redirect($this->generateUrl('app_user_profile'));
     }
 
@@ -167,14 +164,13 @@ class UserController extends Controller
         // @TODO: expiration date may be useful
         $user->regenerateConfirmationToken();
         $this->persist($user);
-        $this->flush();
 
         // @TODO: captcha after 3 failed attempts
         $this->get('mail')->user($user, 'activate_email', [
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
-        $this->flash('success', "User password reset requested may be.");
+        $this->addFlash('success', "User password reset requested may be.");
         return $this->redirect($this->generateUrl('app_user_login'));
     }
 }

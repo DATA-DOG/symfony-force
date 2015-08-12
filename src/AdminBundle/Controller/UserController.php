@@ -50,7 +50,6 @@ class UserController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            $em->flush();
 
             return $this->redirectToRoute('admin_user_index');
         }
@@ -77,7 +76,6 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $this->encodePassword($user);
-            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_user_index');
         }
@@ -99,7 +97,6 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
-        $em->flush();
 
         return $this->redirectToRoute('admin_user_index');
     }

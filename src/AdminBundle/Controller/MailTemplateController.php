@@ -45,7 +45,6 @@ class MailTemplateController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            $em->flush();
 
             return $this->redirectToRoute('admin_template_index');
         }
@@ -71,8 +70,6 @@ class MailTemplateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('admin_template_index');
         }
 
@@ -93,7 +90,6 @@ class MailTemplateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
-        $em->flush();
 
         return $this->redirectToRoute('admin_template_index');
     }

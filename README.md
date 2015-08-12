@@ -14,6 +14,11 @@ the project and strip it down to whatever works for them.
 - nodejs - [grunt](http://gruntjs.com/) and [bower](http://bower.io/)
 - [composer](https://getcomposer.org/)
 
+## What is specific?
+
+- runs a **flush** after each request and does not allow two **flushes** within a request, unless
+a manual transaction was started. Prevent bad design and data inconsistencies.
+
 ## Installation
 
 Install composer dependencies:

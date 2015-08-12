@@ -1,6 +1,11 @@
 services:
 
-  timestampable:
+  doctrine.flush.listener:
+    class: AppBundle\EventListener\FlushSubscriber
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  doctrine.timestampable.listener:
     class: Gedmo\Timestampable\TimestampableListener
     tags:
       - { name: doctrine.event_subscriber, connection: default }
