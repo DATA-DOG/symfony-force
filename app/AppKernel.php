@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new DataDog\AuditBundle\DataDogAuditBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
         ];

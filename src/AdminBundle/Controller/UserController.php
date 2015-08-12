@@ -1,18 +1,20 @@
 <?php namespace AdminBundle\Controller;
 
-use AppBundle\Controller\Controller;
+use AppBundle\Controller\DoctrineController;
 use AppBundle\Entity\User;
 use AdminBundle\Form\UserType;
 use DataDog\PagerBundle\Pagination;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class UserController
  */
 class UserController extends Controller
 {
+    use DoctrineController;
 
     /**
      * @Route("/user", name="admin_user_index")

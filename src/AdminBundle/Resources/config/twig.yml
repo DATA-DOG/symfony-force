@@ -1,0 +1,5 @@
+services:
+  twig.audit.extension:
+    class: AdminBundle\Twig\AuditExtension
+    tags:
+      - { name: twig.extension }

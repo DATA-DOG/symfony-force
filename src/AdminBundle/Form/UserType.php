@@ -17,19 +17,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', 'email', [
-                'label'=>'form.label.user.email',
+                'label' => 'Email',
             ])
             ->add('firstname', 'text', [
-                'label'=>'form.label.user.firstname',
+                'label' => 'Firstname',
             ])
             ->add('lastname', 'text', [
-                'label'=>'form.label.user.lastname',
+                'label' => 'Lastname',
             ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
-                'invalid_message' => 'app.user.password.mismatch',
-                'first_options'  => ['label' => 'form.label.user.password'],
-                'second_options' => ['label' => 'form.label.user.repeat_password'],
+                'invalid_message' => 'Not match do passwords.',
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat password'],
             ])
         ;
     }
@@ -45,7 +45,6 @@ class UserType extends AbstractType
             'data_class' => User::class,
         ]);
     }
-
 
     /**
      * @return string
