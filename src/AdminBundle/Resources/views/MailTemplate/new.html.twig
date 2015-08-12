@@ -1,19 +1,19 @@
 {% extends 'AdminBundle::layout.html.twig' %}
 
 {% block content -%}
-  <h1>{{ "template.form.new_title"|trans }}</h1>
+  <h1>New email template</h1>
 
   {{ form_errors(form) }}
   {{ form_start(form) }}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <i class="fa fa-envelope"></i> {{ "template.form.new_subtitle"|trans }}
+      <i class="fa fa-envelope"></i> Enter template details
     </div>
     <div class="panel-body">
       {{ form_rest(form) }}
     </div>
     <div class="panel-footer text-center">
-      <button type="submit" class="btn btn-primary">{{ "form.submit"|trans }}</button>
+      <button type="submit" class="btn btn-primary">Create</button>
       <a href="{{ url('admin_template_index') }}" class="btn btn-default">Cancel</a>
     </div>
   </div>

@@ -1,0 +1,25 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block content %}
+  <h1>Audit</h1>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading"><i class="fa fa-archive"></i> Audit</div>
+
+    <div class="row">
+      <div class="col-md-offset-6 col-md-3">
+        {{ filter_dropdown(logs, "blamed", users) }}
+      </div>
+      <div class="col-md-3">
+        {{ filter_dropdown(logs, "class", sourceClasses) }}
+      </div>
+    </div>
+    {% for log in logs %}
+      {{ audit(log) }}
+    {% endfor %}
+
+    <div class="panel-footer">
+      {{ pagination(logs) }}
+    </div>
+  </div>
+{% endblock %}
