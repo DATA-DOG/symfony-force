@@ -15,7 +15,7 @@
   <div class="carousel-inner" role="listbox">
     {% for banner in range(1, 2) %}
     <div class="item {% if banner == 1 %}active{% endif %}">
-      <img src="{{ asset('img/carousel/banner-'~banner~'.jpg') }}" alt="" style="height:520px;width:100%;object-fit:cover">
+      <img src="{{ asset('img/carousel/banner-'~banner~'.jpg') }}" alt="">
       {% if banner == 1 %}
         <div class="carousel-caption"><h1>Symfony Force Edition</h1></div>
       {% endif %}

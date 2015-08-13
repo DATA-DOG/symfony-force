@@ -1,5 +1,5 @@
 {
-  "name": "DATA-DOG/symfony2-skeleton",
+  "name": "data-dog/symfony-force",
   "license": "MIT",
   "type": "project",
   "description": "Symfony2 skeleton application with bootstrap3 grunt bower",
