@@ -6,10 +6,3 @@
   {{- parent() -}}
 {%- endblock form_start %}
 
-{# adds colon at the end of the label #}
-{% block form_label -%}
-{% spaceless %}
-  {% set label = label|trans({}, translation_domain) ~ ":" %}
-  {{- parent() -}}
-{% endspaceless %}
-{%- endblock form_label %}

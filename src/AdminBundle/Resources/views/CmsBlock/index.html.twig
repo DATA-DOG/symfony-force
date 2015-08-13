@@ -1,0 +1,51 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block content %}
+  <h1>
+    CMS blocks
+    <a href="{{ url('admin_cms_create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new
+    </a>
+  </h1>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><i class="fa fa-th-large"></i> Search CMS Blocks
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ sorter_link(blocks, 't.alias', 'Alias') }}</th>
+          <th>{{ sorter_link(blocks, 't.name', 'Name') }}</th>
+          <th>{{ sorter_link(blocks, 't.updatedAt', 'Last update') }}</th>
+          <th></th>
+        </tr>
+        <tr role="row" class="filter">
+          <td></td>
+          <td>{{ filter_search(blocks, "t.alias") }}</td>
+          <td>{{ filter_search(blocks, "t.name") }}</td>
+          <td>{{ filter_search(blocks, "t.updatedAt") }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in blocks %}
+          <tr>
+            <td class="col-min">{{ block.id }}</td>
+            <td>{{ block.alias }}</td>
+            <td>{{ block.name }}</td>
+            <td>{{ block.createdAt|date }}</td>
+            <td class="col-min">
+              <a href="{{ url('admin_cms_edit', {id: block.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="{{ url('admin_cms_delete', {id: block.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      {{ pagination(blocks) }}
+    </div>
+  </div>
+{% endblock %}
