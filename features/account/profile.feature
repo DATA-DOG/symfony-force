@@ -10,13 +10,13 @@ Feature: Profile management
 
   Scenario: can update without filling in password
     Given I am on "profile" page
-    When I fill in "Firstname:" with "Dark"
+    When I fill in "Firstname" with "Dark"
     And I press "Update"
     Then I should see success notification "Updated your profile may be."
 
   Scenario: can change password
     Given I am on "profile" page
-    When I fill in "Password:" with "S3cretpass"
-    And I fill in "Repeat password:" with "S3cretpass"
+    When I fill in "Password" with "S3cretpass"
+    And I fill in "Repeat password" with "S3cretpass"
     And I press "Update"
     Then I should see success notification "Updated your profile may be."

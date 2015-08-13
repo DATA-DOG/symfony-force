@@ -21,7 +21,7 @@ class CmsBlockController extends Controller
     use DoctrineController;
 
     /**
-     * @Route("/", name="admin_cms_index")
+     * @Route("/")
      * @Method("GET")
      * @Template
      *
@@ -42,7 +42,7 @@ class CmsBlockController extends Controller
     /**
      * Displays a form to create a new CmsBlock entity.
      *
-     * @Route("/new", name="admin_cms_create")
+     * @Route("/new")
      * @Method({"GET", "POST"})
      * @Template
      *
@@ -66,14 +66,14 @@ class CmsBlockController extends Controller
         $this->flush();
         $this->addFlash("success", "Created was the cms block: {$block->getName()}");
 
-        return $this->redirectToRoute('admin_cms_index');
+        return $this->redirectToRoute('admin_cmsblock_index');
     }
 
 
     /**
      * Displays a form to edit an existing CmsBlock entity.
      *
-     * @Route("/{id}/edit", name="admin_cms_edit")
+     * @Route("/{id}/edit")
      * @Method({"GET", "POST"})
      * @Template
      *
@@ -96,13 +96,13 @@ class CmsBlockController extends Controller
         $this->flush();
         $this->addFlash("success", "Updated was the cms block: {$block->getName()}");
 
-        return $this->redirectToRoute('admin_cms_index');
+        return $this->redirectToRoute('admin_cmsblock_index');
     }
 
     /**
      * Deletes a CmsBlock entity.
      *
-     * @Route("/{id}/delete", name="admin_cms_delete")
+     * @Route("/{id}/delete")
      * @Method("GET")
      *
      * @param CmsBlock $block
@@ -114,7 +114,7 @@ class CmsBlockController extends Controller
         $this->flush();
         $this->addFlash("danger", "Removed was the cms block: {$block->getName()}");
 
-        return $this->redirectToRoute('admin_cms_index');
+        return $this->redirectToRoute('admin_cmsblock_index');
     }
 
     /**
