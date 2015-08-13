@@ -7,6 +7,8 @@ services: mysql
 
 install:
   - composer install --prefer-dist --no-interaction
+  - cp app/Resources/views/admin.dist.html.twig app/Resources/views/admin.html.twig
+  - cp app/Resources/views/base.dist.html.twig app/Resources/views/base.html.twig
   - bin/reload test
 
 script:
