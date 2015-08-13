@@ -3,6 +3,8 @@
 {% block content -%}
   <h1>{{ "user.form.new_title"|trans }}</h1>
 
+  {% include 'AppBundle::flashes.html.twig' %}
+
   {{ form_errors(form) }}
   {{ form_start(form) }}
   <div class="panel panel-default">

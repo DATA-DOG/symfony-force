@@ -5,6 +5,9 @@
     Email templates
     <a href="{{ url('admin_template_create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new template</a>
   </h1>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
   <div class="panel panel-primary">
     <div class="panel-heading"><i class="fa fa-envelope"></i> Email templates</div>
     <table class="table table-hover table-striped">

@@ -3,6 +3,7 @@
 {% block content -%}
   <h1>Edit template</h1>
 
+  {% include 'AppBundle::flashes.html.twig' %}
 
   {{ form_errors(form) }}
   {{ form_start(form) }}

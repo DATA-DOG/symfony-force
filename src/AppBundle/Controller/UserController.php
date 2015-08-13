@@ -38,15 +38,13 @@ class UserController extends Controller
         if ($error && $error->getMessageKey() === 'Invalid credentials.') {
             $error = "Is incorrect your email or password.";
         }
-        return $this->render('AppBundle:User:login.html.twig', [
-            'lastUsername' => $lastUsername,
-            'error' => $error
-        ]);
+        return compact('lastUsername', 'error');
     }
 
     /**
      * @Route("/signup")
      * @Method({"GET", "POST"})
+     * @Template
      */
     public function signupAction(Request $request)
     {
@@ -54,13 +52,13 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
-            return $this->renderSignUp($form);
+            return ['form' => $form->createView()];
         }
 
         $same = $this->repo('AppBundle:User')->findOneBy(['email' => $user->getEmail()]);
         if (null !== $same and $same->isConfirmed()) {
             $form->get('email')->addError(new FormError("Confirmed already is the email {$user->getEmail()}."));
-            return $this->renderSignUp($form);
+            return ['form' => $form->createView()];
         }
 
         if (null !== $same) {
@@ -68,7 +66,7 @@ class UserController extends Controller
                 'link' => $this->generateUrl('app_user_confirm', ['token' => $same->getConfirmationToken()], true),
             ]);
             $this->addFlash('info', "To the {$same->getEmail()} address the confirmation email was resent.");
-            return $this->renderSignUp($form);
+            return ['form' => $form->createView()];
         }
 
         $user->regenerateConfirmationToken();
@@ -80,13 +78,6 @@ class UserController extends Controller
 
         $this->addFlash('success', "The confirmation email should soon be received.");
         return $this->redirect($this->generateUrl('app_user_login'));
-    }
-
-    private function renderSignUp(FormInterface $form)
-    {
-        return $this->render('AppBundle:User:signup.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**
