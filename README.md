@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/DATA-DOG/symfony-force.png?branch=master)](https://travis-ci.org/DATA-DOG/symfony-force)
 
-# Symfony2 force
+# Symfony Force Edition
 
 **Intention**: Make a common symfony2 bootstrap application skeleton.
 Powered by **bootstrap3**, **grunt**, **bower** and all the best tools available today.
@@ -9,10 +9,14 @@ the project and strip it down to whatever works for them.
 
 <p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/starwars.gif" alt="Symfony force" /></p>
 
+## Screenshot
+
+<p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/screenshot.png" alt="Screenshot" /></p>
+
 ## Development requirements
 
-- linux, mac machine
-- php 5.6 or higher
+- **linux** or **unix**
+- **PHP 5.6** or higher
 - nodejs - [grunt](http://gruntjs.com/) and [bower](http://bower.io/)
 - [composer](https://getcomposer.org/)
 
@@ -22,7 +26,7 @@ the project and strip it down to whatever works for them.
 a manual transaction was started. Prevent bad design and data inconsistencies.
 - **behat** is configured to run scenarios within transaction, it saves about 70% of time for functional tests.
 Additionally, that allows to run **behat** concurrently using [beflash](https://github.com/DATA-DOG/beflash.git)
-which would in total consume about 85% time less.
+which would in total run **85% faster** on 4 cores.
 
 ## Installation
 
