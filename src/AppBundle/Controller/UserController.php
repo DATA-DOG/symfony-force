@@ -29,7 +29,7 @@ class UserController extends Controller
      * @Method("GET")
      * @Template
      */
-    public function loginAction()
+    function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -46,7 +46,7 @@ class UserController extends Controller
      * @Method({"GET", "POST"})
      * @Template
      */
-    public function signupAction(Request $request)
+    function signupAction(Request $request)
     {
         $form = $this->createForm(new SignupType(), $user = new User());
 
@@ -86,7 +86,7 @@ class UserController extends Controller
      * @ParamConverter("user", class="AppBundle:User", options={"mapping": {"token": "confirmationToken"}})
      * @Template
      */
-    public function confirmAction(Request $request, User $user)
+    function confirmAction(Request $request, User $user)
     {
         $form = $this->createForm(new ConfirmType(), $user);
         $form->handleRequest($request);
@@ -111,7 +111,7 @@ class UserController extends Controller
      * @Method({"GET", "POST"})
      * @Template
      */
-    public function profileAction(Request $request)
+    function profileAction(Request $request)
     {
         $user = clone $this->getUser(); // prevent user change in session
         $form = $this->createForm(new ProfileType(), $user);
@@ -136,7 +136,7 @@ class UserController extends Controller
      * @Method({"GET", "POST"})
      * @Template
      */
-    public function resetAction(Request $request)
+    function resetAction(Request $request)
     {
         $form = $this->createForm(new ResetType());
         $form->handleRequest($request);

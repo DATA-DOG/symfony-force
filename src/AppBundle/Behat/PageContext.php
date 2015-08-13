@@ -20,7 +20,7 @@ class PageContext extends BaseContext
         case "profile":
             return $this->visit("app_user_profile");
         case "admin":
-            return $this->visit("admin_user_index");
+            return $this->visit("admin_dashboard_index");
         default:
             throw new \InvalidArgumentException("Page: {$name} route is not defined yet.");
         }

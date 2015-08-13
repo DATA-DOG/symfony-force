@@ -1,4 +1,6 @@
-<?php namespace AdminBundle\Controller;
+<?php
+
+namespace AdminBundle\Controller;
 
 use AppBundle\Controller\DoctrineController;
 use AppBundle\Entity\User;
@@ -6,97 +8,115 @@ use AdminBundle\Form\UserType;
 use DataDog\PagerBundle\Pagination;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class UserController
+ * @Route("/user")
  */
 class UserController extends Controller
 {
     use DoctrineController;
 
     /**
-     * @Route("/user", name="admin_user_index")
+     * @Route("/")
+     * @Method("GET")
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    function indexAction(Request $request)
     {
-        $users = $this->get('em')->getRepository('AppBundle:User')->createQueryBuilder('u');
+        $users = $this->repo('AppBundle:User')->createQueryBuilder('u');
 
-        return $this->render("AdminBundle:User:index.html.twig", [
+        return [
             'users' => new Pagination($users, $request, [
                 'applyFilter' => [$this, 'userFilters'],
             ]),
-        ]);
+        ];
     }
 
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/user/new", name="admin_user_create")
+     * @Route("/new")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    function newAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->encodePassword($user);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-
-            return $this->redirectToRoute('admin_user_index');
+        if (!$form->isValid()) {
+            return [
+                'entity' => $user,
+                'form' => $form->createView(),
+            ];
         }
 
-        return $this->render("AdminBundle:User:new.html.twig", [
-            'entity' => $user,
-            'form' => $form->createView(),
-        ]);
+        $this->encodePassword($user);
+
+        $this->persist($user);
+        $this->flush();
+        $this->addFlash("success", "Created was the user: {$user}");
+
+        return $this->redirectToRoute('admin_user_index');
     }
 
 
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/user/{id}/edit", name="admin_user_edit")
+     * @Route("/{id}/edit")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
      * @param User $user
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(User $user, Request $request)
+    function editAction(User $user, Request $request)
     {
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->encodePassword($user);
-
-            return $this->redirectToRoute('admin_user_index');
+        if (!$form->isValid()) {
+            return [
+                'form' => $form->createView(),
+                'entity' => $user,
+            ];
         }
 
-        return $this->render("AdminBundle:User:edit.html.twig", [
-            'form' => $form->createView(),
-            'entity' => $user,
-        ]);
+        $this->encodePassword($user);
+        $this->persist($user);
+        $this->flush();
+        $this->addFlash("success", "Updated was the user: {$user}");
+
+        return $this->redirectToRoute('admin_user_index');
     }
 
     /**
      * Deletes a User entity.
      *
-     * @Route("/user/{id}/delete", name="admin_user_delete")
+     * @Route("/{id}/delete")
+     * @Method("GET")
+     *
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(User $user)
+    function deleteAction(User $user)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
+        $this->remove($user);
+        $this->flush();
+        $this->addFlash("danger", "Removed was the user: {$user}");
 
         return $this->redirectToRoute('admin_user_index');
     }
@@ -119,7 +139,7 @@ class UserController extends Controller
      * @param string $key
      * @param string $val
      */
-    public function userFilters(QueryBuilder $qb, $key, $val)
+    function userFilters(QueryBuilder $qb, $key, $val)
     {
         if (empty($val)) {
             return;

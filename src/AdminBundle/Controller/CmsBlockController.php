@@ -108,7 +108,7 @@ class CmsBlockController extends Controller
      * @param CmsBlock $block
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(CmsBlock $block)
+    function deleteAction(CmsBlock $block)
     {
         $this->remove($block);
         $this->flush();
@@ -124,7 +124,7 @@ class CmsBlockController extends Controller
      * @param string $key
      * @param string $val
      */
-    public function cmsFilters(QueryBuilder $qb, $key, $val)
+    function cmsFilters(QueryBuilder $qb, $key, $val)
     {
         if (empty($val)) {
             return;

@@ -3,7 +3,7 @@
 {% block content %}
   <h1>
     Email templates
-    <a href="{{ url('admin_template_create') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new template</a>
+    <a href="{{ url('admin_mailtemplate_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new template</a>
   </h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
@@ -34,10 +34,10 @@
             <td>{{ template.subject }}</td>
             <td>{{ template.createdAt|date }}</td>
             <td class="col-min">
-              <a href="{{ url('admin_template_edit', {id: template.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+              <a href="{{ url('admin_mailtemplate_edit', {id: template.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
                 <i class="fa fa-search"></i>
               </a>
-              <a href="{{ url('admin_template_delete', {id: template.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+              <a href="{{ url('admin_mailtemplate_delete', {id: template.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
                 <i class="fa fa-times"></i>
               </a>
             </td>
