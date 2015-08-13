@@ -1,6 +1,6 @@
 php:
   image: datadoglt/php56
-  links: [mysql]
+  links: [mysql, redis]
   volumes: [ ".:/var/www", "app/Resources/docker/init.sh:/init.sh", "app/session:/var/lib/php/session" ]
 
 web:
@@ -9,6 +9,9 @@ web:
   ports: [80]
   links: [php]
   environment: { VIRTUAL_HOST: symfony.dev,admin.symfony.dev }
+
+redis:
+  image: redis
 
 mysql:
   image: mysql

@@ -7,6 +7,7 @@ sed -i "s/database_host:.*$/database_host: mysql/" /var/www/app/config/parameter
 sed -i "s/database_user:.*$/database_user: $MYSQL_ENV_MYSQL_USER/" /var/www/app/config/parameters.yml
 sed -i "s/database_password:.*$/database_password: $MYSQL_ENV_MYSQL_PASSWORD/" /var/www/app/config/parameters.yml
 sed -i "s/database_port:.*$/database_port: 3306/" /var/www/app/config/parameters.yml
+sed -i "s/redis_host:.*$/redis_host: redis/" /var/www/app/config/parameters.yml
 
 echo "[info] Running composer"
 composer install --optimize-autoloader --working-dir=/var/www
