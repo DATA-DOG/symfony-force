@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/DATA-DOG/symfony-force.png)](https://travis-ci.org/DATA-DOG/symfony-force)
+[![Build Status](https://travis-ci.org/DATA-DOG/symfony-force.png?branch=master)](https://travis-ci.org/DATA-DOG/symfony-force)
 
 # Symfony2 force
 
