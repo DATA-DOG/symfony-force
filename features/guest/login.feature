@@ -15,7 +15,7 @@ Feature: Logging in
   Scenario: confirmed user is able to login
     Given I am on "login" page
     When I try to login as "chewbacca.wookiee@datadog.lt" using password "S3cretpassword"
-    Then I should see "Homepage" on page headline
+    Then I should see "Symfony Force Edition" on page headline
     And I should be logged in
 
   Scenario: unconfirmed user cannot login
