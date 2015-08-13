@@ -17,7 +17,6 @@
     "ext-mcrypt": "*",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
-    "ext-redis": "*",
     "ext-intl": "*",
 
     "symfony/symfony": "~2.7.0",
@@ -41,7 +40,8 @@
     "ircmaxell/password-compat": "~1.0.4",
     "data-dog/pager-bundle": "^0.2.0",
     "data-dog/audit-bundle": "^0.1.0",
-    "excelwebzone/recaptcha-bundle": "^1.4"
+    "excelwebzone/recaptcha-bundle": "^1.4",
+    "predis/predis": "^1.0"
   },
 
   "require-dev": {

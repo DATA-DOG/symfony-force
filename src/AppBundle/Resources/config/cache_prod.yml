@@ -5,16 +5,14 @@ parameters:
 
 services:
   cache.connection.default:
-    class: Redis
-    calls:
-      - [ connect, [%redis_host%, %redis_port%, %redis_timeout%]]
-      - [ select, [%redis_db_default%]]
+    class: Predis\Client
+    arguments:
+      - { host: %redis_host%, port: %redis_port%, database: %redis_db_default% }
 
   cache.connection.session:
-    class: Redis
-    calls:
-      - [ connect, [%redis_host%, %redis_port%, %redis_timeout%]]
-      - [ select, [%redis_db_session%]]
+    class: Predis\Client
+    arguments:
+      - { host: %redis_host%, port: %redis_port%, database: %redis_db_session% }
 
   cache.default:
     class: AppBundle\Cache\RedisCache

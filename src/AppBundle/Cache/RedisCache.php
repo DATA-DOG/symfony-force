@@ -16,7 +16,7 @@ class RedisCache extends CacheProvider implements CacheInterface
 
     protected $ns;
 
-    public function __construct(\Redis $redis, $ns)
+    public function __construct($redis, $ns)
     {
         $this->redis = $redis;
         $this->setNamespace($this->ns = $ns);
