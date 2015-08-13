@@ -16,11 +16,11 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class AnonymousRoutesCommand extends ContainerAwareCommand
+class RouterAnonymousCommand extends ContainerAwareCommand
 {
     public function configure()
     {
-        $this->setName('app:router:anonymous')
+        $this->setName('router:anonymous')
             ->setDescription('Shows all anonymously accessible routes..')
             ->setHelp(<<<EOF
 The <info>%command.name%</info> Shows all anonymously accessible routes..
