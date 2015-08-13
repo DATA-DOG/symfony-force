@@ -7,5 +7,5 @@
   {% if log.blame %}
     by <a class="alert-link" href="#">{{ log.blame.label }}</a>
   {% endif %}
-  <span class="badge">{{ log.loggedAt|ago }}</span>
+  <span class="badge">{{ time_diff(log.loggedAt) }}</span>
 </div>
