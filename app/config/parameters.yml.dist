@@ -24,4 +24,5 @@ parameters:
 
   recaptcha_public_key: "pub-key"
   recaptcha_private_key: "priv-key"
+  recaptcha_locate_key: "loc-key"
 

@@ -1,14 +1,8 @@
 imports:
   - { resource: config.yml }
 
-framework:
-  test: ~
-  profiler:
-    enabled: true
-  session:
-    cookie_domain: ""
-    cookie_secure: false # allow insecure cookies http://
-    cookie_httponly: false # it may need to access cookies inside behat context
+parameters:
+  swiftmailer.spool.memory.class: AppBundle\Behat\Swiftmailer\MemorySpool
 
 services:
   test.client:
@@ -17,6 +11,15 @@ services:
     arguments: [@kernel, %test.client.parameters%, @test.client.history, @test.client.cookiejar]
     calls:
       - [ disableReboot, [] ] # does not reboot kernel
+
+framework:
+  test: ~
+  profiler:
+    enabled: true
+  session:
+    cookie_domain: ""
+    cookie_secure: false # allow insecure cookies http://
+    cookie_httponly: false # it may need to access cookies inside behat context
 
 doctrine:
   dbal:
@@ -48,6 +51,4 @@ monolog:
       type: console
 
 swiftmailer:
-  spool:
-    type: file
-    path: "%kernel.root_dir%/spool-test"
+  spool: { type: memory }

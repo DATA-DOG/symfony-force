@@ -39,14 +39,11 @@ class PageContext extends BaseContext
     }
 
     /**
-     * @Then /^I should get (\d+) error$/
+     * @Then /^the response code should be (\d+)$/
      */
-    function iShouldGetError($code)
+    function theResponseCodeShouldBe($code)
     {
-        $actual = $this->getSession()->getStatusCode();
-        if ($actual != $code) {
-            throw new \RuntimeException("Invalid response code, expected $code, got $actual");
-        }
+        $this->same(intval($code), $actual = $this->getSession()->getStatusCode(), "Invalid response code, expected $code, got $actual");
     }
 
     /**

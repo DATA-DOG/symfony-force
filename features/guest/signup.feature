@@ -23,3 +23,8 @@ Feature: Signing up
     When I attempt to signup as "luke.skywalker@datadog.lt"
     Then I should see info notification "To the luke.skywalker@datadog.lt address the confirmation email was resent"
 
+  Scenario: try to signup with invalid email
+    Given I am on "signup" page
+    When I signup as "luke"
+    Then I should see a form field error "Email address valid is not."
+
