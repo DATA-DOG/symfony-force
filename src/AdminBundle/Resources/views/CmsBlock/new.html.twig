@@ -1,0 +1,21 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block content -%}
+  <h1>Create CMS Block</h1>
+
+  {{ form_errors(form) }}
+  {{ form_start(form) }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-envelope"></i> Enter block info
+    </div>
+    <div class="panel-body">
+      {{ form_rest(form) }}
+    </div>
+    <div class="panel-footer text-center">
+      <button type="submit" class="btn btn-primary">{{ "form.submit"|trans }}</button>
+      <a href="{{ url('admin_cms_index') }}" class="btn btn-default">Cancel</a>
+    </div>
+  </div>
+  {{ form_end(form) }}
+{% endblock %}
