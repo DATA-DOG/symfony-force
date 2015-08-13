@@ -21,13 +21,13 @@
   <form action="{{ path("app_user_check") }}" method="post" class="form-horizontal" novalidate>
     <input type="hidden" name="_csrf_user_login" value="{{ csrf_token('_app_user_login') }}" />
     <div class="form-group">
-      <label for="username" class="col-sm-3 control-label">Username:</label>
+      <label for="username" class="col-sm-3 control-label required">Username</label>
       <div class="col-sm-7">
         <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control" placeholder="Username">
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="col-sm-3 control-label">Password:</label>
+      <label for="password" class="col-sm-3 control-label required">Password</label>
       <div class="col-sm-7">
         <input type="password" id="password" name="_password" class="form-control" placeholder="Password" />
       </div>

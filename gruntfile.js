@@ -206,9 +206,13 @@ module.exports = function(grunt) {
         files: ['assets/img/**/*'],
         tasks: ['copy:images']
       },
-      layout: {
-        files: ['<%= concat.app_layout.src %>', '<%= concat.admin_layout.src %>'],
-        tasks: ['concat:layout_app', 'concat:layout_admin']
+      layout_app: {
+        files: ['<%= concat.app_layout.src %>'],
+        tasks: ['concat:app_layout']
+      },
+      layout_admin: {
+        files: ['<%= concat.admin_layout.src %>'],
+        tasks: ['concat:admin_layout']
       }
     }
 
