@@ -20,15 +20,15 @@ fi
 php $ROOT/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
 # Database
-php $CLI doctrine:database:drop --force --quiet --env=$ENV
-php $CLI doctrine:database:create --env=$ENV
-php $CLI doctrine:migrations:migrate --no-interaction --env=$ENV
+php $CLI doctrine:database:drop --force --quiet --env=$ENV --ansi
+php $CLI doctrine:database:create --env=$ENV --ansi
+php $CLI doctrine:migrations:migrate --no-interaction --env=$ENV --ansi
 echo ""
 
 # Fixtures
-php $CLI app:fixtures --env=$ENV
+php $CLI app:fixtures --env=$ENV --ansi
 echo ""
 
 # Symfony cache
-php $CLI cache:clear --env=$ENV
-php $CLI cache:warmup --env=$ENV
+php $CLI cache:clear --env=$ENV --ansi
+php $CLI cache:warmup --env=$ENV --ansi
