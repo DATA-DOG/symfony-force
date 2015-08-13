@@ -5,7 +5,6 @@
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
-/app/spool-test
 /app/Resources/views/base.html.twig
 /app/Resources/views/admin.html.twig
 !app/cache/.gitkeep
@@ -20,6 +19,5 @@
 /web/fonts/
 /web/js/
 /web/img/
-/web/webserver.php
 /docker-compose.yml
 /app/session

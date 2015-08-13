@@ -18,6 +18,9 @@ the project and strip it down to whatever works for them.
 
 - runs a **flush** after each request and does not allow two **flushes** within a request, unless
 a manual transaction was started. Prevent bad design and data inconsistencies.
+- **behat** is configured to run scenarios within transaction, it saves about 70% of time for functional tests.
+Additionally, that allows to run **behat** concurrently using [beflash](https://github.com/DATA-DOG/beflash.git)
+which would in total consume about 85% time less.
 
 ## Installation
 
