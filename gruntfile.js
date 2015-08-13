@@ -7,10 +7,9 @@ module.exports = function(grunt) {
   grunt.option('force', true);
 
   grunt.registerTask('build', ['clean', 'concat', 'less', 'copy']);
-  grunt.registerTask('dev', ['build', 'watch']);
   grunt.registerTask('release', ['build', 'removelogging', 'uglify', 'shell:release']);
   grunt.registerTask('test', ['shell:test']);
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('default', ['build', 'watch']);
 
   var isRelease = false;
   grunt.cli.tasks.forEach(function (ts) {
@@ -108,7 +107,6 @@ module.exports = function(grunt) {
         options: {
           strictImports : true,
           compress: isRelease,
-          sourceMap: !isRelease,
           outputSourceFiles: !isRelease,
           sourceMapURL: "app-<%= version %>.css.map"
         },
@@ -120,7 +118,6 @@ module.exports = function(grunt) {
         options: {
           strictImports : true,
           compress: isRelease,
-          sourceMap: !isRelease,
           outputSourceFiles: !isRelease,
           sourceMapURL: "admin-<%= version %>.css.map"
         },
@@ -189,14 +186,21 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      js: {
-        files: ['<%= src.app.js %>', '<%= src.admin.js %>'],
-        tasks: ['concat:app_js', 'concat:admin_js']
+      js_app: {
+        files: ['<%= src.app.js %>'],
+        tasks: ['concat:app_js']
       },
-      less: {
-        files: ['assets/less/**/*.less'],
-        tasks: ['less:dev'],
-        options: { livereload: true }
+      js_admin: {
+        files: ['<%= src.admin.js %>'],
+        tasks: ['concat:admin_js']
+      },
+      less_app: {
+        files: ['<%= src.app.less %>', 'assets/less/app/**/*.less'],
+        tasks: ['less:app']
+      },
+      less_admin: {
+        files: ['<%= src.admin.less %>', 'assets/less/admin/**/*.less'],
+        tasks: ['less:admin']
       },
       images: {
         files: ['assets/img/**/*'],
