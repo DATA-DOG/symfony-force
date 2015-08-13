@@ -1,97 +1,121 @@
-<?php namespace AdminBundle\Controller;
+<?php
 
+namespace AdminBundle\Controller;
+
+use AppBundle\Controller\DoctrineController;
 use AdminBundle\Form\MailTemplateType;
 use AppBundle\Entity\MailTemplate;
 use DataDog\PagerBundle\Pagination;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class MailTemplateController
+ * @Route("/mail-template")
  */
 class MailTemplateController extends Controller
 {
+    use DoctrineController;
+
     /**
-     * @Route("/template", name="admin_template_index")
+     * @Route("/")
+     * @Method("GET")
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    function indexAction(Request $request)
     {
-        $users = $this->get('em')->getRepository('AppBundle:MailTemplate')->createQueryBuilder('t');
+        $qb = $this->repo('AppBundle:MailTemplate')->createQueryBuilder('t');
 
-        return $this->render("AdminBundle:MailTemplate:index.html.twig", [
-            'templates' => new Pagination($users, $request, [
+        return [
+            'templates' => new Pagination($qb, $request, [
                 'applyFilter' => [$this, 'templateFilters'],
             ]),
-        ]);
+        ];
     }
 
     /**
      * Displays a form to create a new MailTemplate entity.
      *
-     * @Route("/template/new", name="admin_template_create")
+     * @Route("/new")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    function newAction(Request $request)
     {
-        $user = new MailTemplate();
-        $form = $this->createForm(new MailTemplateType(), $user);
+        $template = new MailTemplate();
+        $form = $this->createForm(new MailTemplateType(), $template);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-
-            return $this->redirectToRoute('admin_template_index');
+        if (!$form->isValid()) {
+            return [
+                'entity' => $template,
+                'form' => $form->createView(),
+            ];
         }
 
-        return $this->render("AdminBundle:MailTemplate:new.html.twig", [
-            'entity' => $user,
-            'form' => $form->createView(),
-        ]);
+        $this->persist($template);
+        $this->flush();
+        $this->addFlash("success", "Created was the email template: {$template->getSubject()}");
+
+        return $this->redirectToRoute('admin_mailtemplate_index');
     }
 
 
     /**
      * Displays a form to edit an existing MailTemplate entity.
      *
-     * @Route("/template/{id}/edit", name="admin_template_edit")
-     * @param MailTemplate $user
+     * @Route("/{id}/edit")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
+     * @param MailTemplate $template
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(MailTemplate $user, Request $request)
+    function editAction(MailTemplate $template, Request $request)
     {
-        $form = $this->createForm(new MailTemplateType(), $user);
+        $form = $this->createForm(new MailTemplateType(), $template);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            return $this->redirectToRoute('admin_template_index');
+        if (!$form->isValid()) {
+            return [
+                'form' => $form->createView(),
+                'entity' => $template,
+            ];
         }
 
-        return $this->render("AdminBundle:MailTemplate:edit.html.twig", [
-            'form' => $form->createView(),
-            'entity' => $user,
-        ]);
+        $this->persist($template);
+        $this->flush();
+        $this->addFlash("success", "Updated was the email template: {$template->getSubject()}");
+
+        return $this->redirectToRoute('admin_mailtemplate_index');
     }
 
     /**
      * Deletes a MailTemplate entity.
      *
-     * @Route("/template/{id}/delete", name="admin_template_delete")
-     * @param MailTemplate $user
+     * @Route("/{id}/delete")
+     * @Method("GET")
+     *
+     * @param MailTemplate $template
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(MailTemplate $user)
+    function deleteAction(MailTemplate $template)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
+        $this->remove($template);
+        $this->flush();
+        $this->addFlash("danger", "Removed was the email template: {$template->getSubject()}");
 
-        return $this->redirectToRoute('admin_template_index');
+        return $this->redirectToRoute('admin_mailtemplate_index');
     }
 
     /**
@@ -99,7 +123,7 @@ class MailTemplateController extends Controller
      * @param $key
      * @param $val
      */
-    public function templateFilters(QueryBuilder $qb, $key, $val)
+    function templateFilters(QueryBuilder $qb, $key, $val)
     {
         if (!$val) {
             return;

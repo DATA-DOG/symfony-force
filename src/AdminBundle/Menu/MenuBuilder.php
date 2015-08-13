@@ -48,7 +48,7 @@ class MenuBuilder extends ContainerAware
         };
 
         $child('Users', 'admin_user_index');
-        $child('Templates', 'admin_template_index');
+        $child('Templates', 'admin_mailtemplate_index');
         $child('Audit', 'admin_audit_index');
         $child('CMS', 'admin_cmsblock_index');
 

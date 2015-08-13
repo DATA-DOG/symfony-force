@@ -6,13 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class DashboardController extends Controller
 {
     /**
+     * @Route("/")
      * @Route("/", name="admin")
+     * @Template
      */
-    public function indexAction()
+    function indexAction()
     {
-        return $this->render("AdminBundle:Default:index.html.twig");
+        return [];
     }
 }
