@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DATA-DOG/symfony-force.png)](https://travis-ci.org/DATA-DOG/symfony-force)
+
 # Symfony2 force
 
 **Intention**: Make a common symfony2 bootstrap application skeleton.

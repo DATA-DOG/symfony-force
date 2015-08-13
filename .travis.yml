@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 5.6
+
+services: mysql
+
+install:
+  - composer install --prefer-dist --no-interaction
+  - bin/reload test
+
+script:
+  - bin/phpunit -c app
+  - bin/behat -fprogress
