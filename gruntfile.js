@@ -9,6 +9,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['clean', 'concat', 'less', 'copy']);
   grunt.registerTask('dev', ['build', 'watch']);
   grunt.registerTask('release', ['build', 'removelogging', 'uglify', 'shell:release']);
+  grunt.registerTask('test', ['shell:test']);
   grunt.registerTask('default', ['build']);
 
   var isRelease = false;
@@ -152,18 +153,37 @@ module.exports = function(grunt) {
 
     removelogging: {
       app: {
-        src: "<%= concat.js.dest %>",
-        dest: "<%= concat.js.dest %>"
+        src: "<%= concat.app_js.dest %>",
+        dest: "<%= concat.app_js.dest %>"
+      },
+      admin: {
+        src: "<%= concat.admin_js.dest %>",
+        dest: "<%= concat.admin_js.dest %>"
       }
     },
 
     shell: {
+      options: {
+        callback: function(err, stdout, stderr, cb) {
+          grunt.log.write(stdout);
+          grunt.log.write(stderr);
+          cb();
+        }
+      },
       release: {
         command: [
-          'composer install --no-scripts --no-dev',
-          'composer dump-autoload --optimize',
+          'composer install --no-scripts --no-dev --ansi',
+          'composer dump-autoload --optimize --ansi',
           'bin/archive ansible/frontend.tar.gz',
-          'composer install'
+          'composer install --ansi'
+        ].join('&&')
+      },
+
+      test: {
+        command: [
+          'bin/reload test',
+          'bin/phpunit -c app --colors=always',
+          'bin/behat -fprogress --colors'
         ].join('&&')
       }
     },

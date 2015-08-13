@@ -86,6 +86,11 @@ dependencies.
 are not necessary for production use.
 
 ## Testing
+
+You can run all tests from **grunt**:
+
+    grunt test
+
 For testing initially there is **phpunit** and **behat** as default options. You may change to **phpspec** or
 anything else of your preference.
 
@@ -150,7 +155,5 @@ It will install the same binaries and have migrations and fixtures ready.
 ## TODO
 
 - Style the starwars theme better..
-- Vagrant or Docker setup with Ansible playbook
-- Two-factor authentication with [google authenticator](https://github.com/rchouinard/rych-otp)
 - File upload service and entity + profile image.
 
