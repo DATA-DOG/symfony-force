@@ -1,100 +1,118 @@
-<?php namespace AdminBundle\Controller;
+<?php
+
+namespace AdminBundle\Controller;
 
 use AdminBundle\Form\CmsBlockType;
 use AppBundle\Entity\CmsBlock;
+use AppBundle\Controller\DoctrineController;
 use DataDog\PagerBundle\Pagination;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class CmsBlockController
+ * @Route("/cms")
  */
 class CmsBlockController extends Controller
 {
+    use DoctrineController;
 
     /**
-     * @Route("/cms", name="admin_cms_index")
+     * @Route("/", name="admin_cms_index")
+     * @Method("GET")
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    function indexAction(Request $request)
     {
         $blocks = $this->get('em')->getRepository('AppBundle:CmsBlock')->createQueryBuilder('t');
 
-        return $this->render("AdminBundle:CmsBlock:index.html.twig", [
+        return [
             'blocks' => new Pagination($blocks, $request, [
                 'applyFilter' => [$this, 'cmsFilters'],
             ]),
-        ]);
+        ];
     }
 
     /**
      * Displays a form to create a new CmsBlock entity.
      *
-     * @Route("/cms/new", name="admin_cms_create")
+     * @Route("/new", name="admin_cms_create")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    function newAction(Request $request)
     {
-        $user = new CmsBlock();
-        $form = $this->createForm(new CmsBlockType(), $user);
+        $block = new CmsBlock();
+        $form = $this->createForm(new CmsBlockType(), $block);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_cms_index');
+        if (!$form->isValid()) {
+            return [
+                'entity' => $block,
+                'form' => $form->createView(),
+            ];
         }
 
-        return $this->render("AdminBundle:CmsBlock:new.html.twig", [
-            'entity' => $user,
-            'form' => $form->createView(),
-        ]);
+        $this->persist($block);
+        $this->flush();
+        $this->addFlash("success", "Created was the cms block: {$block->getName()}");
+
+        return $this->redirectToRoute('admin_cms_index');
     }
 
 
     /**
      * Displays a form to edit an existing CmsBlock entity.
      *
-     * @Route("/cms/{id}/edit", name="admin_cms_edit")
-     * @param CmsBlock $user
+     * @Route("/{id}/edit", name="admin_cms_edit")
+     * @Method({"GET", "POST"})
+     * @Template
+     *
+     * @param CmsBlock $block
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(CmsBlock $user, Request $request)
+    function editAction(CmsBlock $block, Request $request)
     {
-        $form = $this->createForm(new CmsBlockType(), $user);
+        $form = $this->createForm(new CmsBlockType(), $block);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_cms_index');
+        if (!$form->isValid()) {
+            return [
+                'form' => $form->createView(),
+                'entity' => $block,
+            ];
         }
+        $this->persist($block);
+        $this->flush();
+        $this->addFlash("success", "Updated was the cms block: {$block->getName()}");
 
-        return $this->render("AdminBundle:CmsBlock:edit.html.twig", [
-            'form' => $form->createView(),
-            'entity' => $user,
-        ]);
+        return $this->redirectToRoute('admin_cms_index');
     }
 
     /**
      * Deletes a CmsBlock entity.
      *
-     * @Route("/cms/{id}/delete", name="admin_cms_delete")
-     * @param CmsBlock $user
+     * @Route("/{id}/delete", name="admin_cms_delete")
+     * @Method("GET")
+     *
+     * @param CmsBlock $block
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(CmsBlock $user)
+    public function deleteAction(CmsBlock $block)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
-        $em->flush();
+        $this->remove($block);
+        $this->flush();
+        $this->addFlash("danger", "Removed was the cms block: {$block->getName()}");
 
         return $this->redirectToRoute('admin_cms_index');
     }
@@ -126,7 +144,6 @@ class CmsBlockController extends Controller
                 $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
                 $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
                 break;
-
         }
     }
 }

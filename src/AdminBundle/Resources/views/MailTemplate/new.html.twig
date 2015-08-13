@@ -3,6 +3,8 @@
 {% block content -%}
   <h1>New email template</h1>
 
+  {% include 'AppBundle::flashes.html.twig' %}
+
   {{ form_errors(form) }}
   {{ form_start(form) }}
   <div class="panel panel-default">

@@ -39,7 +39,7 @@ class PlaceholderListener implements EventSubscriber
         case $entity instanceof Entity\User:
             return $entity->getEmail();
         case $entity instanceof Entity\MailTemplate:
-            return $entity->getAlias();
+            return $entity->getSubject();
         case method_exists($entity, 'getName'):
             return $entity->getName();
         case method_exists($entity, 'getTitle'):

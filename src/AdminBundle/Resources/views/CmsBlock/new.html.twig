@@ -3,6 +3,8 @@
 {% block content -%}
   <h1>Create CMS Block</h1>
 
+  {% include 'AppBundle::flashes.html.twig' %}
+
   {{ form_errors(form) }}
   {{ form_start(form) }}
   <div class="panel panel-default">
@@ -13,7 +15,7 @@
       {{ form_rest(form) }}
     </div>
     <div class="panel-footer text-center">
-      <button type="submit" class="btn btn-primary">{{ "form.submit"|trans }}</button>
+      <button type="submit" class="btn btn-primary">Create</button>
       <a href="{{ url('admin_cms_index') }}" class="btn btn-default">Cancel</a>
     </div>
   </div>

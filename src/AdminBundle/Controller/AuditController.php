@@ -41,7 +41,7 @@ class AuditController extends Controller
     /**
      * @Method("GET")
      * @Template
-     * @Route("/audit", name="admin_audit_index")
+     * @Route("/audit")
      */
     public function indexAction(Request $request)
     {
