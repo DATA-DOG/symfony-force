@@ -29,6 +29,7 @@ app/Resources/gif
 app/Resources/docker
 assets
 starwars.gif
+screenshot.png
 behat.yml*
 bin
 bower.json
