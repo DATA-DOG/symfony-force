@@ -16,6 +16,7 @@ class AppExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('security.yml');
+        $loader->load('twig.yml');
         $loader->load('mailer.yml');
         $loader->load('listeners/doctrine.yml');
         $loader->load('listeners/kernel.yml');

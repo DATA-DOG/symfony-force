@@ -1,0 +1,7 @@
+services:
+    twig.extension.cms_block:
+        class: AppBundle\Twig\CMSBlockExtension
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: twig.extension }
