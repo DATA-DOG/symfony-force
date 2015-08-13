@@ -22,11 +22,14 @@
     "symfony/symfony": "~2.7.0",
     "symfony/monolog-bundle": "~2.7",
     "symfony/swiftmailer-bundle": "~2.3",
-    "twig/extensions": "~1.0",
-    "incenteev/composer-parameter-handler": "~2.0",
 
     "sensio/distribution-bundle": "~4.0.0",
     "sensio/framework-extra-bundle": "~3.0",
+
+    "twig/extensions": "~1.0",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "knplabs/knp-menu-bundle": "~2.0.0",
+    "excelwebzone/recaptcha-bundle": "^1.4",
 
     "doctrine/orm": "~2.5.0",
     "doctrine/doctrine-bundle": "~1.4",
@@ -37,8 +40,6 @@
     "data-dog/audit-bundle": "^0.1.0",
     "gedmo/doctrine-extensions": "~2.4.0",
 
-    "knplabs/knp-menu-bundle": "~2.0.0",
-    "excelwebzone/recaptcha-bundle": "^1.4",
     "predis/predis": "^1.0"
   },
 
@@ -57,18 +58,18 @@
 
   "scripts": {
     "post-install-cmd": [
+      "AppBundle\\Composer::misc",
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "AppBundle\\Composer::installBinaries"
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
     ],
     "post-update-cmd": [
+      "AppBundle\\Composer::misc",
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "AppBundle\\Composer::installBinaries"
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
     ]
   },
 

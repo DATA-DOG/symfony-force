@@ -14,3 +14,4 @@ install:
 script:
   - bin/phpunit -c app
   - bin/behat -fprogress
+  - app/console security:check
