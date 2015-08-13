@@ -5,7 +5,7 @@
     by <a class="alert-link" href="#">{{ log.blame.label }}</a>,
   {% endif %}
   show <a class="alert-link" data-toggle="modal" data-target="#audit-{{ log.id }}" href="#">details</a>
-  <span class="badge">{{ log.loggedAt|ago }}</span>
+  <span class="badge">{{ time_diff(log.loggedAt) }}</span>
 </div>
 
 <div class="modal fade" id="audit-{{ log.id }}" tabindex="-1" role="dialog" aria-labelledby="audit-label-{{ log.id }}">
