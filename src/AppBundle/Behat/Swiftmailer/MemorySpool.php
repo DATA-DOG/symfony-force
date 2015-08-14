@@ -33,7 +33,7 @@ class MemorySpool implements \Swift_Spool
     /**
      * Stores a message in the queue.
      *
-     * @param Swift_Mime_Message $message The message to store
+     * @param \Swift_Mime_Message $message The message to store
      *
      * @return bool Whether the operation has succeeded
      */

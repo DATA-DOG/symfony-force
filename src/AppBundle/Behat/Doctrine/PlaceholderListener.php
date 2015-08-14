@@ -47,9 +47,9 @@ class PlaceholderListener implements EventSubscriber
         case method_exists($entity, 'getLabel'):
             return $entity->getTitle();
         case method_exists($entity, '__toString'):
-            return (string)$entity;
+            return (string) $entity;
         default:
-            return spl_object_hash($entity).'-'.get_class($entity);
+            return spl_object_hash($entity) . '-' . get_class($entity);
         }
     }
 }

@@ -57,7 +57,7 @@ class CMSBlockExtension extends \Twig_Extension
             ->setMaxResults(1)
             ->getQuery()
             ->useResultCache(true)
-            ->setResultCacheId('cms_block.'.$alias)
+            ->setResultCacheId('cms_block.' . $alias)
             ->getResult();
 
         $block = current($block);

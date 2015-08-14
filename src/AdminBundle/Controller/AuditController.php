@@ -76,7 +76,7 @@ class AuditController extends Controller
             'null' => 'Unknown',
         ];
         foreach ($this->repo('AppBundle:User')->findAll() as $user) {
-            $users[$user->getId()] = (string)$user;
+            $users[$user->getId()] = (string) $user;
         }
 
         $logs = new Pagination($qb, $request, $options);

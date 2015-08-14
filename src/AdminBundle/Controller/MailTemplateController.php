@@ -130,17 +130,17 @@ class MailTemplateController extends Controller
         }
 
         switch ($key) {
-            case 't.alias':
-                $qb->andWhere($qb->expr()->like('t.alias', ':alias'))->setParameter('alias', "%$val%");
-                break;
-            case 't.subject':
-                $qb->andWhere($qb->expr()->like('t.subject', ':subject'))->setParameter('subject', "%$val%");
-                break;
-            case 't.updatedAt':
-                $date = date("Y-m-d", strtotime($val));
-                $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
-                $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
-                break;
+        case 't.alias':
+            $qb->andWhere($qb->expr()->like('t.alias', ':alias'))->setParameter('alias', "%$val%");
+            break;
+        case 't.subject':
+            $qb->andWhere($qb->expr()->like('t.subject', ':subject'))->setParameter('subject', "%$val%");
+            break;
+        case 't.updatedAt':
+            $date = date("Y-m-d", strtotime($val));
+            $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
+            $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
+            break;
         }
     }
 }

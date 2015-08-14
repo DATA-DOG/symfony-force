@@ -146,22 +146,22 @@ class UserController extends Controller
         }
 
         switch ($key) {
-            case 'u.email':
-                $qb->andWhere($qb->expr()->like('u.email', ':email'));
-                $qb->setParameter('email', "%$val%");
-                break;
-            case 'u.createdAt':
-                $date = date("Y-m-d", strtotime($val));
-                $qb->andWhere($qb->expr()->gt('u.createdAt', "'$date 00:00:00'"));
-                $qb->andWhere($qb->expr()->lt('u.createdAt', "'$date 23:59:59'"));
-                break;
-            case 'u.firstname':
-                $qb->setParameter('name', "%$val%");
-                $qb->andWhere($qb->expr()->orX(
-                    $qb->expr()->like('u.firstname', ":name"),
-                    $qb->expr()->like('u.lastname', ":name")
-                ));
-                break;
+        case 'u.email':
+            $qb->andWhere($qb->expr()->like('u.email', ':email'));
+            $qb->setParameter('email', "%$val%");
+            break;
+        case 'u.createdAt':
+            $date = date("Y-m-d", strtotime($val));
+            $qb->andWhere($qb->expr()->gt('u.createdAt', "'$date 00:00:00'"));
+            $qb->andWhere($qb->expr()->lt('u.createdAt', "'$date 23:59:59'"));
+            break;
+        case 'u.firstname':
+            $qb->setParameter('name', "%$val%");
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->like('u.firstname', ":name"),
+                $qb->expr()->like('u.lastname', ":name")
+            ));
+            break;
         }
     }
 }
