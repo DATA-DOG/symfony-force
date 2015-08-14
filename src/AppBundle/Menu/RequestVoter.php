@@ -29,7 +29,7 @@ class RequestVoter implements VoterInterface
             return true;
         }
 
-        if ($item->getUri() !== $this->request->getBaseUrl().'/' && (substr($this->request->getRequestUri(), 0, strlen($item->getUri())) === $item->getUri())) {
+        if ($item->getUri() !== $this->request->getBaseUrl() . '/' && (substr($this->request->getRequestUri(), 0, strlen($item->getUri())) === $item->getUri())) {
             // URL isn't just "/" and the first part of the URL match
             return true;
         }

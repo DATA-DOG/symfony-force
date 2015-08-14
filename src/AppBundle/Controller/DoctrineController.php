@@ -23,6 +23,9 @@ trait DoctrineController
         $this->getDoctrine()->getManager()->flush($class);
     }
 
+    /**
+     * @param string $class
+     */
     protected function repo($class)
     {
         return $this->getDoctrine()->getManager()->getRepository($class);
