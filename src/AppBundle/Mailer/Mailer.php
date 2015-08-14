@@ -37,7 +37,7 @@ class Mailer
      * @param EntityManager $em
      * @param string $sender
      */
-    function __construct(\Swift_Mailer $mailer, EngineInterface $twig, EntityManager $em, $sender)
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $twig, EntityManager $em, $sender)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;

@@ -33,7 +33,7 @@ class DevUsers implements FixtureInterface, OrderedFixtureInterface, ContainerAw
     /**
      * @param ObjectManager $em
      */
-    function load(ObjectManager $em)
+    public function load(ObjectManager $em)
     {
         if (!in_array($this->container->getParameter('kernel.environment'), ['dev'])) {
             return; // only for dev environment

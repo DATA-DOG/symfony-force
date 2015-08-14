@@ -54,7 +54,7 @@ class MemorySpool implements \Swift_Spool
      */
     public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
     {
-        if (!$this->messages) {
+        if (empty($this->messages)) {
             return 0;
         }
 

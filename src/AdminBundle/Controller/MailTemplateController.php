@@ -28,7 +28,7 @@ class MailTemplateController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function indexAction(Request $request)
+    public function indexAction(Request $request)
     {
         $qb = $this->repo('AppBundle:MailTemplate')->createQueryBuilder('t');
 
@@ -49,7 +49,7 @@ class MailTemplateController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function newAction(Request $request)
+    public function newAction(Request $request)
     {
         $template = new MailTemplate();
         $form = $this->createForm(new MailTemplateType(), $template);
@@ -81,7 +81,7 @@ class MailTemplateController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function editAction(MailTemplate $template, Request $request)
+    public function editAction(MailTemplate $template, Request $request)
     {
         $form = $this->createForm(new MailTemplateType(), $template);
         $form->handleRequest($request);
@@ -109,7 +109,7 @@ class MailTemplateController extends Controller
      * @param MailTemplate $template
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    function deleteAction(MailTemplate $template)
+    public function deleteAction(MailTemplate $template)
     {
         $this->remove($template);
         $this->flush();
@@ -123,7 +123,7 @@ class MailTemplateController extends Controller
      * @param $key
      * @param $val
      */
-    function templateFilters(QueryBuilder $qb, $key, $val)
+    public function templateFilters(QueryBuilder $qb, $key, $val)
     {
         if (!$val) {
             return;
