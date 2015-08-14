@@ -47,13 +47,13 @@ class CMSBlockExtension extends \Twig_Extension
      * @param \Twig_Environment $twig
      * @param string $alias
      * @return \Twig_Template
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function renderBlock(\Twig_Environment $twig, $alias)
     {
-        $block = $this->repo->findOneBy(['alias'=>$alias]);
+        $block = $this->repo->findOneBy(compact('alias'));
         if (!$block) {
-            throw new \InvalidArgumentException(sprintf("Block '%s' could not be found", $alias));
+            throw new \InvalidArgumentException(sprintf("CMS block '%s' could not be found", $alias));
         }
 
         return $twig->createTemplate($block->getContent());
