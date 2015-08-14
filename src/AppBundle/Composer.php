@@ -18,9 +18,11 @@ class Composer
             $event->getIO()->write(sprintf('The "bin" directory was not found in %s.', getcwd()));
             return;
         }
-        $bins = ['archive', 'reload'];
-        foreach ($bins as $binary) {
-            if (@symlink($src = '../src/AppBundle/Resources/bin/' . $binary, $dst = 'bin/' . $binary) === false) {
+        foreach (glob('app/Resources/bin/*') as $binary) {
+            $src = '../app/Resources/bin/' . basename($binary);
+            $dst = $dst = 'bin/' . basename($binary);
+            @unlink($dst);
+            if (@symlink($src, $dst) === false) {
                 if (!file_exists($dst)) {
                     $event->getIO()->write(sprintf('Failed to symlink %s from %s.', $src, $dst));
                     return;
