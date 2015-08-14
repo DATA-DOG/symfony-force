@@ -95,7 +95,7 @@ class CmsBlockController extends Controller
         $this->persist($block);
         $this->flush();
         // refresh cache
-        $this->get('cache.default')->delete('cms_block.'.$block->getAlias());
+        $this->get('cache.default')->delete('cms_block.' . $block->getAlias());
         $this->addFlash("success", "Updated was the cms block: {$block->getName()}");
 
         return $this->redirectToRoute('admin_cmsblock_index');
@@ -133,19 +133,19 @@ class CmsBlockController extends Controller
         }
 
         switch ($key) {
-            case 't.alias':
-                $qb->andWhere($qb->expr()->like('t.alias', ':alias'));
-                $qb->setParameter('alias', "%$val%");
-                break;
-            case 't.name':
-                $qb->andWhere($qb->expr()->like('t.name', ':name'));
-                $qb->setParameter('name', "%$val%");
-                break;
-            case 't.updatedAt':
-                $date = date("Y-m-d", strtotime($val));
-                $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
-                $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
-                break;
+        case 't.alias':
+            $qb->andWhere($qb->expr()->like('t.alias', ':alias'));
+            $qb->setParameter('alias', "%$val%");
+            break;
+        case 't.name':
+            $qb->andWhere($qb->expr()->like('t.name', ':name'));
+            $qb->setParameter('name', "%$val%");
+            break;
+        case 't.updatedAt':
+            $date = date("Y-m-d", strtotime($val));
+            $qb->andWhere($qb->expr()->gt('t.updatedAt', "'$date 00:00:00'"));
+            $qb->andWhere($qb->expr()->lt('t.updatedAt', "'$date 23:59:59'"));
+            break;
         }
     }
 }

@@ -33,7 +33,7 @@ class PageContext extends BaseContext
     function iShouldSeeTextOnPageHeadline($text)
     {
         $this->notNull(
-            $this->find('xpath', '//h1[contains(., "' . $text . '")] | //h2[contains(., "' . $text . '")] | //h3[contains(., "'.$text.'")]'),
+            $this->find('xpath', '//h1[contains(., "' . $text . '")] | //h2[contains(., "' . $text . '")] | //h3[contains(., "' . $text . '")]'),
             "Text '$text' was not found on page headline"
         );
     }

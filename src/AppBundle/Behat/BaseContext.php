@@ -39,7 +39,7 @@ class BaseContext extends RawMinkContext implements KernelAwareContext
     /**
      * Returns Container instance.
      *
-     * @return ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
     protected function getContainer()
     {
@@ -63,16 +63,26 @@ class BaseContext extends RawMinkContext implements KernelAwareContext
         return $this->getContainer()->getParameter($name);
     }
 
+    /**
+     * @param string $name
+     */
     protected function repo($name)
     {
         return $this->get('em')->getRepository($name);
     }
 
+    /**
+     * @param string $type
+     * @param string $path
+     */
     protected function find($type, $path)
     {
         return $this->getSession()->getPage()->find($type, $path);
     }
 
+    /**
+     * @param string $route
+     */
     protected function visit($route, array $params = [])
     {
         $params = array_merge(['_locale' => 'en'], $params);
@@ -80,6 +90,9 @@ class BaseContext extends RawMinkContext implements KernelAwareContext
         return $this->visitPath($path);
     }
 
+    /**
+     * @param boolean $val
+     */
     protected function true($val, $msg = '')
     {
         if ($val !== true) {
@@ -101,6 +114,10 @@ class BaseContext extends RawMinkContext implements KernelAwareContext
         }
     }
 
+    /**
+     * @param integer $expected
+     * @param integer $actual
+     */
     protected function same($expected, $actual, $msg = '')
     {
         if ($expected !== $actual) {
