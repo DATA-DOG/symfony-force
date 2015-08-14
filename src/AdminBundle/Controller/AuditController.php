@@ -64,7 +64,7 @@ class AuditController extends Controller
         ];
 
         foreach ($this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata() as $meta) {
-            if ($meta->isMappedSuperclass or strpos($meta->name, 'DataDog\AuditBundle') === 0) {
+            if ($meta->isMappedSuperclass || strpos($meta->name, 'DataDog\AuditBundle') === 0) {
                 continue;
             }
             $parts = explode('\\', $meta->name);

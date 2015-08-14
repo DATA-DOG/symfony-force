@@ -20,8 +20,9 @@ class TimeExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        $time_diff = new \Twig_Function_Method($this, 'diff', ['is_safe' => ['html']]);
-        return compact('time_diff');
+        return [
+            new \Twig_SimpleFunction('time_diff', [$this, 'diff'], ['is_safe' => ['html']])
+        ];
     }
 
     public function diff($since = null, $to = null)
