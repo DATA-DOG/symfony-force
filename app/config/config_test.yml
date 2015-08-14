@@ -1,5 +1,5 @@
 imports:
-  - { resource: config.yml }
+  - { resource: config_prod.yml }
 
 parameters:
   swiftmailer.spool.memory.class: AppBundle\Behat\Swiftmailer\MemorySpool
@@ -14,8 +14,9 @@ services:
 
 framework:
   test: ~
-  profiler:
-    enabled: true
+  profiler: { only_exceptions: false }
+  router:
+    resource: "%kernel.root_dir%/config/routing_dev.yml"
   session:
     cookie_domain: ""
     cookie_secure: false # allow insecure cookies http://
@@ -26,7 +27,7 @@ doctrine:
     dbname: "%database_name%_test"
 
 web_profiler:
-  toolbar: false
+  toolbar: %kernel.debug% # enable debug in web/app_test,php to see toolbar
   intercept_redirects: false
 
 monolog:

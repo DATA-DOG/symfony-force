@@ -94,6 +94,8 @@ class CmsBlockController extends Controller
         }
         $this->persist($block);
         $this->flush();
+        // refresh cache
+        $this->get('cache.default')->delete('cms_block.'.$block->getAlias());
         $this->addFlash("success", "Updated was the cms block: {$block->getName()}");
 
         return $this->redirectToRoute('admin_cmsblock_index');
