@@ -1,0 +1,11 @@
+filter:
+    paths:
+        - 'src/*'
+checks:
+    php: {  }
+
+coding_style:
+    php:
+        indentation:
+            switch:
+                indent_case: false
