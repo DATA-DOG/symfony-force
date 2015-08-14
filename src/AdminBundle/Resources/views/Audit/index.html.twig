@@ -6,19 +6,21 @@
   {% include 'AppBundle::flashes.html.twig' %}
 
   <div class="panel panel-primary">
-    <div class="panel-heading"><i class="fa fa-archive"></i> Audit</div>
-
-    <div class="row">
-      <div class="col-md-offset-6 col-md-3">
+    <div class="panel-heading">
+      <div class="toolbar">
         {{ filter_dropdown(logs, "blamed", users) }}
-      </div>
-      <div class="col-md-3">
         {{ filter_dropdown(logs, "class", sourceClasses) }}
       </div>
+      <h3 class="panel-title"><i class="fa fa-archive"></i> Audit</h3>
     </div>
-    {% for log in logs %}
-      {{ audit(log) }}
-    {% endfor %}
+
+    <table class="table">
+      <tbody>
+        {% for log in logs %}
+          {{ audit(log) }}
+        {% endfor %}
+      </tbody>
+    </table>
 
     <div class="panel-footer">
       {{ pagination(logs) }}

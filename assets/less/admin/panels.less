@@ -1,0 +1,70 @@
+
+
+.panel {
+  box-shadow: 1px 1px 3px #aaa;
+  border: 0;
+}
+
+
+.panel {
+  > .panel-heading {
+    color: #fff;
+    min-height: @padding-base-vertical*4+@line-height-computed + 2;
+    .panel-title {
+      line-height: 22px;
+    }
+
+    .toolbar {
+      float: right;
+      margin-top: -3px;
+      .btn {
+        .btn-sm();
+      }
+      .btn-default {
+        background: rgba(255, 255, 255, 0.45);
+        color: #fff;
+        transition: background .5s;
+        &:hover {
+          background: rgba(255, 255, 255, 0.65);
+        }
+      }
+    }
+
+  }
+
+  &-primary > .panel-heading {
+    border-bottom: 4px solid lighten(@brand-primary, 10%);
+    #gradient > .horizontal(@brand-primary, @brand-primary-light, 10%, 90%);
+  }
+  &-success > .panel-heading {
+    border-bottom: 4px solid lighten(@brand-success-light, 15%);
+    #gradient > .horizontal(@brand-success, @brand-success-light, 10%, 90%);
+  }
+  &-danger > .panel-heading {
+    border-bottom: 4px solid lighten(@brand-danger-light, 15%);
+    #gradient > .horizontal(@brand-danger, @brand-danger-light, 10%, 90%);
+  }
+  &-info > .panel-heading {
+    border-bottom: 4px solid lighten(@brand-info-light, 15%);
+    #gradient > .horizontal(@brand-info, @brand-info-light, 10%, 90%);
+  }
+  &-warning > .panel-heading {
+    border-bottom: 4px solid lighten(@brand-warning-light, 15%);
+    #gradient > .horizontal(@brand-warning, @brand-warning-light, 10%, 90%);
+  }
+  &-default > .panel-heading {
+    border-bottom: 4px solid #ccc;
+    #gradient > .horizontal(#aaa, #ddd, 10%, 70%);
+  }
+
+  > .table {
+    thead th {
+
+      background: #f7f7f7;
+      a {
+        text-decoration: none;
+        color: @gray-light;
+      }
+    }
+  }
+}
