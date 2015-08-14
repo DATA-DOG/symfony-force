@@ -28,7 +28,7 @@ class CmsBlockController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function indexAction(Request $request)
+    public function indexAction(Request $request)
     {
         $blocks = $this->get('em')->getRepository('AppBundle:CmsBlock')->createQueryBuilder('t');
 
@@ -49,7 +49,7 @@ class CmsBlockController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function newAction(Request $request)
+    public function newAction(Request $request)
     {
         $block = new CmsBlock();
         $form = $this->createForm(new CmsBlockType(), $block);
@@ -81,7 +81,7 @@ class CmsBlockController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function editAction(CmsBlock $block, Request $request)
+    public function editAction(CmsBlock $block, Request $request)
     {
         $form = $this->createForm(new CmsBlockType(), $block);
         $form->handleRequest($request);
@@ -110,7 +110,7 @@ class CmsBlockController extends Controller
      * @param CmsBlock $block
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    function deleteAction(CmsBlock $block)
+    public function deleteAction(CmsBlock $block)
     {
         $this->remove($block);
         $this->flush();
@@ -126,7 +126,7 @@ class CmsBlockController extends Controller
      * @param string $key
      * @param string $val
      */
-    function cmsFilters(QueryBuilder $qb, $key, $val)
+    public function cmsFilters(QueryBuilder $qb, $key, $val)
     {
         if (empty($val)) {
             return;

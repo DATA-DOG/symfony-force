@@ -21,10 +21,6 @@ class MailerContext extends BaseContext
             foreach ($message->getTo() as $address => $name) {
                 if ($address === $email) {
                     return;
-                    // next check the body
-                    if (strpos($message->getBody(), $body->getRaw()) !== false) {
-                        return; // found email
-                    }
                 }
             }
         }

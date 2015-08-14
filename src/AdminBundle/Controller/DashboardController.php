@@ -13,7 +13,7 @@ class DashboardController extends Controller
      * @Route("/", name="admin")
      * @Template
      */
-    function indexAction()
+    public function indexAction()
     {
         return [];
     }

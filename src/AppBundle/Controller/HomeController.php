@@ -16,7 +16,7 @@ class HomeController extends Controller
      * @Method("GET")
      * @Template
      */
-    function homepageAction()
+    public function homepageAction()
     {
         return [];
     }
@@ -26,7 +26,7 @@ class HomeController extends Controller
      * @Method("GET")
      * @Template
      */
-    function aboutAction()
+    public function aboutAction()
     {
         return [];
     }

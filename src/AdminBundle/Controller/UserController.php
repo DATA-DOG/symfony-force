@@ -28,7 +28,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function indexAction(Request $request)
+    public function indexAction(Request $request)
     {
         $users = $this->repo('AppBundle:User')->createQueryBuilder('u');
 
@@ -49,7 +49,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function newAction(Request $request)
+    public function newAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
@@ -83,7 +83,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function editAction(User $user, Request $request)
+    public function editAction(User $user, Request $request)
     {
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
@@ -112,7 +112,7 @@ class UserController extends Controller
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    function deleteAction(User $user)
+    public function deleteAction(User $user)
     {
         $this->remove($user);
         $this->flush();
@@ -139,7 +139,7 @@ class UserController extends Controller
      * @param string $key
      * @param string $val
      */
-    function userFilters(QueryBuilder $qb, $key, $val)
+    public function userFilters(QueryBuilder $qb, $key, $val)
     {
         if (empty($val)) {
             return;

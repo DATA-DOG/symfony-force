@@ -16,10 +16,10 @@ class AuditExtension extends \Twig_Extension
             'needs_environment' => true,
         ];
 
-        $audit = new \Twig_Function_Method($this, 'audit', $defaults);
-        $audit_value = new \Twig_Function_Method($this, 'value', $defaults);
-
-        return compact('audit', 'audit_value');
+        return [
+            new \Twig_SimpleFunction('audit', [$this, 'audit'], $defaults),
+            new \Twig_SimpleFunction('audit_value', [$this, 'value'], $defaults),
+        ];
     }
 
     public function audit(\Twig_Environment $twig, AuditLog $log)

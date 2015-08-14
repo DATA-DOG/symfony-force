@@ -15,7 +15,7 @@ class AuditController extends Controller
 {
     use DoctrineController;
 
-    function filters(QueryBuilder $qb, $key, $val)
+    public function filters(QueryBuilder $qb, $key, $val)
     {
         switch ($key) {
         case 'blamed':
@@ -43,7 +43,7 @@ class AuditController extends Controller
      * @Template
      * @Route("/audit")
      */
-    function indexAction(Request $request)
+    public function indexAction(Request $request)
     {
         Pagination::$defaults = array_merge(Pagination::$defaults, ['limit' => 10]);
 
@@ -64,7 +64,7 @@ class AuditController extends Controller
         ];
 
         foreach ($this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata() as $meta) {
-            if ($meta->isMappedSuperclass or strpos($meta->name, 'DataDog\AuditBundle') === 0) {
+            if ($meta->isMappedSuperclass || strpos($meta->name, 'DataDog\AuditBundle') === 0) {
                 continue;
             }
             $parts = explode('\\', $meta->name);
