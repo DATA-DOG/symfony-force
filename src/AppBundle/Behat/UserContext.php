@@ -2,7 +2,6 @@
 
 namespace AppBundle\Behat;
 
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Entity\User;
 
 class UserContext extends BaseContext

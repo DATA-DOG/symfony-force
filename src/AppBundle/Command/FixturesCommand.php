@@ -57,7 +57,7 @@ EOT
 
         $paths = [];
         foreach ($this->getApplication()->getKernel()->getBundles() as $bundle) {
-            $paths[] = $bundle->getPath().'/Fixture';
+            $paths[] = $bundle->getPath() . '/Fixture';
         }
 
         $loader = new DataFixturesLoader($this->getContainer());
@@ -69,7 +69,7 @@ EOT
         $env = $this->getContainer()->getParameter('kernel.environment');
         $output->writeln("Loading <comment>fixtures</comment>...");
 
-        $has = array_map(function (Fixture $fixture) {
+        $has = array_map(function(Fixture $fixture) {
             return $fixture->getName();
         }, $loaded);
 

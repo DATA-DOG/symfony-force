@@ -52,7 +52,7 @@ class PlaceholderContext implements Context
         if (array_key_exists($name, $this->placeholders)) {
             throw new \Exception("The placeholder: \"{$name}\" was already set..");
         }
-        $this->placeholders[$name] = (string)$value;
+        $this->placeholders[$name] = (string) $value;
     }
 
     public function replace($text)
