@@ -1,0 +1,26 @@
+@navbar-inverse-link-color: #fff;
+@navbar-inverse-link-active-bg: transparent;
+@navbar-link-active-border-width: 3px;
+
+.navbar {
+  box-shadow: 0 0 11px #444;
+  border: 0;
+
+  &.navbar-inverse {
+    #gradient > .horizontal(@brand-success, #B5AC49, 10%, 90%);
+
+    .nav li {
+      &.active a {
+
+        border-bottom: @navbar-link-active-border-width solid rgba(255, 255, 255, 0.4);
+        padding-bottom: @navbar-padding-vertical - @navbar-link-active-border-width;
+      }
+      a:hover {
+        transition: background .3s;
+        background: rgba(255, 255, 255, 0.13);
+      }
+    }
+  }
+
+
+}
