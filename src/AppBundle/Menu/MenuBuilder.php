@@ -20,21 +20,50 @@ class MenuBuilder extends ContainerAware
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav pull-right');
 
-        $child = function($label, $route) use($menu) {
-            $attributes = ['role' => 'presentation'];
-            return $menu->addChild($label, compact('route', 'attributes'));
-        };
-
+        // about
+        $menu->addChild('About', ['route' => 'app_home_about', 'attributes' => [
+            'role' => 'presentation',
+            'icon' => 'fa fa-book',
+        ]]);
         $user = $this->getUser();
+
         if ($user instanceof UserInterface) {
-            $child($user, 'app_user_profile');
+            // dropdown
+            $dropdown = $menu->addChild($user, ['attributes' => [
+                'role' => 'presentation',
+                'dropdown' => true,
+                'icon' => 'fa fa-user',
+            ]]);
+            // profile
+            $dropdown->addChild('Profile', ['route' => 'app_user_profile', 'attributes' => [
+                'role' => 'presentation',
+                'icon' => 'fa fa-child',
+            ]]);
+            // administration
             if ($user->hasRole('ROLE_ADMIN')) {
-                $child('Administration', 'admin')->setLinkAttribute('class', 'text-danger');
+                $dropdown->addChild('Admin', ['route' => 'admin', 'attributes' => [
+                    'role' => 'presentation',
+                    'icon' => 'fa fa-beer',
+                ]]);
             }
-            $child('Logout', 'app_user_logout');
-        } else {
-            $child('Login', 'app_user_login');
-            $child('Sign-up', 'app_user_signup');
+            // logout
+            $dropdown->addChild('Logout', ['route' => 'app_user_logout', 'attributes' => [
+                'role' => 'presentation',
+                'icon' => 'fa fa-sign-out',
+            ]]);
+        }
+
+        if (!$user instanceof UserInterface) {
+            // signin
+            $menu->addChild('Login', ['route' => 'app_user_login', 'attributes' => [
+                'role' => 'presentation',
+                'icon' => 'fa fa-sign-in',
+            ]]);
+            // signup
+            $menu->addChild('Sign-up', ['route' => 'app_user_signup', 'attributes' => [
+                'role' => 'presentation',
+                'icon' => 'fa fa-user-plus',
+            ]]);
         }
 
         return $menu;

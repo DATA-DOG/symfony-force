@@ -68,3 +68,8 @@ ewz_recaptcha:
   public_key:  %recaptcha_public_key%
   private_key: %recaptcha_private_key%
   locale_key:  %kernel.default_locale%
+
+knp_menu:
+  twig:
+    template: "::menu.html.twig"
+

@@ -20,4 +20,14 @@ class HomeController extends Controller
     {
         return [];
     }
+
+    /**
+     * @Route("/about")
+     * @Method("GET")
+     * @Template
+     */
+    function aboutAction()
+    {
+        return [];
+    }
 }

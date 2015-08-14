@@ -1,0 +1,6 @@
+services:
+  bootstrap.menu.voter:
+    class: AppBundle\Menu\RequestVoter
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+      - { name: knp_menu.voter }
