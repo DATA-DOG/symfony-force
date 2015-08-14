@@ -15,7 +15,7 @@ class AuditController extends Controller
 {
     use DoctrineController;
 
-    function filters(QueryBuilder $qb, $key, $val)
+    public function filters(QueryBuilder $qb, $key, $val)
     {
         switch ($key) {
         case 'blamed':
@@ -43,7 +43,7 @@ class AuditController extends Controller
      * @Template
      * @Route("/audit")
      */
-    function indexAction(Request $request)
+    public function indexAction(Request $request)
     {
         Pagination::$defaults = array_merge(Pagination::$defaults, ['limit' => 10]);
 
