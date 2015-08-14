@@ -11,10 +11,7 @@ if [ ! -f "$CLI" ]; then
     exit 1
 fi
 
-ENV="$1"
-if [ -z "$ENV" ]; then
-    ENV="dev"
-fi
+ENV=${1:-"dev"}
 
 # Bootstrap cache
 php $ROOT/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php

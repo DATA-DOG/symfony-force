@@ -4,10 +4,35 @@
 
 {% include 'AppBundle::flashes.html.twig' %}
 
-<div class="row">
-  comming up
+<div class="content">
+  <blockquote>
+    <p>Could not resist.. Want some <a href="#" class="toggle-sound">background sound?</a></p>
+    <footer>DATA-DOG team</footer>
+  </blockquote>
+
+  <div class="row text-center">
+    <img src="{{ asset('img/starwars.gif') }}">
+  </div>
 </div>
 
 <div class="clearfix"></div>
 
+{% endblock %}
+
+{% block js %}
+<script>
+  var audio = '<audio preload="auto">' +
+   '<source src="http://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.ogg" type="audio/ogg" />' +
+   '<source src="http://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.mp3" type="audio/mpeg" />' +
+   '</audio>';
+
+   $('.toggle-sound').on('click', function(e) {
+    e.preventDefault();
+    if ($('head > audio').length) {
+      $('head > audio').remove();
+    } else {
+      $('head').append($(audio));
+    }
+   });
+</script>
 {% endblock %}
