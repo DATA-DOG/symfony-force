@@ -9,7 +9,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_have_no_roles_by_default()
+    public function should_have_no_roles_by_default()
     {
         $user = new User;
         $this->assertSame([], $user->getRoles());
@@ -18,7 +18,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_be_able_to_add_defined_role()
+    public function should_be_able_to_add_defined_role()
     {
         $user = new User;
         $user->addRole('ROLE_ADMIN');
@@ -28,7 +28,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_skip_adding_undefined_role()
+    public function should_skip_adding_undefined_role()
     {
         $user = new User;
         $user->addRole('ROLE_UNDEFINED');
@@ -38,7 +38,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_be_able_to_remove_defined_role()
+    public function should_be_able_to_remove_defined_role()
     {
         $user = new User;
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
@@ -50,7 +50,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_not_be_able_to_remove_undefined_role()
+    public function should_not_be_able_to_remove_undefined_role()
     {
         $user = new User;
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
@@ -62,7 +62,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function should_add_user_role_when_confirmed()
+    public function should_add_user_role_when_confirmed()
     {
         $user = new User;
         $user->confirm();
