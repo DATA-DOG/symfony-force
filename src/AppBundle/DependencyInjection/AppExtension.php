@@ -18,6 +18,7 @@ class AppExtension extends Extension
         $loader->load('security.yml');
         $loader->load('twig.yml');
         $loader->load('mailer.yml');
+        $loader->load('menu.yml');
         $loader->load('listeners/doctrine.yml');
         $loader->load('listeners/kernel.yml');
 
