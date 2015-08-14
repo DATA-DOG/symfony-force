@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/DATA-DOG/symfony-force.png?branch=master)](https://travis-ci.org/DATA-DOG/symfony-force)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DATA-DOG/symfony-force/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DATA-DOG/symfony-force/?branch=master)
 
 # Symfony Force Edition
 
