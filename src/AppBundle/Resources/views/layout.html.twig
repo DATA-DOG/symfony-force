@@ -10,7 +10,7 @@
   {% block content %}{% endblock %}
 
   <footer class="footer">
-    <p>&copy; {{ "now"|date("Y") }} DATA-DOG</p>
+    {% include(cms_block('footer')) %}
   </footer>
 </div>
 {% endblock body %}
