@@ -22,7 +22,7 @@ class AppExtension extends Extension
         $loader->load('listeners/doctrine.yml');
         $loader->load('listeners/kernel.yml');
 
-        if ($container->getParameter('kernel.environment') === 'prod') {
+        if (in_array($container->getParameter('kernel.environment'), ['prod', 'test'], true)) {
             $loader->load('cache_prod.yml');
         } else {
             $loader->load('cache.yml');

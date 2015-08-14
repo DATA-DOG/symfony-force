@@ -28,6 +28,7 @@ a manual transaction was started. Prevent bad design and data inconsistencies.
 Additionally, that allows to run **behat** concurrently using [beflash](https://github.com/DATA-DOG/beflash.git)
 which would in total run **85% faster** on 4 cores.
 - uses twig to manage basic **CMS** related requirements.
+- **test** environment acts like **prod** in order to see profiler set `$debug` to true in **web/app_test.php**.
 
 ## Installation
 

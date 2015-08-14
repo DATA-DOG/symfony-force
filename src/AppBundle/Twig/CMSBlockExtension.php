@@ -51,7 +51,16 @@ class CMSBlockExtension extends \Twig_Extension
      */
     public function renderBlock(\Twig_Environment $twig, $alias)
     {
-        $block = $this->repo->findOneBy(compact('alias'));
+        $block = $this->repo->createQueryBuilder('b')
+            ->where('b.alias = :alias')
+            ->setParameters(compact('alias'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->useResultCache(true)
+            ->setResultCacheId('cms_block.'.$alias)
+            ->getResult();
+
+        $block = current($block);
         if (!$block) {
             throw new \InvalidArgumentException(sprintf("CMS block '%s' could not be found", $alias));
         }
