@@ -37,7 +37,8 @@ class FlushListener
         if (!$this->sub->flushed) {
             $status = $event->getResponse()->getStatusCode();
             // only when response is successfuly built
-            if ($status < 300 && $status >= 200) {
+            // or is a redirect response
+            if ($status < 400 && $status >= 200) {
                 $this->em->flush();
             }
         }
