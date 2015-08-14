@@ -24,7 +24,7 @@ class PlaceholderContext implements Context
     function showRecentPlaceholders(AfterStepScope $scope)
     {
         if ($scope->getTestResult()->getResultCode() == TestResult::FAILED) {
-            if ($this->placeholders) {
+            if (!empty($this->placeholders)) {
                 echo "\nPlaceholders:";
                 foreach ($this->placeholders as $name => $value) {
                     echo sprintf("\n    %s: %s", $name, $value);
@@ -52,12 +52,12 @@ class PlaceholderContext implements Context
         if (array_key_exists($name, $this->placeholders)) {
             throw new \Exception("The placeholder: \"{$name}\" was already set..");
         }
-        $this->placeholders[$name] = (string) $value;
+        $this->placeholders[$name] = (string)$value;
     }
 
     public function replace($text)
     {
-        return preg_replace_callback("#%([^%]+)%#", function($m) {
+        return preg_replace_callback("#%([^%]+)%#", function ($m) {
             return isset($this->placeholders[$m[1]]) ? $this->placeholders[$m[1]] : $m[0];
         }, $text);
     }
