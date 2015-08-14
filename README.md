@@ -134,19 +134,12 @@ Application installs some convenient binary executables on composer install|upda
 #### Reload
 
 **reload** - reloads your application datasources in the order: drop database(if available), create database, run migrations,
-load fixtures, clear and warmup cache. These binaries are located in **src/AppBundle/Resources/bin** and may be adapted
+load fixtures, clear and warmup cache. These binaries are located in **app/Resources/bin** and may be adapted
 for custom usage.
 
     bin/reload test
 
 Would reload application for **test** environment. Default is **dev** as usual in symfony2 application.
-
-#### Archive
-
-**archive** binary is used to archive an application to **tar.gz** for production use in order to upload and deploy it
-without any dependencies.
-
-    bin/archive /directory/release.tar.gz
 
 ## Vagrant
 
@@ -163,6 +156,5 @@ It will install the same binaries and have migrations and fixtures ready.
 
 ## TODO
 
-- Style the starwars theme better..
 - File upload service and entity + profile image.
 

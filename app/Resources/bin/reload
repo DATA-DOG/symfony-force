@@ -4,8 +4,8 @@
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-CLI="$DIR/../app/console"
 ROOT="$DIR/.."
+CLI="$ROOT/app/console"
 if [ ! -f "$CLI" ]; then
     echo "Can be run only from sf-project-root/bin directory. Run composer install first."
     exit 1

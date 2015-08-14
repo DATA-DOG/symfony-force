@@ -175,7 +175,7 @@ module.exports = function(grunt) {
         command: [
           'composer install --no-scripts --no-dev --ansi',
           'composer dump-autoload --optimize --ansi',
-          'bin/archive ansible/frontend.tar.gz',
+          'tar --exclude-from=.tarignore --exclude-vcs -czf ansible/frontend.tar.gz .',
           'composer install --ansi'
         ].join('&&')
       },
