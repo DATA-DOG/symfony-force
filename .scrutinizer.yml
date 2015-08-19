@@ -1,11 +1,20 @@
 filter:
-    paths:
-        - 'src/*'
+  paths:
+    - 'src/*'
+
 checks:
-    php: {  }
+  php: {  }
 
 coding_style:
-    php:
-        indentation:
-            switch:
-                indent_case: false
+  php:
+    indentation:
+      switch:
+        indent_case: false
+
+filter:
+  excluded_paths:
+    - assets/*
+    - ansible/*
+    - features/*
+    - vendor/*
+    - src/*/Behat/*
