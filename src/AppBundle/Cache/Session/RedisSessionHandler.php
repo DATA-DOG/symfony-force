@@ -2,6 +2,8 @@
 
 namespace AppBundle\Cache\Session;
 
+use Predis\Client;
+
 class RedisSessionHandler implements \SessionHandlerInterface
 {
     /**
@@ -56,7 +58,7 @@ class RedisSessionHandler implements \SessionHandlerInterface
      * @param array                 $options Session options
      * @param string                $prefix  Prefix to use when writing session data
      */
-    public function __construct($redis, array $options = array(), $prefix = 'sess', $locking = true, $spinLockWait = 150000)
+    public function __construct(Client $redis, array $options = array(), $prefix = 'sess', $locking = true, $spinLockWait = 150000)
     {
         $this->redis = $redis;
         $this->ttl = isset($options['cookie_lifetime']) ? (int) $options['cookie_lifetime'] : 3600 /* 1h */;

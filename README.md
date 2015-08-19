@@ -16,8 +16,9 @@ the project and strip it down to whatever works for them.
 
 ## Development requirements
 
-- **linux** or **unix**
+- **linux**, **unix** and probably **windows**
 - **PHP 5.6** or higher
+- **redis** for test and prod environments
 - nodejs - [grunt](http://gruntjs.com/) and [bower](http://bower.io/)
 - [composer](https://getcomposer.org/)
 
