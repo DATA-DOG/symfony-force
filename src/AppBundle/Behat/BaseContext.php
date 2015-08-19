@@ -25,7 +25,9 @@ class BaseContext extends RawMinkContext implements KernelAwareContext
     public function linkUsedSubcontexts(BeforeScenarioScope $scope)
     {
         $this->placeholders = $scope->getEnvironment()->getContext('AppBundle\Behat\PlaceholderContext');
-        $this->mink = $scope->getEnvironment()->getContext('Behat\MinkExtension\Context\MinkContext');
+        if ($scope->getEnvironment()->hasContextClass('Behat\MinkExtension\Context\MinkContext')) {
+            $this->mink = $scope->getEnvironment()->getContext('Behat\MinkExtension\Context\MinkContext');
+        }
     }
 
     /**

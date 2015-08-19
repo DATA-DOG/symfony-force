@@ -36,4 +36,15 @@ default:
         - AppBundle\Behat\PageContext
         - AppBundle\Behat\UserContext
         - Behat\MinkExtension\Context\MinkContext
+      filters:
+        tags: @user
+
+    api:
+      contexts:
+        - ApiBundle\Behat\APIContext
+        - AppBundle\Behat\PlaceholderContext
+        - AppBundle\Behat\DatabaseContext
+        - AppBundle\Behat\UserContext
+      filters:
+        role: "api user"
 

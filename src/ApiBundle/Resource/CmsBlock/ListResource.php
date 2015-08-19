@@ -16,7 +16,7 @@ class ListResource implements ResourceInterface
 
     public function jsonSerialize()
     {
-        $blocks = array_map(function (CmsBlock $block) {
+        $blocks = array_map(function(CmsBlock $block) {
             return (new SingleResource($block))->jsonSerialize();
         }, $this->blocks);
         return compact('blocks');
