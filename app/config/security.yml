@@ -38,6 +38,7 @@ security:
     - { path: ^/(about|login|signup|reset)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/admin/, role: ROLE_ADMIN }
     - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/, role: ROLE_USER }
 
