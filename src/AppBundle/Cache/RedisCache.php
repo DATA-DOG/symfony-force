@@ -2,6 +2,7 @@
 
 namespace AppBundle\Cache;
 
+use Predis\Client;
 use Doctrine\Common\Cache\CacheProvider;
 use Symfony\Component\Validator\Mapping\Cache\CacheInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -16,7 +17,7 @@ class RedisCache extends CacheProvider implements CacheInterface
 
     protected $ns;
 
-    public function __construct($redis, $ns)
+    public function __construct(Client $redis, $ns)
     {
         $this->redis = $redis;
         $this->setNamespace($this->ns = $ns);
@@ -77,8 +78,9 @@ class RedisCache extends CacheProvider implements CacheInterface
 
     public function flushNamespacedKeys()
     {
+        $params = $this->redis->getConnection()->getParameters();
         // redis cli connection string
-        $conn = sprintf("redis-cli -h %s -p %s -n %s --raw", $this->redis->getHost(), $this->redis->getPort(), $this->redis->getDBNum());
+        $conn = sprintf("redis-cli -h %s -p %s -n %s --raw", $params->host, $params->port, $params->database);
         // remove namespaced keys only
         $proc = new Process(sprintf("%s KEYS '*%s*' | xargs --delim='\\n' %s DEL", $conn, $this->ns, $conn));
         $proc->run();

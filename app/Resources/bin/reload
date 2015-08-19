@@ -27,5 +27,6 @@ php $CLI app:fixtures --env=$ENV --ansi
 echo ""
 
 # Symfony cache
+php $CLI app:cache:clear --env=$ENV --ansi -vvv
 php $CLI cache:clear --env=$ENV --ansi
 php $CLI cache:warmup --env=$ENV --ansi
