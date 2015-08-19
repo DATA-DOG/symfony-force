@@ -56,7 +56,7 @@ class ApiResponseListener
 
         // request content type
         if ($type = $request->getContentType()) {
-            switch($type) {
+            switch ($type) {
             case 'json':
                 $request->setRequestFormat('json');
                 break;
@@ -85,7 +85,7 @@ class ApiResponseListener
             if (null === $data) {
                 // the error may be important, log it
                 if (null !== $this->logger) {
-                    $this->logger->error("Failed to parse json request content, err: ".json_last_error_msg());
+                    $this->logger->error("Failed to parse json request content, err: " . json_last_error_msg());
                 }
 
                 throw new HttpException(400, "The given content is not a valid json.");
