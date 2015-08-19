@@ -54,9 +54,9 @@ class RedisSessionHandler implements \SessionHandlerInterface
     /**
      * Redis session storage constructor
      *
-     * @param \Predis\Client|\Redis $redis   Redis database connection
-     * @param array                 $options Session options
-     * @param string                $prefix  Prefix to use when writing session data
+     * @param Client $redis     Redis database connection
+     * @param array $options    Session options
+     * @param string $prefix    Prefix to use when writing session data
      */
     public function __construct(Client $redis, array $options = array(), $prefix = 'sess', $locking = true, $spinLockWait = 150000)
     {

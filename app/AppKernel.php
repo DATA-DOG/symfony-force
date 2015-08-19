@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new AppBundle\AppBundle(),
+            new ApiBundle\ApiBundle(),
             new AdminBundle\AdminBundle(),
         ];
 
