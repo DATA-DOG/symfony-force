@@ -20,7 +20,7 @@ class VersionController extends Controller
     {
         $pkg = realpath($this->getParameter('kernel.root_dir') . '/../package.json');
         if (!$pkg) {
-            throw new $this->createNotFoundException("package.json was not found in project root.");
+            throw $this->createNotFoundException("package.json was not found in project root.");
         }
 
         return new VersionResource(json_decode(file_get_contents($pkg), true));
