@@ -3,6 +3,7 @@
 namespace ApiBundle\Behat;
 
 use AppBundle\Behat\BaseContext;
+use ApiBundle\Security\Firewall\JWTListener;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Testwork\Tester\Result\TestResult;
@@ -45,6 +46,37 @@ class APIContext extends BaseContext
                     echo "\n{$body}\n\n";
                 }
             }
+        }
+    }
+
+    /**
+     * @When /^I try to authenticate as "([^"]+)"$/
+     * @When /^I try to authenticate as "([^"]+)" with password "([^"]+)"$/
+     */
+    function iTryToAuthenticatedAs($username, $password = null)
+    {
+        $response = $this->request('POST', '/api/authenticate', [
+            'username' => $username,
+            'password' => $password ?: 'S3cretpassword',
+        ]);
+
+        // store authentication token if successful
+        if ($response->getStatusCode() === 200) {
+            $token = json_decode($response->getContent(), true)['token'];
+            $authorizationHeader = implode(' ', [JWTListener::HEADER_PREFIX, $token]);
+            $this->client->setServerParameter('HTTP_AUTHORIZATION', $authorizationHeader);
+        }
+    }
+
+    /**
+     * @Given /^I'm authenticated as "([^"]+)"$/
+     */
+    function imAuthenticatedAs($username)
+    {
+        $this->iTryToAuthenticatedAs($username);
+
+        if ($this->client->getResponse()->getStatusCode() !== 200) {
+            throw new \Exception("Authentication has failed. Check if there is an user: {$username}");
         }
     }
 
