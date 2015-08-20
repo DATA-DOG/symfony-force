@@ -27,6 +27,7 @@ php $CLI app:fixtures --env=$ENV --ansi
 echo ""
 
 # Symfony cache
+rm -rf $ROOT/app/cache/* # force cache cleanup - yeah yeah, sometimes it may not work as expected
 php $CLI app:cache:clear --env=$ENV --ansi -vvv
 php $CLI cache:clear --env=$ENV --ansi
 php $CLI cache:warmup --env=$ENV --ansi

@@ -1,0 +1,18 @@
+services:
+  security.authentication.provider.jwt:
+    class: ApiBundle\Security\Authentication\Provider\JWTProvider
+    arguments: ["", ""] # populated by security factory
+    abstract: true
+    public: false
+
+  security.authentication.listener.jwt_auth:
+    class: ApiBundle\Security\Firewall\JWTAuthListener
+    arguments: [@security.authentication.manager, "", ""] # populated by security factory
+    abstract: true
+    public: false
+
+  security.authentication.listener.jwt:
+    class: ApiBundle\Security\Firewall\JWTListener
+    arguments: [@security.token_storage, @security.authentication.manager]
+    public: false
+

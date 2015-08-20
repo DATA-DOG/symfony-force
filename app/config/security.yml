@@ -21,8 +21,27 @@ security:
       pattern: ^/(_(profiler|wdt|error)|css|images|js)/
       security: false
 
+    api_version:
+      pattern: ^/api/version$
+      security: false
+
+    api_auth:
+      pattern: ^/api/authenticate$
+      stateless: true
+      anonymous: true
+      jwt_auth:
+        priv_key: %kernel.root_dir%/Resources/jwt/private.pem # could use a parameter
+        passphrase: S3cretpassword # the key passphrase
+
+    api:
+      pattern: ^/api
+      stateless: true
+      anonymous: true
+      jwt:
+        pub_key: %kernel.root_dir%/Resources/jwt/public.pem # could use a parameter
+
     main:
-      anonymous: ~
+      anonymous: true
       pattern: ^/
       form_login:
         login_path: app_user_login
@@ -32,13 +51,14 @@ security:
       logout:
         path: app_user_logout
         target: app_user_login
-      anonymous: true
 
   access_control:
+    # anonymous access
     - { path: ^/(about|login|signup|reset)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin/, role: ROLE_ADMIN }
     - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/authenticate$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    # requires role
+    - { path: ^/admin/, role: ROLE_ADMIN }
     - { path: ^/, role: ROLE_USER }
 

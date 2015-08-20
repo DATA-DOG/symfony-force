@@ -4,7 +4,13 @@ Feature: get cms blocks
   As an api user
   I should be able to get list of cms blocks
 
+  Scenario: api resource is protected
+    When I send GET request to "/api/cms-blocks"
+    Then the response code should be 401
+
   Scenario: can list cms blocks
+    Given confirmed user named "Chewbacca Wookiee"
+    And I'm authenticated as "chewbacca.wookiee@datadog.lt"
     When I send GET request to "/api/cms-blocks"
     Then the response code should be 200
     And the response should contain json:
@@ -28,6 +34,8 @@ Feature: get cms blocks
       """
 
   Scenario: can get paged cms blocks
+    Given confirmed user named "Chewbacca Wookiee"
+    And I'm authenticated as "chewbacca.wookiee@datadog.lt"
     When I send GET request to "/api/cms-blocks?page=2&limit=1"
     Then the response code should be 200
     And the response should match json:
