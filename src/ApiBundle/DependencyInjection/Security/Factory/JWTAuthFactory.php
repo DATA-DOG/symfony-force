@@ -22,7 +22,7 @@ class JWTAuthFactory implements SecurityFactoryInterface
             ->replaceArgument(2, $id)
         ;
         $listenerId = 'security.authentication.listener.jwt_auth.'.$id;
-        $listener = $container
+        $container
             ->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.jwt_auth'))
             ->replaceArgument(1, $id)
             ->replaceArgument(2, $config)
