@@ -20,7 +20,6 @@ class AppExtension extends Extension
         $loader->load('mailer.yml');
         $loader->load('menu.yml');
         $loader->load('listeners/doctrine.yml');
-        $loader->load('listeners/kernel.yml');
 
         $loader->load(sprintf('cache/%s.yml', $container->getParameter('kernel.environment')));
     }
