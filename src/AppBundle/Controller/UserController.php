@@ -67,6 +67,7 @@ class UserController extends Controller
 
         $user->regenerateConfirmationToken();
         $this->persist($user);
+        $this->flush();
 
         $this->get('mail')->user($user, 'activate_email', [
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
@@ -94,6 +95,7 @@ class UserController extends Controller
         $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         $user->confirm();
         $this->persist($user);
+        $this->flush();
 
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
@@ -122,6 +124,7 @@ class UserController extends Controller
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
         }
         $this->persist($em->merge($user));
+        $this->flush();
 
         $this->addFlash('success', "Updated your profile may be.");
         return $this->redirect($this->generateUrl('app_user_profile'));
@@ -151,6 +154,7 @@ class UserController extends Controller
         // @TODO: expiration date may be useful
         $user->regenerateConfirmationToken();
         $this->persist($user);
+        $this->flush();
 
         // @TODO: captcha after 3 failed attempts
         $this->get('mail')->user($user, 'activate_email', [

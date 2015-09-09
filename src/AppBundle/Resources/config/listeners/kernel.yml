@@ -1,8 +1,0 @@
-services:
-
-  kernel.flush.listener:
-    class: AppBundle\EventListener\FlushListener
-    arguments: [@doctrine.orm.entity_manager, @doctrine.flush.listener]
-    tags:
-      - { name: kernel.event_listener, event: kernel.response, method: onLateKernelResponse, priority: -255 }
-      - { name: kernel.event_listener, event: kernel.request, method: onEarlyKernelRequest, priority: 255 }
