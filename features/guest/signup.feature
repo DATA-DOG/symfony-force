@@ -26,5 +26,5 @@ Feature: Signing up
   Scenario: try to signup with invalid email
     Given I am on "signup" page
     When I signup as "luke"
-    Then I should see a form field error "Email address valid is not."
+    Then I should see a form field error "Email address is not valid"
 

@@ -23,19 +23,19 @@ class MailTemplate
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="Alias entered must be.")
+     * @Assert\NotBlank(message="Alias cannot be empty")
      */
     private $alias;
 
     /**
      * @ORM\Column(length=255)
-     * @Assert\NotBlank(message="Subject entered must be.")
+     * @Assert\NotBlank(message="Subject cannot be empty")
      */
     private $subject;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Content entered must be.")
+     * @Assert\NotBlank(message="Content cannot be empty")
      */
     private $content;
 

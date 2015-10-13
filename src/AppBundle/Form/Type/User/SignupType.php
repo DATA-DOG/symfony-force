@@ -12,7 +12,7 @@ class SignupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email', 'email', [
-            'label' => 'Email',
+            'label' => 'Email address',
             'required' => true,
         ]);
     }

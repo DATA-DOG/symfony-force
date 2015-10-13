@@ -29,7 +29,7 @@ class CmsBlock
      * @var string
      *
      * @ORM\Column(name="alias", type="string", length=255)
-     * @Assert\NotBlank(message="Alias entered must be.")
+     * @Assert\NotBlank(message="Alias cannot be empty")
      */
     private $alias;
 
@@ -37,7 +37,7 @@ class CmsBlock
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank(message="Name entered must be.")
+     * @Assert\NotBlank(message="Name cannot be empty")
      */
     private $name;
 
@@ -45,7 +45,7 @@ class CmsBlock
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank(message="Content entered must be.")
+     * @Assert\NotBlank(message="Content cannot be empty")
      */
     private $content;
 

@@ -30,8 +30,8 @@ class User implements UserInterface, \Serializable, ContactInterface
 
     /**
      * @ORM\Column(length=255, unique=true)
-     * @Assert\NotBlank(message="Email address entered must be.", groups={"signup", "reset"})
-     * @Assert\Email(message="Email address valid is not.", groups={"signup", "reset"})
+     * @Assert\NotBlank(message="Email address cannot be empty", groups={"signup", "reset"})
+     * @Assert\Email(message="Email address is not valid", groups={"signup", "reset"})
      */
     private $email;
 
@@ -42,13 +42,13 @@ class User implements UserInterface, \Serializable, ContactInterface
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="Firstname entered must be.", groups={"confirm", "profile"})
+     * @Assert\NotBlank(message="First Name cannot be empty", groups={"confirm", "profile"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
-     * @Assert\NotBlank(message="Lastname entered must be.", groups={"confirm", "profile"})
+     * @Assert\NotBlank(message="Last name cannot be empty", groups={"confirm", "profile"})
      */
     private $lastname;
 
@@ -82,12 +82,12 @@ class User implements UserInterface, \Serializable, ContactInterface
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @Assert\NotBlank(message="Password entered must be.", groups={"confirm"})
+     * @Assert\NotBlank(message="Password cannot be empty", groups={"confirm"})
      * @Assert\Length(
      *   min=8,
      *   max=4096,
-     *   minMessage="Too short is the password.",
-     *   maxMessage="Too long is the password.",
+     *   minMessage="Password is too short",
+     *   maxMessage="Password is too long",
      *   groups={"confirm", "profile"}
      * )
      */
@@ -300,10 +300,7 @@ class User implements UserInterface, \Serializable, ContactInterface
         // older data which does not include all properties.
         $data = array_merge(unserialize($serialized), array_fill(0, 2, null));
 
-        list(
-            $this->email,
-            $this->id
-        ) = $data;
+        list($this->email, $this->id) = $data;
     }
 
     /**

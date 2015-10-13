@@ -10,7 +10,7 @@ Feature: Logging in
   Scenario: can't login with incorrect credentials
     Given I am on "login" page
     When I try to login as "chewbacca.wookiee@datadog.lt" using password "any"
-    Then I should see error notification "Is incorrect your email or password."
+    Then I should see error notification "Email or password is incorrect"
 
   Scenario: confirmed user is able to login
     Given I am on "login" page
@@ -22,4 +22,4 @@ Feature: Logging in
     Given unconfirmed user named "Darth Vader"
     And I am on "login" page
     When I try to login as "darth.vader@datadog.lt" using password "S3cretpassword"
-    Then I should see error notification "Is incorrect your email or password."
+    Then I should see error notification "Email or password is incorrect"

@@ -68,8 +68,8 @@ class UserContext extends BaseContext
         $name = substr($user->getEmail(), 0, strpos($user->getEmail(), '@'));
         list($first, $last) = array_map('ucfirst', explode('.', $name));
 
-        $this->mink->fillField('Firstname', $first);
-        $this->mink->fillField('Lastname', $last);
+        $this->mink->fillField('First name', $first);
+        $this->mink->fillField('Last name', $last);
         $this->mink->fillField('Password', 'S3cretpassword');
         $this->mink->fillField('Repeat password', 'S3cretpassword');
         $this->mink->pressButton('Confirm');
