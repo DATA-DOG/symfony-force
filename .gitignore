@@ -5,8 +5,6 @@
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
-/app/Resources/views/base.html.twig
-/app/Resources/views/admin.html.twig
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml
@@ -14,10 +12,7 @@
 /bin/
 /node_modules
 /vendor/
+/web/build/
 /web/bundles/
-/web/css/
-/web/fonts/
-/web/js/
-/web/img/
 /docker-compose.yml
 /app/session
