@@ -7,8 +7,7 @@
 {% include 'AppBundle::flashes.html.twig' %}
 {% if error %}
   <div class="alert alert-danger">
-      <span class="glyphicon glyphicon-warning-sign"></span>
-      {{ error }} <img src="{{ asset('img/icons/darth-vader-icon.jpeg') }}"/>
+      <span class="fa fa-exclamation-circle"></span> {{ error }}
   </div>
 {% endif %}
 
