@@ -27,6 +27,8 @@ framework:
     cookie_httponly: false # allow only http protocol access
   fragments: ~
   http_method_override: true
+  assets:
+    version: %asset_version%
 
 twig:
   debug: "%kernel.debug%"
