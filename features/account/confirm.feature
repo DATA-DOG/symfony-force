@@ -14,4 +14,4 @@ Feature: Confirming an account
     Given I have signed up as "luke.skywalker@datadog.lt"
     When I follow the confirmation link in my email
     And I fill in my personal details
-    Then I should see success notification "The user Luke Skywalker confirmed may be."
+    Then I should see success notification "The user Luke Skywalker was successfully confirmed"

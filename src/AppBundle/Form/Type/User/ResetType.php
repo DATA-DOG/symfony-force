@@ -19,8 +19,8 @@ class ResetType extends AbstractType
                 'label' => 'Email',
                 'required' => true,
                 'constraints' => [
-                    new NotBlank(['message' => 'Email address entered must be.']),
-                    new Email(['message' => 'Email address valid is not.']),
+                    new NotBlank(['message' => 'Email address cannot be empty']),
+                    new Email(['message' => 'Email address is not valid']),
                 ],
             ])
             ->add('captcha', 'ewz_recaptcha', [

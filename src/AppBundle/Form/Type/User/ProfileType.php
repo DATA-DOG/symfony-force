@@ -13,16 +13,16 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', [
-                'label' => 'Firstname',
+                'label' => 'First name',
                 'required' => true,
             ])
             ->add('lastname', 'text', [
-                'label' => 'Lastname',
+                'label' => 'Last name',
                 'required' => true,
             ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
-                'invalid_message' => 'Not match do passwords.',
+                'invalid_message' => 'Passwords does not match',
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat password'],

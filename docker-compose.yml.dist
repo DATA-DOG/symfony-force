@@ -1,7 +1,7 @@
 php:
   image: datadoglt/php56
   links: [mysql, redis]
-  volumes: [ ".:/var/www", "app/Resources/docker/init.sh:/init.sh", "app/session:/var/lib/php/session" ]
+  volumes: [ ".:/var/www", "./app/Resources/docker/init.sh:/init.sh", "./app/session:/var/lib/php/session" ]
 
 web:
   image: datadoglt/nginx-sf
