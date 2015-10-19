@@ -64,7 +64,7 @@ class CmsBlockController extends Controller
 
         $this->persist($block);
         $this->flush();
-        $this->addFlash("success", "Created was the cms block: {$block->getName()}");
+        $this->addFlash("success", "Item created successfully");
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }
@@ -96,7 +96,7 @@ class CmsBlockController extends Controller
         $this->flush();
         // refresh cache
         $this->get('cache.default')->delete('cms_block.' . $block->getAlias());
-        $this->addFlash("success", "Updated was the cms block: {$block->getName()}");
+        $this->addFlash("success", "Item updated successfully");
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }
@@ -114,7 +114,7 @@ class CmsBlockController extends Controller
     {
         $this->remove($block);
         $this->flush();
-        $this->addFlash("danger", "Removed was the cms block: {$block->getName()}");
+        $this->addFlash("danger", "Item removed successfully");
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }

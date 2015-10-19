@@ -66,7 +66,7 @@ class UserController extends Controller
 
         $this->persist($user);
         $this->flush();
-        $this->addFlash("success", "Created was the user: {$user}");
+        $this->addFlash("success", "User created successfully");
 
         return $this->redirectToRoute('admin_user_index');
     }
@@ -98,7 +98,7 @@ class UserController extends Controller
         $this->encodePassword($user);
         $this->persist($user);
         $this->flush();
-        $this->addFlash("success", "Updated was the user: {$user}");
+        $this->addFlash("success", "User updated successfully");
 
         return $this->redirectToRoute('admin_user_index');
     }
@@ -116,7 +116,7 @@ class UserController extends Controller
     {
         $this->remove($user);
         $this->flush();
-        $this->addFlash("danger", "Removed was the user: {$user}");
+        $this->addFlash("danger", "User removed successfully");
 
         return $this->redirectToRoute('admin_user_index');
     }
