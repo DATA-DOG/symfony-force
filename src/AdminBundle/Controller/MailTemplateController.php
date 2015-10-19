@@ -64,7 +64,7 @@ class MailTemplateController extends Controller
 
         $this->persist($template);
         $this->flush();
-        $this->addFlash("success", "Created was the email template: {$template->getSubject()}");
+        $this->addFlash("success", "Item created successfully");
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }
@@ -95,7 +95,7 @@ class MailTemplateController extends Controller
 
         $this->persist($template);
         $this->flush();
-        $this->addFlash("success", "Updated was the email template: {$template->getSubject()}");
+        $this->addFlash("success", "Item updated successfully");
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }
@@ -113,7 +113,7 @@ class MailTemplateController extends Controller
     {
         $this->remove($template);
         $this->flush();
-        $this->addFlash("danger", "Removed was the email template: {$template->getSubject()}");
+        $this->addFlash("danger", "Item removed successfully");
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }
