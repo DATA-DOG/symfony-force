@@ -1,4 +1,4 @@
-project_name: "Deathstar:Admin"
+admin_project_name: "Deathstar:Admin"
 
 title:
   edit: "Edit"
@@ -13,8 +13,8 @@ user:
     email: 'Email'
     name: 'Name'
     registered_on: 'Registered on'
-    firstname: 'Firstname'
-    lastname: 'Lastname'
+    firstname: 'First name'
+    lastname: 'Last name'
     password: 'Password'
     repeat_password: 'Repeat password'
   new:

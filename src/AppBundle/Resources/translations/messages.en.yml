@@ -21,7 +21,7 @@ user:
     user_not_found: 'User with this email not found'
     flash:
       email_sent: 'You should receive confirmation email shortly'
-      password_sent: 'Password reset email was sent to %email%'
+      password_sent: 'Confirmation email was successfully resent to %email%'
 
   signup:
     title: 'Signup'
