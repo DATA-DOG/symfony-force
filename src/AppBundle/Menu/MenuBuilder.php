@@ -19,7 +19,7 @@ class MenuBuilder extends ContainerAware
         $menu->setChildrenAttribute('class', 'nav navbar-nav pull-right');
 
         // about
-        $menu->addChild('About', ['route' => 'app_home_about', 'attributes' => [
+        $menu->addChild($this->trans('about'), ['route' => 'app_home_about', 'attributes' => [
             'role' => 'presentation',
             'icon' => 'fa fa-book',
         ]]);
@@ -33,19 +33,19 @@ class MenuBuilder extends ContainerAware
                 'icon' => 'fa fa-user',
             ]]);
             // profile
-            $dropdown->addChild('Profile', ['route' => 'app_user_profile', 'attributes' => [
+            $dropdown->addChild($this->trans('profile'), ['route' => 'app_user_profile', 'attributes' => [
                 'role' => 'presentation',
                 'icon' => 'fa fa-child',
             ]]);
             // administration
             if ($user->hasRole('ROLE_ADMIN')) {
-                $dropdown->addChild('Admin', ['route' => 'admin', 'attributes' => [
+                $dropdown->addChild($this->trans('admin'), ['route' => 'admin', 'attributes' => [
                     'role' => 'presentation',
                     'icon' => 'fa fa-beer',
                 ]]);
             }
             // logout
-            $dropdown->addChild('Logout', ['route' => 'app_user_logout', 'attributes' => [
+            $dropdown->addChild($this->trans('logout'), ['route' => 'app_user_logout', 'attributes' => [
                 'role' => 'presentation',
                 'icon' => 'fa fa-sign-out',
             ]]);
@@ -53,12 +53,12 @@ class MenuBuilder extends ContainerAware
 
         if (!$user instanceof UserInterface) {
             // signin
-            $menu->addChild('Login', ['route' => 'app_user_login', 'attributes' => [
+            $menu->addChild($this->trans('login'), ['route' => 'app_user_login', 'attributes' => [
                 'role' => 'presentation',
                 'icon' => 'fa fa-sign-in',
             ]]);
             // signup
-            $menu->addChild('Sign-up', ['route' => 'app_user_signup', 'attributes' => [
+            $menu->addChild($this->trans('sign_up'), ['route' => 'app_user_signup', 'attributes' => [
                 'role' => 'presentation',
                 'icon' => 'fa fa-user-plus',
             ]]);
@@ -82,5 +82,14 @@ class MenuBuilder extends ContainerAware
         }
 
         return $token->getUser();
+    }
+
+    /**
+     * @param string $label
+     * @return string
+     */
+    private function trans($label)
+    {
+        return $this->container->get('translator')->trans($label, [], 'menu');
     }
 }

@@ -31,15 +31,17 @@ user:
     removed: 'User removed successfully'
 
 mail_template:
+  label:
+    alias: "Alias"
+    subject: "Subject"
+    content: "Content"
+    last_updated: 'Last updated'
   new:
     title: 'New email template'
     enter_details: 'Enter template details'
   index:
     title: 'Email templates'
     new: 'Add new template'
-    alias: 'Alias'
-    subject: 'Subject'
-    last_updated: 'Last updated'
   edit:
     title: 'Edit template'
   flash:
@@ -48,6 +50,11 @@ mail_template:
     removed: 'Mail template removed successfully'
 
 cms_block:
+  label:
+    alias: "Alias"
+    name: "Name"
+    content: "Content"
+    last_update: 'Last update'
   new:
     title: 'Create CMS Block'
     enter_details: 'Enter block info'
@@ -56,9 +63,6 @@ cms_block:
   index:
     title: 'CMS blocks'
     new: 'Add new'
-    alias: 'Alias'
-    name: 'Name'
-    last_update: 'Last update'
   flash:
     created: 'CMS block created successfully'
     updated: 'CMS block updated successfully'
