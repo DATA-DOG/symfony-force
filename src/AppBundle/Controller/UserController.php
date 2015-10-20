@@ -54,7 +54,8 @@ class UserController extends Controller
         $same = $this->repo('AppBundle:User')->findOneBy(['email' => $user->getEmail()]);
         if (null !== $same and $same->isConfirmed()) {
             $form->get('email')->addError(new FormError(
-                $this->get('translator')->trans('user.signup.already_confirmed', ['%email%' => $user->getEmail()])));
+                $this->get('translator')->trans('user.signup.already_confirmed', ['%email%' => $user->getEmail()])
+            ));
             return ['form' => $form->createView()];
         }
 
@@ -62,8 +63,9 @@ class UserController extends Controller
             $this->get('mail')->user($same, 'activate_email', [
                 'link' => $this->generateUrl('app_user_confirm', ['token' => $same->getConfirmationToken()], true),
             ]);
-            $this->addFlash('info', $this->get('translator')
-                ->trans('user.reset.confirmation_sent'), ['%email%' => $same->getEmail()]);
+            $this->addFlash('info', $this->get('translator')->trans('user.reset.confirmation_sent', [
+                '%email%' => $same->getEmail()]
+            ));
             return ['form' => $form->createView()];
         }
 
@@ -163,8 +165,10 @@ class UserController extends Controller
             'link' => $this->generateUrl('app_user_confirm', ['token' => $user->getConfirmationToken()], true),
         ]);
 
-        $this->addFlash('success', $this->get('translator')
-            ->trans('user.reset.flash.password_sent'), ['%email%' => $user->getEmail()]);
+        $this->addFlash('success', $this->get('translator')->trans('user.reset.flash.password_sent', [
+            '%email%' => $user->getEmail()
+        ]));
+
         return $this->redirect($this->generateUrl('app_user_login'));
     }
 }
