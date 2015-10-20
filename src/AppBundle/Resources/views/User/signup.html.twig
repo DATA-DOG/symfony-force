@@ -1,6 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% set title = "Signup" %}
+{% set title = "user.signup.title"|trans %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Signup</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ "user.signup.submit"|trans }}</button>
       </div>
     </div>
   {{ form_end(form) }}

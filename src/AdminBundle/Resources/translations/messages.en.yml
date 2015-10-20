@@ -1,0 +1,10 @@
+project_name: "Deathstar:Admin"
+
+user:
+  new:
+    title: 'Create new user'
+    enter_details: 'Enter user details'
+
+button:
+  save: "Save"
+  cancel: "Cancel"
