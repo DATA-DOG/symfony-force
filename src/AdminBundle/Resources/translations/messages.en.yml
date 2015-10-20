@@ -9,15 +9,20 @@ button:
   cancel: "Cancel"
 
 user:
+  label:
+    email: 'Email'
+    name: 'Name'
+    registered_on: 'Registered on'
+    firstname: 'Firstname'
+    lastname: 'Lastname'
+    password: 'Password'
+    repeat_password: 'Repeat password'
   new:
     title: 'Create new user'
     enter_details: 'Enter user details'
   index:
     title: 'Users'
     new: 'Add new user'
-    email: 'Email'
-    name: 'Name'
-    registered_on: 'Registered on'
   edit:
     title: 'Edit user'
   flash:
