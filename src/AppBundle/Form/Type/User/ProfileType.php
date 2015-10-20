@@ -13,19 +13,19 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', [
-                'label' => 'First name',
+                'label' => 'user.label.firstname',
                 'required' => true,
             ])
             ->add('lastname', 'text', [
-                'label' => 'Last name',
+                'label' => 'user.label.lastname',
                 'required' => true,
             ])
             ->add('plainPassword', 'repeated', [
                 'type' => 'password',
-                'invalid_message' => 'Passwords does not match',
+                'invalid_message' => 'user.label.password_mismatch',
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat password'],
+                'first_options'  => ['label' => 'user.label.password'],
+                'second_options' => ['label' => 'user.label.repeat_password'],
             ]);
     }
 
