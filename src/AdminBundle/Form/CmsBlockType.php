@@ -25,9 +25,9 @@ class CmsBlockType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('alias', 'text');
-        $builder->add('name', 'text');
-        $builder->add('content', 'textarea');
+        $builder->add('alias', 'text', ['label' => 'cms_block.label.alias']);
+        $builder->add('name', 'text', ['label' => 'cms_block.label.name']);
+        $builder->add('content', 'textarea', ['label' => 'cms_block.label.content']);
     }
 
     /**
