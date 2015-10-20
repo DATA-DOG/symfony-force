@@ -37,10 +37,10 @@
             <td>{{ block.name }}</td>
             <td>{{ block.createdAt|date }}</td>
             <td class="col-min">
-              <a href="{{ url('admin_cmsblock_edit', {id: block.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+              <a href="{{ url('admin_cmsblock_edit', {id: block.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-search"></i>
               </a>
-              <a href="{{ url('admin_cmsblock_delete', {id: block.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+              <a href="{{ url('admin_cmsblock_delete', {id: block.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-times"></i>
               </a>
             </td>
