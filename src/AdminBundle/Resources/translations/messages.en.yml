@@ -1,10 +1,37 @@
 project_name: "Deathstar:Admin"
 
+title:
+  edit: "Edit"
+  delete: 'Delete'
+
+button:
+  save: "Save"
+  cancel: "Cancel"
+
 user:
   new:
     title: 'Create new user'
     enter_details: 'Enter user details'
 
-button:
-  save: "Save"
-  cancel: "Cancel"
+  index:
+    title: 'Users'
+    new: 'Add new user'
+    email: 'Email'
+    name: 'Name'
+    registered_on: 'Registered on'
+
+  edit:
+    title: 'Edit user'
+
+mail_template:
+  new:
+    title: 'New email template'
+    enter_details: 'Enter template details'
+  index:
+    title: 'Email templates'
+    new: 'Add new template'
+    alias: 'Alias'
+    subject: 'Subject'
+    last_updated: 'Last updated'
+  edit:
+    title: 'Edit template'

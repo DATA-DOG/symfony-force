@@ -2,23 +2,23 @@
 
 {% block content %}
   <h1>
-    Email templates
-    <a href="{{ url('admin_mailtemplate_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new template</a>
+    {{ 'mail_template.index.title'|trans }}
+    <a href="{{ url('admin_mailtemplate_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'mail_template.index.new'|trans }}</a>
   </h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><i class="fa fa-envelope"></i> Email templates</h3>
+      <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'mail_template.index.title'|trans }}</h3>
     </div>
     <table class="table table-hover table-striped">
       <thead>
         <tr>
           <th>#</th>
-          <th>{{ sorter_link(templates, 't.alias', 'Alias') }}</th>
-          <th>{{ sorter_link(templates, 't.subject', 'Subject') }}</th>
-          <th>{{ sorter_link(templates, 't.updatedAt', 'Last updated') }}</th>
+          <th>{{ sorter_link(templates, 't.alias', 'mail_template.index.alias'|trans) }}</th>
+          <th>{{ sorter_link(templates, 't.subject', 'mail_template.index.subject'|trans) }}</th>
+          <th>{{ sorter_link(templates, 't.updatedAt', 'mail_template.index.last_updated'|trans) }}</th>
           <th></th>
         </tr>
         <tr role="row" class="filter">
@@ -36,10 +36,10 @@
             <td>{{ template.subject }}</td>
             <td>{{ template.createdAt|date }}</td>
             <td class="col-min">
-              <a href="{{ url('admin_mailtemplate_edit', {id: template.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+              <a href="{{ url('admin_mailtemplate_edit', {id: template.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-search"></i>
               </a>
-              <a href="{{ url('admin_mailtemplate_delete', {id: template.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+              <a href="{{ url('admin_mailtemplate_delete', {id: template.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-times"></i>
               </a>
             </td>
