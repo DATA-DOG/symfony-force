@@ -1,6 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% set title = "Login" %}
+{% set title = 'user.login.title'|trans %}
 
 {% block content %}
 
@@ -20,23 +20,23 @@
   <form action="{{ path("app_user_check") }}" method="post" class="form-horizontal" novalidate>
     <input type="hidden" name="_csrf_user_login" value="{{ csrf_token('_app_user_login') }}" />
     <div class="form-group">
-      <label for="username" class="col-sm-3 control-label required">Username</label>
+      <label for="username" class="col-sm-3 control-label required">{{ 'user.login.username'|trans }}</label>
       <div class="col-sm-7">
-        <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control" placeholder="Username">
+        <input type="text" id="username" name="_username" value="{{ lastUsername }}" class="form-control" placeholder="{{ 'user.login.username'|trans }}">
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="col-sm-3 control-label required">Password</label>
+      <label for="password" class="col-sm-3 control-label required">{{ 'user.login.password'|trans }}</label>
       <div class="col-sm-7">
-        <input type="password" id="password" name="_password" class="form-control" placeholder="Password" />
+        <input type="password" id="password" name="_password" class="form-control" placeholder="{{ 'user.login.password'|trans }}" />
       </div>
     </div>
     <div class="col-sm-offset-3 col-sm-9">
-      <a href="{{ path('app_user_reset') }}">Forgot username or password?</a>
+      <a href="{{ path('app_user_reset') }}">{{ 'user.login.forgot'|trans }}</a>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Login</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'user.login.submit'|trans }}</button>
       </div>
     </div>
   </form>

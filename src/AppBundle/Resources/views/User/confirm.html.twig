@@ -1,6 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% set title = "Account details" %}
+{% set title = "user.confirm.title"|trans %}
 
 {% block content %}
 
@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Confirm</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'user.confirm.submit'|trans }}</button>
       </div>
     </div>
   {{ form_end(form) }}

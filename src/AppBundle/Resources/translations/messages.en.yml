@@ -1,0 +1,27 @@
+project_name: "Symfony Force Edition"
+
+user:
+  confirm:
+    title: "Account details"
+    submit: 'Confirm'
+
+  login:
+    title: "Login"
+    username: "Username"
+    password: "Password"
+    forgot: "Forgot username or password?"
+    submit: "Login"
+
+  reset:
+    title: "Reset password"
+    submit: 'Reset'
+
+  signup:
+    title: 'Signup'
+    submit: 'Signup'
+
+  profile:
+    title: 'Account profile'
+    change_password: 'Change password'
+    submit: 'Update'
+    details: 'Details'
