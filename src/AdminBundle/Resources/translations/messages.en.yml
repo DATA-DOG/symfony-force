@@ -12,16 +12,18 @@ user:
   new:
     title: 'Create new user'
     enter_details: 'Enter user details'
-
   index:
     title: 'Users'
     new: 'Add new user'
     email: 'Email'
     name: 'Name'
     registered_on: 'Registered on'
-
   edit:
     title: 'Edit user'
+  flash:
+    created: 'User created successfully'
+    updated: 'User updated successfully'
+    removed: 'User removed successfully'
 
 mail_template:
   new:
@@ -35,6 +37,10 @@ mail_template:
     last_updated: 'Last updated'
   edit:
     title: 'Edit template'
+  flash:
+    created: 'Mail template created successfully'
+    updated: 'Mail template updated successfully'
+    removed: 'Mail template removed successfully'
 
 cms_block:
   new:
@@ -48,6 +54,10 @@ cms_block:
     alias: 'Alias'
     name: 'Name'
     last_update: 'Last update'
+  flash:
+    created: 'CMS block created successfully'
+    updated: 'CMS block updated successfully'
+    removed: 'CMS block removed successfully'
 
 audit:
   index:
@@ -65,3 +75,7 @@ audit:
     field: 'Field'
     old: 'Old'
     new: 'New'
+  pagination:
+    any_source: 'Any source class'
+    any_user: 'Any user'
+    unknown: 'Unknown'
