@@ -1,7 +1,7 @@
 {% extends 'AdminBundle::layout.html.twig' %}
 
-{% block content -%}
-  <h1>Create CMS Block</h1>
+{% block content %}
+  <h1>{{ 'cms_block.new.title'|trans }}</h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
@@ -9,7 +9,7 @@
   {{ form_start(form) }}
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><i class="fa fa-envelope"></i> Enter block info</h3>
+      <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'cms_block.new.enter_details'|trans }}</h3>
     </div>
     <div class="panel-body">
       {{ form_rest(form) }}

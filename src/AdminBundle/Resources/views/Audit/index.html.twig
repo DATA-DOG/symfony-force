@@ -1,29 +1,34 @@
 {% extends "AdminBundle::layout.html.twig" %}
 
 {% block content %}
-  <h1>Audit</h1>
+  <h1>{{ 'audit.index.title'|trans }}</h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <div class="row">
-        <div class="col-md-3">
-          <h3 class="panel-title"><i class="fa fa-archive"></i> Audit</h3>
-        </div>
-        <div class="col-md-3">
-          {{ filter_search(logs, "history", "Search by primary key..") }}
-        </div>
-        <div class="col-md-3">
-          {{ filter_dropdown(logs, "blamed", users) }}
-        </div>
-        <div class="col-md-3">
-          {{ filter_dropdown(logs, "class", sourceClasses) }}
-        </div>
-      </div>
+      <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'audit.index.title'|trans }}</h3>
     </div>
 
     <table class="table">
+      <thead>
+        <tr role="row" class="filter">
+          <td colspan="4">
+            <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-3">
+                {{ filter_search(logs, "history", "audit.index.search_by_pk"|trans) }}
+              </div>
+              <div class="col-md-3">
+                {{ filter_dropdown(logs, "blamed", users) }}
+              </div>
+              <div class="col-md-3">
+                {{ filter_dropdown(logs, "class", sourceClasses) }}
+              </div>
+            </div>
+          </td>
+        </tr>
+      </thead>
       <tbody>
         {% for log in logs %}
           {{ audit(log) }}
