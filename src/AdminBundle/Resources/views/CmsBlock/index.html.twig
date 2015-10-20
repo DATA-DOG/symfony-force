@@ -2,8 +2,8 @@
 
 {% block content %}
   <h1>
-    CMS blocks
-    <a href="{{ url('admin_cmsblock_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new
+    {{ 'cms_block.index.title'|trans }}
+    <a href="{{ url('admin_cmsblock_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'cms_block.index.new'|trans }}
     </a>
   </h1>
 
@@ -11,15 +11,15 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><i class="fa fa-th-large"></i> Search CMS Blocks</h3>
+      <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'cms_block.index.title'|trans }}</h3>
     </div>
     <table class="table table-hover table-striped">
       <thead>
         <tr>
           <th>#</th>
-          <th>{{ sorter_link(blocks, 't.alias', 'Alias') }}</th>
-          <th>{{ sorter_link(blocks, 't.name', 'Name') }}</th>
-          <th>{{ sorter_link(blocks, 't.updatedAt', 'Last update') }}</th>
+          <th>{{ sorter_link(blocks, 't.alias', 'cms_block.index.alias'|trans) }}</th>
+          <th>{{ sorter_link(blocks, 't.name', 'cms_block.index.name'|trans) }}</th>
+          <th>{{ sorter_link(blocks, 't.updatedAt', 'cms_block.index.last_update'|trans) }}</th>
           <th></th>
         </tr>
         <tr role="row" class="filter">

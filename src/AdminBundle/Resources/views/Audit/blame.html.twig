@@ -1,5 +1,5 @@
 {% if blame %}
-  by {{ audit_assoc(blame) }}
+  {{ 'audit.index.by_user'|trans }} {{ audit_assoc(blame) }}
 {% else %}
-  by <strong>power user or task runner.</strong>
+  {{ 'audit.index.by_system'|trans|raw }}
 {% endif %}

@@ -3,7 +3,7 @@
     <span class="label label-danger"><i class="fa fa-times"></i></span>
   </td>
   <td>
-    <strong>{{ log.source.typLabel }}</strong> {{ audit_assoc(log.source) }} was removed
+    <strong>{{ log.source.typLabel }}</strong> {{ audit_assoc(log.source) }} {{ 'audit.index.was_removed'|trans }}
     {{ audit_blame(log.blame) }}
   </td>
   <td class="col-min">{{ time_diff(log.loggedAt) }}</td>
