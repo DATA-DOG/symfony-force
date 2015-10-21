@@ -1,0 +1,43 @@
+project_name: "Symfony Force Edition"
+
+user:
+  confirm:
+    title: "Account details"
+    submit: 'Confirm'
+
+  login:
+    title: "Login"
+    username: "Username"
+    password: "Password"
+    forgot: "Forgot username or password?"
+    submit: "Login"
+    incorrect_credentials: 'Email or password is incorrect'
+
+  reset:
+    title: "Reset password"
+    submit: 'Reset'
+    verification: 'Verification'
+    confirmation_sent: 'Confirmation email was successfully resent to %email%'
+    user_not_found: 'User with this email not found'
+    flash:
+      email_sent: 'You should receive confirmation email shortly'
+      password_sent: 'Confirmation email was successfully resent to %email%'
+
+  signup:
+    title: 'Signup'
+    submit: 'Signup'
+    already_confirmed: 'Email %email% is already confirmed'
+
+  profile:
+    title: 'Account profile'
+    change_password: 'Change password'
+    submit: 'Update'
+    details: 'Details'
+    flash:
+      updated: 'Your profile was updated successfully'
+
+  label:
+    password_mismatch: 'Passwords does not match'
+
+  flash:
+    confirmed: 'The user %user% was successfully confirmed'

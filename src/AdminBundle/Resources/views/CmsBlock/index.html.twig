@@ -2,8 +2,8 @@
 
 {% block content %}
   <h1>
-    CMS blocks
-    <a href="{{ url('admin_cmsblock_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new
+    {{ 'cms_block.index.title'|trans }}
+    <a href="{{ url('admin_cmsblock_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'cms_block.index.new'|trans }}
     </a>
   </h1>
 
@@ -11,15 +11,15 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><i class="fa fa-th-large"></i> Search CMS Blocks</h3>
+      <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'cms_block.index.title'|trans }}</h3>
     </div>
     <table class="table table-hover table-striped">
       <thead>
         <tr>
           <th>#</th>
-          <th>{{ sorter_link(blocks, 't.alias', 'Alias') }}</th>
-          <th>{{ sorter_link(blocks, 't.name', 'Name') }}</th>
-          <th>{{ sorter_link(blocks, 't.updatedAt', 'Last update') }}</th>
+          <th>{{ sorter_link(blocks, 't.alias', 'cms_block.label.alias'|trans) }}</th>
+          <th>{{ sorter_link(blocks, 't.name', 'cms_block.label.name'|trans) }}</th>
+          <th>{{ sorter_link(blocks, 't.updatedAt', 'cms_block.label.last_update'|trans) }}</th>
           <th></th>
         </tr>
         <tr role="row" class="filter">
@@ -37,10 +37,10 @@
             <td>{{ block.name }}</td>
             <td>{{ block.createdAt|date }}</td>
             <td class="col-min">
-              <a href="{{ url('admin_cmsblock_edit', {id: block.id}) }}" class="btn btn-xs btn-link" data-title="Edit" data-toggle="tooltip">
+              <a href="{{ url('admin_cmsblock_edit', {id: block.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-search"></i>
               </a>
-              <a href="{{ url('admin_cmsblock_delete', {id: block.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="Delete" data-toggle="tooltip">
+              <a href="{{ url('admin_cmsblock_delete', {id: block.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
                 <i class="fa fa-times"></i>
               </a>
             </td>

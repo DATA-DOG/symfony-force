@@ -1,0 +1,90 @@
+admin_project_name: "Deathstar:Admin"
+
+title:
+  edit: "Edit"
+  delete: 'Delete'
+
+button:
+  save: "Save"
+  cancel: "Cancel"
+
+user:
+  label:
+    email: 'Email'
+    name: 'Name'
+    registered_on: 'Registered on'
+    firstname: 'First name'
+    lastname: 'Last name'
+    password: 'Password'
+    repeat_password: 'Repeat password'
+  new:
+    title: 'Create new user'
+    enter_details: 'Enter user details'
+  index:
+    title: 'Users'
+    new: 'Add new user'
+  edit:
+    title: 'Edit user'
+  flash:
+    created: 'User created successfully'
+    updated: 'User updated successfully'
+    removed: 'User removed successfully'
+
+mail_template:
+  label:
+    alias: "Alias"
+    subject: "Subject"
+    content: "Content"
+    last_updated: 'Last updated'
+  new:
+    title: 'New email template'
+    enter_details: 'Enter template details'
+  index:
+    title: 'Email templates'
+    new: 'Add new template'
+  edit:
+    title: 'Edit template'
+  flash:
+    created: 'Mail template created successfully'
+    updated: 'Mail template updated successfully'
+    removed: 'Mail template removed successfully'
+
+cms_block:
+  label:
+    alias: "Alias"
+    name: "Name"
+    content: "Content"
+    last_update: 'Last update'
+  new:
+    title: 'Create CMS Block'
+    enter_details: 'Enter block info'
+  edit:
+    title: 'Edit CMS block'
+  index:
+    title: 'CMS blocks'
+    new: 'Add new'
+  flash:
+    created: 'CMS block created successfully'
+    updated: 'CMS block updated successfully'
+    removed: 'CMS block removed successfully'
+
+audit:
+  index:
+    title: 'Audit'
+    search_by_pk: 'Search by primary key..'
+    show_history: 'Show all resource history'
+    was_associated: 'was associated with'
+    was_disassociated: 'was dissociated from'
+    was_updated: 'was updated'
+    was_removed: 'was removed'
+    was_inserted: 'was inserted'
+    by_user: 'by'
+    by_system: 'by <strong>power user or task runner.</strong>'
+    diff: 'audit diff'
+    field: 'Field'
+    old: 'Old'
+    new: 'New'
+  pagination:
+    any_source: 'Any source class'
+    any_user: 'Any user'
+    unknown: 'Unknown'

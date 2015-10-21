@@ -1,7 +1,7 @@
 {% extends 'AdminBundle::layout.html.twig' %}
 
-{% block content -%}
-  <h1>New email template</h1>
+{% block content %}
+  <h1>{{ 'mail_template.new.title'|trans }}</h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
@@ -9,14 +9,14 @@
   {{ form_start(form) }}
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title"><i class="fa fa-envelope"></i> Enter template details</h3>
+      <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'mail_template.new.enter_details'|trans }}</h3>
     </div>
     <div class="panel-body">
       {{ form_rest(form) }}
     </div>
     <div class="panel-footer text-center">
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="{{ url('admin_mailtemplate_index') }}" class="btn btn-default">Cancel</a>
+      <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+      <a href="{{ url('admin_mailtemplate_index') }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
     </div>
   </div>
   {{ form_end(form) }}

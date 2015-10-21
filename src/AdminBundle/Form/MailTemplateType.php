@@ -27,13 +27,13 @@ class MailTemplateType extends AbstractType
     {
         $builder
             ->add('alias', 'text', [
-                'label' => 'Alias'
+                'label' => 'mail_template.label.alias'
             ])
             ->add('subject', 'text', [
-                'label' => 'Subject'
+                'label' => 'mail_template.label.subject'
             ])
             ->add('content', 'textarea', [
-                'label' => 'Content'
+                'label' => 'mail_template.label.content'
             ])
         ;
     }

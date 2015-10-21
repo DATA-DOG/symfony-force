@@ -1,7 +1,7 @@
 {% extends "AdminBundle::layout.html.twig" %}
 
 {% block content %}
-  <h1>{{ audit_assoc(log.source) }}<small>audit diff</small></h1>
+  <h1>{{ audit_assoc(log.source) }}<small>{{ 'audit.index.diff'|trans }}</small></h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
@@ -22,9 +22,9 @@
     {% else %}
       <table class="table table-striped">
         <tr>
-          <th>Field</th>
-          <th>Old</th>
-          <th>New</th>
+          <th>{{ 'audit.index.field'|trans }}</th>
+          <th>{{ 'audit.index.old'|trans }}</th>
+          <th>{{ 'audit.index.new'|trans }}</th>
         </tr>
         {% for field, change in log.diff %}
           <tr>
