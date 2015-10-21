@@ -14,6 +14,10 @@ the project and strip it down to whatever works for them.
 
 <p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/screenshot.png" alt="Screenshot" /></p>
 
+## Like a ride in Disneyland
+
+<p align="center"><img src="http://33.media.tumblr.com/951808f2d7e4a809101199e9d07d1888/tumblr_inline_nwfybcXTvP1raprkq_500.gif" alt="Darth vader in disneyland" /></p>
+
 ## Development requirements
 
 - **linux**, **unix** and probably **windows**
@@ -24,8 +28,7 @@ the project and strip it down to whatever works for them.
 
 ## What is specific?
 
-- runs a **flush** after each request and does not allow two **flushes** within a request, unless
-a manual transaction was started. Prevent bad design and data inconsistencies.
+- Does not allow two **flushes** within a request, unless a manual transaction was started. Prevent bad design and data inconsistencies.
 - **behat** is configured to run scenarios within transaction, it saves about 70% of time for functional tests.
 Additionally, that allows to run **behat** concurrently using [beflash](https://github.com/DATA-DOG/beflash.git)
 which would in total run **85% faster** on 4 cores.
