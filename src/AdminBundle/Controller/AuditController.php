@@ -75,7 +75,7 @@ class AuditController extends Controller
         ];
 
         $sourceClasses = [
-            Pagination::$filterAny => 'Any Source Class',
+            Pagination::$filterAny => $this->get('translator')->trans('audit.pagination.any_source'),
         ];
 
         foreach ($this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata() as $meta) {
@@ -87,8 +87,8 @@ class AuditController extends Controller
         }
 
         $users = [
-            Pagination::$filterAny => 'Any User',
-            'null' => 'Unknown',
+            Pagination::$filterAny => $this->get('translator')->trans('audit.pagination.any_user'),
+            'null' => $this->get('translator')->trans('audit.pagination.unknown'),
         ];
         foreach ($this->repo('AppBundle:User')->findAll() as $user) {
             $users[$user->getId()] = (string) $user;

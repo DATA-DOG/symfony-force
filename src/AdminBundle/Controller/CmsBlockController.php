@@ -64,7 +64,7 @@ class CmsBlockController extends Controller
 
         $this->persist($block);
         $this->flush();
-        $this->addFlash("success", "Item created successfully");
+        $this->addFlash("success", $this->get('translator')->trans('cms_block.flash.created'));
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }
@@ -96,7 +96,7 @@ class CmsBlockController extends Controller
         $this->flush();
         // refresh cache
         $this->get('cache.default')->delete('cms_block.' . $block->getAlias());
-        $this->addFlash("success", "Item updated successfully");
+        $this->addFlash("success", $this->get('translator')->trans('cms_block.flash.updated'));
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }
@@ -114,7 +114,7 @@ class CmsBlockController extends Controller
     {
         $this->remove($block);
         $this->flush();
-        $this->addFlash("danger", "Item removed successfully");
+        $this->addFlash("danger", $this->get('translator')->trans('cms_block.flash.removed'));
 
         return $this->redirectToRoute('admin_cmsblock_index');
     }

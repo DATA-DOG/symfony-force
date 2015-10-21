@@ -1,6 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% set title = "Account profile" %}
+{% set title = "user.profile.title"|trans %}
 
 {% block content %}
 
@@ -13,18 +13,18 @@
   </div>
 
   {{ form_start(form, {action: path('app_user_profile')}) }}
-    <h4>Details</h4>
+    <h4>{{ 'user.profile.details'|trans }}</h4>
     <hr>
     {{ form_row(form.firstname) }}
     {{ form_row(form.lastname) }}
 
-    <h4>Change password</h4>
+    <h4>{{ 'user.profile.change_password'|trans }}</h4>
     <hr>
     {{ form_row(form.plainPassword) }}
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-4">
-        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">Update</button>
+        <button type="submit" name="_submit" id="_submit" class="btn btn-primary btn-lg">{{ 'user.profile.submit'|trans }}</button>
       </div>
     </div>
   {{ form_end(form) }}

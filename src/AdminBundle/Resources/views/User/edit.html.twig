@@ -1,7 +1,7 @@
 {% extends 'AdminBundle::layout.html.twig' %}
 
-{% block content -%}
-  <h1>Edit user</h1>
+{% block content %}
+  <h1>{{ 'user.edit.title'|trans }}</h1>
 
   {% include 'AppBundle::flashes.html.twig' %}
 
@@ -15,8 +15,8 @@
       {{ form_rest(form) }}
     </div>
     <div class="panel-footer text-center">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a href="{{ url('admin_user_index') }}" class="btn btn-default">Cancel</a>
+      <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+      <a href="{{ url('admin_user_index') }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
     </div>
   </div>
   {{ form_end(form) }}

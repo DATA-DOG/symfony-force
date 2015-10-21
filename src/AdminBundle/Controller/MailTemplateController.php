@@ -64,7 +64,7 @@ class MailTemplateController extends Controller
 
         $this->persist($template);
         $this->flush();
-        $this->addFlash("success", "Item created successfully");
+        $this->addFlash("success", $this->get('translator')->trans('mail_template.flash.created'));
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }
@@ -95,7 +95,7 @@ class MailTemplateController extends Controller
 
         $this->persist($template);
         $this->flush();
-        $this->addFlash("success", "Item updated successfully");
+        $this->addFlash("success", $this->get('translator')->trans('mail_template.flash.updated'));
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }
@@ -113,7 +113,7 @@ class MailTemplateController extends Controller
     {
         $this->remove($template);
         $this->flush();
-        $this->addFlash("danger", "Item removed successfully");
+        $this->addFlash("danger", $this->get('translator')->trans('mail_template.flash.removed'));
 
         return $this->redirectToRoute('admin_mailtemplate_index');
     }

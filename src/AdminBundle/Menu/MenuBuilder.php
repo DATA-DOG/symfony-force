@@ -22,12 +22,12 @@ class MenuBuilder extends ContainerAware
 
         $child = function($label, $route) use($menu) {
             $attributes = ['role' => 'presentation'];
-            $menu->addChild($label, compact('route', 'attributes'));
+            $menu->addChild($this->container->get('translator')->trans($label, [], 'menu'), compact('route', 'attributes'));
         };
 
         if ($this->getToken()->getUser() instanceof UserInterface) {
             $child($this->getToken()->getUser(), 'app_user_profile');
-            $child('Logout', 'app_user_logout');
+            $child('logout', 'app_user_logout');
         }
 
         return $menu;
@@ -44,13 +44,13 @@ class MenuBuilder extends ContainerAware
 
         $child = function($label, $route) use($menu) {
             $attributes = ['role' => 'presentation'];
-            $menu->addChild($label, compact('route', 'attributes'));
+            $menu->addChild($this->container->get('translator')->trans($label, [], 'menu'), compact('route', 'attributes'));
         };
 
-        $child('Users', 'admin_user_index');
-        $child('Templates', 'admin_mailtemplate_index');
-        $child('Audit', 'admin_audit_index');
-        $child('CMS', 'admin_cmsblock_index');
+        $child('users', 'admin_user_index');
+        $child('templates', 'admin_mailtemplate_index');
+        $child('audit', 'admin_audit_index');
+        $child('cms', 'admin_cmsblock_index');
 
         return $menu;
     }

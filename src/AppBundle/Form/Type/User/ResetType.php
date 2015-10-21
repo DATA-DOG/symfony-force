@@ -16,7 +16,7 @@ class ResetType extends AbstractType
     {
         $builder
             ->add('email', 'email', [
-                'label' => 'Email',
+                'label' => 'user.label.email',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Email address cannot be empty']),
@@ -24,7 +24,7 @@ class ResetType extends AbstractType
                 ],
             ])
             ->add('captcha', 'ewz_recaptcha', [
-                'label' => 'Verification',
+                'label' => 'user.reset.verification',
                 'constraints' => [
                     new RecaptchaTrue(['message'=>'Invalid verification code'])
                 ],
