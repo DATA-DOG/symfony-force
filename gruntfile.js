@@ -72,10 +72,6 @@ module.exports = function(grunt) {
           { dest: 'web/build/img/', cwd: 'assets/img/', src: '**', expand: true}
         ]
       },
-      starwars_gif: {
-        src: 'starwars.gif',
-        dest: 'web/build/img/starwars.gif'
-      },
       jq_map: {
         src: 'assets/vendor/jquery/dist/jquery.min.map',
         dest: 'web/build/jquery.min.map'
