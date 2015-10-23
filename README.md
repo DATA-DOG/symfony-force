@@ -8,11 +8,11 @@ Powered by **bootstrap3**, **grunt**, **bower** and all the best tools available
 The environment may be setup with **docker**, **vagrant** or local installation. A team should clone
 the project and strip it down to whatever works for them.
 
-<p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/starwars.gif" alt="Symfony force" /></p>
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/132389/10692485/9543db14-799a-11e5-9779-2a0ec870752f.gif" alt="Symfony force" /></p>
 
 ## Screenshot
 
-<p align="center"><img src="https://raw.github.com/DATA-DOG/symfony-force/master/screenshot.png" alt="Screenshot" /></p>
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/132389/10692496/a3646344-799a-11e5-9fd5-ec7d33cf9d91.png" alt="Screenshot" /></p>
 
 ## Like a ride in Disneyland
 
