@@ -31,11 +31,16 @@ EOT
 
         $cache = $this->getContainer()->get('cache.default');
         if ($cache instanceof RedisCache) {
-            // flush only namespaced keys for redis cache
-            $output->writeLn(sprintf(
-                "Flushed <comment>%s</comment> cache entries",
-                trim($cache->flushNamespacedKeys())
-            ));
+            if ($env === 'test') {
+                $cache->flushDB();
+                $output->writeln('Flushed all redis cache');
+            } else {
+                // flush only namespaced keys for redis cache
+                $output->writeLn(sprintf(
+                    "Flushed <comment>%s</comment> cache entries",
+                    trim($cache->flushNamespacedKeys())
+                ));
+            }
         } else {
             // do not mind and remove all cache (array cache)
             $cache->flushAll();
