@@ -2,6 +2,8 @@
 
 use AppBundle\Entity\CmsBlock;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,23 +13,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CmsBlockType extends AbstractType
 {
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'cms_block';
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('alias', 'text', ['label' => 'cms_block.label.alias']);
-        $builder->add('name', 'text', ['label' => 'cms_block.label.name']);
-        $builder->add('content', 'textarea', ['label' => 'cms_block.label.content']);
+        $builder->add('alias', TextType::class, ['label' => 'cms_block.label.alias']);
+        $builder->add('name', TextType::class, ['label' => 'cms_block.label.name']);
+        $builder->add('content', TextAreaType::class, ['label' => 'cms_block.label.content']);
     }
 
     /**

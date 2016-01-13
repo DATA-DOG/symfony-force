@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function signupAction(Request $request)
     {
-        $form = $this->createForm(new SignupType(), $user = new User());
+        $form = $this->createForm(SignupType::class, $user = new User());
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -89,7 +89,7 @@ class UserController extends Controller
      */
     public function confirmAction(Request $request, User $user)
     {
-        $form = $this->createForm(new ConfirmType(), $user);
+        $form = $this->createForm(ConfirmType::class, $user);
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return ['form' => $form->createView(), 'token' => $user->getConfirmationToken()];
@@ -116,7 +116,7 @@ class UserController extends Controller
     public function profileAction(Request $request)
     {
         $user = clone $this->getUser(); // prevent user change in session
-        $form = $this->createForm(new ProfileType(), $user);
+        $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return ['form' => $form->createView()];
@@ -141,7 +141,7 @@ class UserController extends Controller
      */
     public function resetAction(Request $request)
     {
-        $form = $this->createForm(new ResetType());
+        $form = $this->createForm(ResetType::class);
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return ['form' => $form->createView()];

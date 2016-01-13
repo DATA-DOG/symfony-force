@@ -52,7 +52,7 @@ class MailTemplateController extends Controller
     public function newAction(Request $request)
     {
         $template = new MailTemplate();
-        $form = $this->createForm(new MailTemplateType(), $template);
+        $form = $this->createForm(MailTemplateType::class, $template);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
@@ -83,7 +83,7 @@ class MailTemplateController extends Controller
      */
     public function editAction(MailTemplate $template, Request $request)
     {
-        $form = $this->createForm(new MailTemplateType(), $template);
+        $form = $this->createForm(MailTemplateType::class, $template);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {

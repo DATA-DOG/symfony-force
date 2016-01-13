@@ -2,3 +2,9 @@ services:
   app.password_encoder:
     class: Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder
     arguments: [12] # cost
+
+  app.user_provider:
+    class: AppBundle\Entity\UserRepository
+    factory: ["@doctrine.orm.default_entity_manager", getRepository]
+    arguments:
+        - AppBundle\Entity\User

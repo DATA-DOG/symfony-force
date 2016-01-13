@@ -1,0 +1,19 @@
+services:
+  admin_menu.builder:
+    class: AdminBundle\Menu\MenuBuilder
+    calls:
+     - [ setContainer, ["@service_container"] ]
+
+  admin_menu.user:
+    class: Knp\Menu\MenuItem
+    factory: ["@admin_menu.builder", user]
+    arguments: ["@knp_menu.factory"]
+    tags:
+      - { name: knp_menu.menu, alias: admin_menu_user }
+
+  admin_menu.main:
+    class: Knp\Menu\MenuItem
+    factory: ["@admin_menu.builder", main]
+    arguments: ["@knp_menu.factory"]
+    tags:
+      - { name: knp_menu.menu, alias: admin_menu_main }

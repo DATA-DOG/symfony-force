@@ -4,11 +4,14 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class MenuBuilder extends ContainerAware
+class MenuBuilder
 {
+    use ContainerAwareTrait;
+    
     /**
      * @param FactoryInterface $factory
      * @return \Knp\Menu\ItemInterface

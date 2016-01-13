@@ -1,5 +1,5 @@
 api:
-  resource: @ApiBundle/Controller/
+  resource: "@ApiBundle/Controller/"
   type: annotation
 
 api_user_check:

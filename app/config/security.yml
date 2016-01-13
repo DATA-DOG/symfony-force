@@ -9,9 +9,7 @@ security:
 
   providers:
     app_users:
-      entity:
-        class: AppBundle:User
-        property: email
+      id: app.user_provider
 
   access_decision_manager:
     strategy: unanimous
@@ -47,7 +45,7 @@ security:
         login_path: app_user_login
         check_path: app_user_check
         default_target_path: homepage
-        intention: _app_user_login
+        csrf_token_id: _app_user_login
       logout:
         path: app_user_logout
         target: app_user_login

@@ -52,7 +52,7 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
@@ -85,7 +85,7 @@ class UserController extends Controller
      */
     public function editAction(User $user, Request $request)
     {
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {

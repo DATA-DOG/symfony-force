@@ -18,7 +18,8 @@ class JWTAuthFactory implements SecurityFactoryInterface
         $providerId = 'security.authentication.provider.dao.'.$id;
         $container
             ->setDefinition($providerId, new DefinitionDecorator('security.authentication.provider.dao'))
-            ->replaceArgument(0, new Reference($userProvider))
+            ->replaceArgument(0, new Reference('app.user_provider'))
+            ->replaceArgument(1, new Reference('security.user_checker.main'))
             ->replaceArgument(2, $id)
         ;
         $listenerId = 'security.authentication.listener.jwt_auth.'.$id;

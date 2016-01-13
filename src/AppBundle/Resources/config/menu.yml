@@ -1,5 +1,17 @@
 services:
-  bootstrap.menu.voter:
+  menu.builder:
+    class: AppBundle\Menu\MenuBuilder
+    calls:
+     - [ setContainer, ["@service_container"] ]
+
+  menu.top:
+    class: Knp\Menu\MenuItem
+    factory: ["@menu.builder", top]
+    arguments: ["@knp_menu.factory"]
+    tags:
+      - { name: knp_menu.menu, alias: top }
+
+  menu.voter:
     class: AppBundle\Menu\RequestVoter
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

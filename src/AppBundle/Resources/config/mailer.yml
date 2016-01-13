@@ -2,9 +2,9 @@ services:
   mail:
     class: AppBundle\Mailer\Mailer
     arguments:
-      - @mailer
-      - @templating
-      - @em
+      - "@mailer"
+      - "@templating"
+      - "@em"
       - %mailer_sender%
 
   twig.extension.string_loader:

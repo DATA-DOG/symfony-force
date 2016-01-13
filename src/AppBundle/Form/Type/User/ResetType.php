@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,7 +16,7 @@ class ResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                 'label' => 'user.label.email',
                 'required' => true,
                 'constraints' => [
@@ -40,12 +41,7 @@ class ResetType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
-            'intention' => 'reset_password',
+            'csrf_token_id' => 'reset_password',
         ]);
-    }
-
-    public function getName()
-    {
-        return 'reset';
     }
 }

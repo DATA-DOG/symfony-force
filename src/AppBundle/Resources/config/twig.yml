@@ -1,12 +1,12 @@
 services:
   twig.extension.cms_block:
     class: AppBundle\Twig\CMSBlockExtension
-    arguments: [@doctrine.orm.entity_manager]
+    arguments: ["@doctrine.orm.entity_manager"]
     tags:
       - { name: twig.extension }
 
   twig.extension.time_ago:
     class: AppBundle\Twig\TimeExtension
-    arguments: [@translator]
+    arguments: ["@translator"]
     tags:
       - { name: twig.extension }

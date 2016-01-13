@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
   <div class="header">
-    <nav>{{ knp_menu_render('AppBundle:MenuBuilder:top', {currentClass: 'active'}) }}</nav>
+    <nav>{{ knp_menu_render('top', {currentClass: 'active'}) }}</nav>
     <h3 class="text-muted"><a href="{{ path("homepage") }}">{% trans %}project_name{% endtrans %}</a></h3>
   </div>
 

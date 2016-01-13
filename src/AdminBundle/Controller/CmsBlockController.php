@@ -52,7 +52,7 @@ class CmsBlockController extends Controller
     public function newAction(Request $request)
     {
         $block = new CmsBlock();
-        $form = $this->createForm(new CmsBlockType(), $block);
+        $form = $this->createForm(CmsBlockType::class, $block);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
@@ -83,7 +83,7 @@ class CmsBlockController extends Controller
      */
     public function editAction(CmsBlock $block, Request $request)
     {
-        $form = $this->createForm(new CmsBlockType(), $block);
+        $form = $this->createForm(CmsBlockType::class, $block);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
