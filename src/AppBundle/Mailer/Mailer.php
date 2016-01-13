@@ -81,7 +81,7 @@ class Mailer
     {
         $body = $this->render($template, $data);
 
-        $message = new \Swift_Message($template->getSubject(), $body, "text/html", "utf8");
+        $message = new \Swift_Message($template->getSubject(), $body, "text/html", "utf-8");
         $message->setFrom($this->sender);
         $message->setTo($to);
 
