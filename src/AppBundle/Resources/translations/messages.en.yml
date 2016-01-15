@@ -12,6 +12,7 @@ user:
     forgot: "Forgot username or password?"
     submit: "Login"
     incorrect_credentials: 'Email or password is incorrect'
+    account_disabled: 'Account is disabled'
 
   reset:
     title: "Reset password"

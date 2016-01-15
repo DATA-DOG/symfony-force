@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\DisabledException;
 
 class UserController extends Controller
 {
@@ -31,8 +33,12 @@ class UserController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if ($error && $error->getMessageKey() === 'Invalid credentials.') {
-            $error = $this->get('translator')->trans('user.login.incorrect_credentials');
+        if ($error) {
+            if ($error instanceof DisabledException) {
+                $error = $this->get('translator')->trans('user.login.account_disabled');
+            } elseif ($error instanceof BadCredentialsException) {
+                $error = $this->get('translator')->trans('user.login.incorrect_credentials');
+            }
         }
         return compact('lastUsername', 'error');
     }
