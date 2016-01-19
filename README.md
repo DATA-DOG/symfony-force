@@ -166,6 +166,6 @@ It will install the same binaries and have migrations and fixtures ready.
 
 To authenticate through API and get JWT:
 
-    curl -X POST http://localhost:8000/api/authenticate --header 'Content-Type:application/json' --data '{"username": "joda@datadog.lt", "password": "S3cretpassword"}' -i
+    curl -X POST http://localhost:8000/api/authenticate --header 'Content-Type:application/json' --data '{"username": "yoda@datadog.lt", "password": "S3cretpassword"}' -i
 
 
