@@ -41,7 +41,7 @@ class DevUsers implements FixtureInterface, OrderedFixtureInterface, ContainerAw
 
         $faker = Factory::create();
         $users = [
-            'joda' => ['ROLE_ADMIN'],
+            'yoda' => ['ROLE_ADMIN'],
             'luke' => ['ROLE_USER'],
         ];
         foreach ($users as $username => $roles) {
