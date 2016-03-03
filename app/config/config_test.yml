@@ -17,10 +17,6 @@ framework:
   profiler: { only_exceptions: false }
   router:
     resource: "%kernel.root_dir%/config/routing_dev.yml"
-  session:
-    cookie_domain: ""
-    cookie_secure: false # allow insecure cookies http://
-    cookie_httponly: false # it may need to access cookies inside behat context
 
 doctrine:
   dbal:

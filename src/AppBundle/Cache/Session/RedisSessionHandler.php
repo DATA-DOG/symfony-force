@@ -153,6 +153,7 @@ class RedisSessionHandler implements \SessionHandlerInterface
         }
 
         $this->redis->setex($this->getRedisKey($sessionId), $this->ttl, $data);
+        return true;
     }
 
     /**
